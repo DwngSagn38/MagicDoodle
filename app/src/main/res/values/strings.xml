@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Doodle Art</string>
+    <string name="this_is_item_sample">Ceci est un exemple d’élément !</string>
+    <string name="please_send_us">Please send us some feedback!</string>
+    <string name="write_some_feedback">Write some feedback</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
+    <string name="There_is_no_email">Aucun client email installé.</string>
+    <string name="this_app_needs_permissions_below_to_work_properly">This app needs permissions below to work properly</string>
+    <string name="continue_permission">Continue</string>
+    <string name="allow_storage_access">Allow storage access</string>
+    <string name="oh_we_re_sorry">Oh, We’re sorry...</string>
+    <string name="much_appreciated">Much appreciated!</string>
+    <string name="your_feedback_is_welcome">Your feedback is welcome.</string>
+    <string name="your_support_is_our_biggest_motivation">Your support is our biggest motivation!</string>
+    <string name="title_intro_1">Premium Voice Effects</string>
+    <string name="content_1">Discover a wide range of high-quality voice effects.</string>
+    <string name="title_intro_2">Voice Transformer</string>
+    <string name="content_2">Combine multiple voice effects to create unique and interesting sounds.</string>
+    <string name="title_intro_3">Import Existing Audio</string>
+    <string name="content_3">Easily select and import existing audio files from your phone.</string>
+    <string name="title_intro_4">Type and Listen</string>
+    <string name="content_4">Easily convert your text into natural speech.</string>
+    <string name="language">Language</string>
+    <string name="output_path">Output path</string>
+    <string name="output_path_title">output path title</string>
+    <string name="close">close</string>
+    <string name="rate_us">Rate us</string>
+    <string name="may_be_later">May be later</string>
+    <string name="next">next</string>
+    <string name="start">Start</string>
+</resources>
