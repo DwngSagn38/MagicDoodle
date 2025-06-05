@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.doodleart.R
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.databinding.ActivityMainBinding
+import com.example.doodleart.ui.free_creation.FreeCreationActivity
+import com.example.doodleart.widget.tap
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun setViewBinding(): ActivityMainBinding {
@@ -25,6 +27,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun viewListener() {
+        binding.tvFreeCreation.tap {
+            showActivity(FreeCreationActivity::class.java)
+        }
     }
 
     override fun dataObservable() {
