@@ -29,4 +29,12 @@
     <string name="may_be_later">May be later</string>
     <string name="next">next</string>
     <string name="start">Start</string>
+
+    <string name="magic_doodle">Magic Doodle</string>
+    <string name="free_creation">Free creation</string>
+    <string name="inspiration">Inspiration</string>
+    <string name="coloring">Coloring</string>
+    <string name="my_file">My File</string>
+    <string name="this_action_can_contain_ads">This action may contain advertising</string>
+
 </resources>

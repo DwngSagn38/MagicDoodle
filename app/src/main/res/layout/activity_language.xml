@@ -36,7 +36,7 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            android:fontFamily="@font/bevietnampro_400"
+            android:fontFamily="@font/poppins_regular_400"
             android:text="@string/language"
             android:textColor="#373A3A"
             android:textSize="20sp" />

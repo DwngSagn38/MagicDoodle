@@ -12,4 +12,9 @@
     <color name="color_8C8C8C">#8C8C8C</color>
 
     <color name="red">#DE2525</color>
+    <color name="primary_1">#EC1299</color>
+    <color name="primary_2">#F25C37</color>
+    <color name="main">#FFFFFF</color>
+    <color name="gray">#696969</color>
+    <color name="bg_dialog">#E2DCEE</color>
 </resources>

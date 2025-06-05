@@ -18,7 +18,7 @@
         android:paddingVertical="10dp">
 
         <TextView
-            android:fontFamily="@font/bevietnampro_400"
+            android:fontFamily="@font/poppins_regular_400"
             android:id="@+id/tv_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

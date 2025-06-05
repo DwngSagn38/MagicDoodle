@@ -1,7 +1,13 @@
 package com.example.doodleart.widget
 
 
+import android.content.Context
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import com.example.doodleart.R
 
 
 fun View.tap(action: (view: View?) -> Unit) {
@@ -70,6 +76,16 @@ fun <T : View> T.onClick(delayBetweenClick: Long = 0, block: T.() -> Unit) {
             }
         }
     }
+}
+
+fun TextView.setGradientText(context : Context) {
+    val shader = LinearGradient(
+        0f, 0f, width.toFloat(), textSize,
+        ContextCompat.getColor(context, R.color.primary_1),
+        ContextCompat.getColor(context, R.color.primary_2),
+        Shader.TileMode.CLAMP
+    )
+    paint.shader = shader
 }
 
 

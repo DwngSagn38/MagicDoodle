@@ -1,5 +1,8 @@
 package com.example.doodleart.ui.main
 
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +18,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val blurEffect = RenderEffect.createBlurEffect(30f, 30f, Shader.TileMode.CLAMP)
+            binding.cvMyfile.setRenderEffect(blurEffect)
+        }
     }
 
     override fun viewListener() {

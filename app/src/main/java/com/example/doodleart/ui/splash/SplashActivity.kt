@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import com.example.doodleart.ui.main.MainActivity
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.databinding.ActivitySplashBinding
+import com.example.doodleart.widget.setGradientText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -20,9 +21,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun initView() {
         croutineScope.launch {
-            delay(3000)
+            delay(5000)
             startIntro()
         }
+        binding.tvAppName.setGradientText(this)
     }
 
     override fun viewListener() {
