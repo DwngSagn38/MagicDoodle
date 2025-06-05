@@ -6,7 +6,7 @@
     android:id="@+id/bg_intro"
     android:orientation="vertical"
     android:paddingTop="25dp"
-    android:background="@color/white"
+    android:background="@drawable/bg_screen"
     >
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager2"
@@ -45,7 +45,7 @@
         <TextView
             android:paddingVertical="10dp"
             android:paddingHorizontal="50dp"
-            android:background="@drawable/bg_color_radius_blue"
+            android:background="@drawable/bg_item_language_select"
             android:layout_marginTop="40dp"
             android:id="@+id/btnNextTutorial"
             android:layout_width="wrap_content"

@@ -7,7 +7,7 @@
     android:layoutDirection="ltr"
     android:orientation="vertical"
     android:paddingHorizontal="21dp"
-    android:paddingVertical="8dp">
+    android:paddingVertical="4dp">
 
     <RelativeLayout
         android:id="@+id/layoutItem"

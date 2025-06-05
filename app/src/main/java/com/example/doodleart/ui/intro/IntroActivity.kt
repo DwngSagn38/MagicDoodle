@@ -1,4 +1,4 @@
-package  com.example.doodleart.view.ui.intro
+package  com.example.doodleart.ui.intro
 
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -100,6 +100,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
                 showActivity(MainActivity::class.java)
         } else {
 //            showActivity(PermissionActivity::class.java)
+            showActivity(MainActivity::class.java)
         }
             finishAffinity()
     }

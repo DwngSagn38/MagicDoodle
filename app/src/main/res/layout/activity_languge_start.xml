@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="25dp"
-    android:background="@color/white"
+    android:background="@drawable/bg_screen"
     >
 
     <RelativeLayout
@@ -18,7 +18,7 @@
         android:paddingVertical="10dp">
 
         <TextView
-            android:fontFamily="@font/poppins_regular_400"
+            android:fontFamily="@font/poppins_bold_700"
             android:id="@+id/tv_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            android:textColor="#373A3A"
+            android:textColor="@color/main"
             android:lines="1"
             android:text="@string/language"
             android:textSize="20sp" />

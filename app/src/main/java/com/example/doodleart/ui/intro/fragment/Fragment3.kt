@@ -33,6 +33,7 @@ open class Fragment3 : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun initView() {
         try {
             val data = IntroModel(

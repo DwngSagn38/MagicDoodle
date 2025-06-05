@@ -5,6 +5,7 @@
     <string name="write_some_feedback">Write some feedback</string>
     <string name="send">Send</string>
     <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
     <string name="There_is_no_email">Aucun client email installé.</string>
     <string name="this_app_needs_permissions_below_to_work_properly">This app needs permissions below to work properly</string>
     <string name="continue_permission">Continue</string>
@@ -13,21 +14,21 @@
     <string name="much_appreciated">Much appreciated!</string>
     <string name="your_feedback_is_welcome">Your feedback is welcome.</string>
     <string name="your_support_is_our_biggest_motivation">Your support is our biggest motivation!</string>
-    <string name="title_intro_1">Premium Voice Effects</string>
-    <string name="content_1">Discover a wide range of high-quality voice effects.</string>
-    <string name="title_intro_2">Voice Transformer</string>
-    <string name="content_2">Combine multiple voice effects to create unique and interesting sounds.</string>
-    <string name="title_intro_3">Import Existing Audio</string>
-    <string name="content_3">Easily select and import existing audio files from your phone.</string>
-    <string name="title_intro_4">Type and Listen</string>
-    <string name="content_4">Easily convert your text into natural speech.</string>
+    <string name="title_intro_1">Draw with Magic</string>
+    <string name="content_1">Turn every line into something magical.</string>
+    <string name="title_intro_2">Inspiration Doodle</string>
+    <string name="content_2">Draw your dreams. Let your ideas glow.</string>
+    <string name="title_intro_3">Magical Patterns</string>
+    <string name="content_3">Unleash your style with eye-catching designs.</string>
+    <string name="title_intro_4">Magic Coloring</string>
+    <string name="content_4">Bring your art to life with every shade.</string>
     <string name="language">Language</string>
     <string name="output_path">Output path</string>
     <string name="output_path_title">output path title</string>
     <string name="close">close</string>
     <string name="rate_us">Rate us</string>
     <string name="may_be_later">May be later</string>
-    <string name="next">next</string>
+    <string name="next">Next</string>
     <string name="start">Start</string>
 
     <string name="magic_doodle">Magic Doodle</string>
@@ -36,5 +37,11 @@
     <string name="coloring">Coloring</string>
     <string name="my_file">My File</string>
     <string name="this_action_can_contain_ads">This action may contain advertising</string>
+    <string name="setting">Setting</string>
+    <string name="policy">Policy</string>
+    <string name="share_app">Share App</string>
+    <string name="feedback">Feedback</string>
+    <string name="draw_this_now">Draw This Now!</string>
+    <string name="background">Background</string>
 
 </resources>

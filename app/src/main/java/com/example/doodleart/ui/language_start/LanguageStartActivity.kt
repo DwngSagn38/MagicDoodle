@@ -6,7 +6,7 @@ import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.databinding.ActivityLangugeStartBinding
 import com.example.doodleart.utils.SystemUtil
 import com.example.doodleart.model.LanguageModel
-import com.example.doodleart.view.ui.intro.IntroActivity
+import com.example.doodleart.ui.intro.IntroActivity
 import com.example.doodleart.widget.tap
 import com.example.doodleart.widget.visible
 import java.util.Locale

@@ -3,259 +3,225 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg_screen"
     >
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:id="@+id/iv_back"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="10dp"-->
-<!--        android:src="@drawable/ic_back2"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_marginTop="16dp"
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:src="@drawable/ic_back2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting"
+            android:textColor="@color/main"
+            android:fontFamily="@font/poppins_bold_700"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_35sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_item_language_unselect"
+            app:layout_constraintTop_toBottomOf="@id/clPolicy">
+
+            <ImageView
+                android:id="@+id/ivLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvLanguage"
+                android:src="@drawable/ic_language"/>
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/language"
+                android:textColor="@color/main"
+                android:paddingVertical="12dp"
+                android:fontFamily="@font/poppins_semibold_600"
+                android:textSize="@dimen/_15ssp"
+                android:includeFontPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivLanguage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_next1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_next"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="8dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:background="@drawable/bg_item_language_unselect"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:src="@drawable/ic_policy"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPolicy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvPolicy" />
+
+            <TextView
+                android:id="@+id/tvPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:text="@string/policy"
+                android:paddingVertical="12dp"
+                android:textColor="@color/main"
+                android:fontFamily="@font/poppins_semibold_600"
+                android:textSize="@dimen/_15ssp"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toEndOf="@+id/ivPolicy"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clShare"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_item_language_unselect"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@+id/clLanguage">
+
+            <ImageView
+                android:src="@drawable/ic_share"
+                android:id="@+id/ivShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvShare"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvShare" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share_app"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:textColor="@color/main"
+                android:textSize="@dimen/_15ssp"
+                android:fontFamily="@font/poppins_semibold_600"
+                android:includeFontPadding="false"
+                android:paddingVertical="12dp"
+                app:layout_constraintStart_toEndOf="@+id/ivShare"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRate"
+            android:background="@drawable/bg_item_language_unselect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@+id/clShare">
+
+            <ImageView
+                android:id="@+id/ivRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:src="@drawable/ic_star"
+                app:layout_constraintBottom_toBottomOf="@+id/tvRate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvRate" />
+
+            <TextView
+                android:id="@+id/tvRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rate_us"
+                android:paddingVertical="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:textColor="@color/main"
+                android:textSize="@dimen/_15ssp"
+                android:fontFamily="@font/poppins_semibold_600"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toEndOf="@+id/ivRate"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-<!--        <TextView-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            android:id="@+id/tvTitle"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/setting"-->
-<!--            android:textColor="#555555"-->
-<!--            android:textFontWeight="656"-->
-<!--            android:fontFamily="@font/bevietnampro_700"-->
-<!--            android:textSize="@dimen/_20ssp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/iv_back"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@id/iv_back" />-->
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginTop="@dimen/_35sdp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tvTitle">-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clFeedback"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_item_language_unselect"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@+id/clRate">
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/clOutputPath"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--            android:background="@drawable/bg_cl_setting"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
+            <ImageView
+                android:src="@drawable/ic_review"
+                android:id="@+id/ivFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvFeedback"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvFeedback" />
 
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_Output_path"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_12sdp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/tv_Output_Path"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tv_Output_Path"-->
-<!--                android:src="@drawable/ic_languages_setting"/>-->
+            <TextView
+                android:id="@+id/tvFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feedback"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:textColor="@color/main"
+                android:textSize="@dimen/_15ssp"
+                android:fontFamily="@font/poppins_semibold_600"
+                android:includeFontPadding="false"
+                android:paddingVertical="12dp"
+                app:layout_constraintStart_toEndOf="@+id/ivFeedback"
+                app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_Output_Path"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_14sdp"-->
-<!--                android:text="@string/output_path"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:paddingVertical="15dp"-->
-<!--                android:fontFamily="@font/bevietnampro_400"-->
-<!--                android:textSize="@dimen/_14ssp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/iv_Output_path"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--            <TextView-->
-<!--                android:gravity="center"-->
-<!--                android:id="@+id/tv_path"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/tv_Output_Path"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/iv_next"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                android:layout_marginStart="30dp"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                android:maxLines="1"-->
-<!--                android:textColor="#949494"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"/>-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_next"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:src="@drawable/ic_next_setting"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                android:layout_marginEnd="8dp"/>-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/clLanguage"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--            android:layout_marginTop="@dimen/_8sdp"-->
-<!--            android:background="@drawable/bg_cl_setting"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/clPolicy">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/ivLanguage"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_12sdp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tvLanguage"-->
-<!--                android:src="@drawable/ic_languages_setting"/>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvLanguage"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_14sdp"-->
-<!--                android:text="@string/languages"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:paddingVertical="15dp"-->
-<!--                android:fontFamily="@font/bevietnampro_400"-->
-<!--                android:textSize="@dimen/_14ssp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/ivLanguage"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_next1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:src="@drawable/ic_next_setting"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                android:layout_marginEnd="8dp"/>-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/clPolicy"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--            android:background="@drawable/bg_cl_setting"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/clOutputPath">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/ivPolicy"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_12sdp"-->
-<!--                android:src="@drawable/ic_policy_setting"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/tvPolicy"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tvPolicy" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvPolicy"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_8sdp"-->
-<!--                android:text="@string/policy"-->
-<!--                android:paddingVertical="15dp"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/_14ssp"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/ivPolicy"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/clRate"-->
-<!--            android:background="@drawable/bg_cl_setting"-->
-
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--            android:layout_marginTop="@dimen/_8sdp"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/clLanguage">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/ivRate"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_12sdp"-->
-<!--                android:src="@drawable/ic_rate_setting"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/tvRate"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tvRate" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvRate"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_8sdp"-->
-<!--                android:text="@string/rate_this_app"-->
-<!--                android:paddingVertical="15dp"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/_14ssp"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/ivRate"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/clShare"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:background="@drawable/bg_cl_setting"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--            android:layout_marginTop="@dimen/_8sdp"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/clRate">-->
-
-<!--            <ImageView-->
-<!--                android:src="@drawable/ic_share_setting"-->
-<!--                android:id="@+id/ivShare"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_12sdp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/tvShare"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tvShare" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvShare"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_8sdp"-->
-<!--                android:text="@string/share"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/_14ssp"-->
-<!--                android:paddingVertical="15dp"-->
-
-<!--                app:layout_constraintStart_toEndOf="@+id/ivShare"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--        <TextView-->
-<!--            android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--            android:layout_marginTop="@dimen/_8sdp"-->
-<!--            android:background="@drawable/bg_cl_setting"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/clShare"-->
-<!--            android:id="@+id/tv_feedback"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:drawablePadding="12dp"-->
-<!--            android:paddingVertical="15dp"-->
-<!--            android:drawableStart="@drawable/ic_feedback_setting"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:includeFontPadding="false"-->
-<!--            android:paddingHorizontal="14dp"-->
-<!--            android:text="@string/feedback"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="16sp" />-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
