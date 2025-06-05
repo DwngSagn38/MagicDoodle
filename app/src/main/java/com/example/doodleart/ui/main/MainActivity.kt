@@ -12,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.doodleart.R
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.databinding.ActivityMainBinding
+import com.example.doodleart.ui.free_creation.FreeCreationActivity
+import com.example.doodleart.widget.tap
 import com.example.doodleart.ui.coloring.ColoringActivity
 import com.example.doodleart.ui.setting.SettingActivity
 import com.example.doodleart.utils.showColorPicker
@@ -35,6 +37,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun viewListener() {
+        binding.tvFreeCreation.tap {
+            showActivity(FreeCreationActivity::class.java)
+        }
         binding.tvColoring.tap { showActivity(ColoringActivity::class.java) }
         binding.cvMyfile.tap {
             showColorPicker(currentColorInt,
