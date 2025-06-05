@@ -13,8 +13,14 @@ import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.databinding.ActivityMainBinding
 import com.example.doodleart.ui.free_creation.FreeCreationActivity
 import com.example.doodleart.widget.tap
+import com.example.doodleart.ui.coloring.ColoringActivity
+import com.example.doodleart.ui.setting.SettingActivity
+import com.example.doodleart.utils.showColorPicker
+import com.example.doodleart.widget.tap
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+    private var currentColorInt: Int = Color.WHITE
+
     override fun setViewBinding(): ActivityMainBinding {
         return  ActivityMainBinding.inflate(layoutInflater)
     }
@@ -24,13 +30,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             val blurEffect = RenderEffect.createBlurEffect(30f, 30f, Shader.TileMode.CLAMP)
             binding.cvMyfile.setRenderEffect(blurEffect)
         }
+
+        binding.btnSetting.tap { showActivity(SettingActivity::class.java) }
+
     }
 
     override fun viewListener() {
         binding.tvFreeCreation.tap {
             showActivity(FreeCreationActivity::class.java)
         }
+        binding.tvColoring.tap { showActivity(ColoringActivity::class.java) }
+        binding.cvMyfile.tap {
+            showColorPicker(currentColorInt,
+                onColorPicked = { colorString ->
+                    currentColorInt = Color.parseColor(colorString)
+                    binding.tvMy.text = "Màu: $colorString"
+                    binding.tvMy.setBackgroundColor(currentColorInt)
+                },
+                onDismiss = { }
+            )
+        }
     }
+
 
     override fun dataObservable() {
     }

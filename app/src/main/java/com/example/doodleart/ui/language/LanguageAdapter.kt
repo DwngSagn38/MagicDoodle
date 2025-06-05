@@ -53,7 +53,7 @@ class LanguageAdapter(
                 binding.layoutItem.setBackgroundResource(R.drawable.bg_item_language_select)
             }
             else {
-                binding.txtName.setTextColor(context.getColor(R.color.color_1E232E))
+                binding.txtName.setTextColor(context.getColor(R.color.white))
                 binding.layoutItem.setBackgroundResource(R.drawable.bg_item_language_unselect)
             }
         }

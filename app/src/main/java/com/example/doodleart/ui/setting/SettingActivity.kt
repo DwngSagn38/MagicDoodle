@@ -25,8 +25,8 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     override fun viewListener() {
 //        binding.tvPath.text = ".../${getString(R.string.app_name)}"
-//
-//        binding.apply {
+
+        binding.apply {
 //            clOutputPath.tap {
 //                val path =
 //                    AppConstant.getKEY_FILE_MUSIC() + "/" + getString(R.string.app_name)
@@ -37,14 +37,14 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 //                    .show()
 //
 //            }
-//            ivBack.tap { finish() }
-//            clRate.tap { helperMenu?.showDialogRate(false) }
-//            clShare.tap { helperMenu?.showShareApp() }
-//            clPolicy.tap { helperMenu?.showPolicy() }
-//            clLanguage.tap { showActivity(LanguageActivity::class.java) }
-//            tvFeedback.tap { helperMenu?.showDialogFeedback() }
-//
-//        }
+            ivBack.tap { finish() }
+            clRate.tap { helperMenu?.showDialogRate(false) }
+            clShare.tap { helperMenu?.showShareApp() }
+            clPolicy.tap { helperMenu?.showPolicy() }
+            clLanguage.tap { showActivity(LanguageActivity::class.java) }
+            tvFeedback.tap { helperMenu?.showDialogFeedback() }
+
+        }
     }
 
     override fun dataObservable() {

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_screen"
     android:paddingTop="25dp">
 
     <RelativeLayout
@@ -36,9 +37,9 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            android:fontFamily="@font/poppins_regular_400"
+            android:fontFamily="@font/poppins_bold_700"
             android:text="@string/language"
-            android:textColor="#373A3A"
+            android:textColor="@color/main"
             android:textSize="20sp" />
 
         <ImageView

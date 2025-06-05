@@ -16,6 +16,12 @@
             android:name=".ui.free_creation.FreeCreationActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.coloring.ColoringDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.coloring.ColoringActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -26,6 +32,10 @@
         </activity>
         <activity
             android:name=".ui.language_start.LanguageStartActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.intro.IntroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
