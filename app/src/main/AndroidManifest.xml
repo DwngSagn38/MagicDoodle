@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DoodleArt"
         tools:targetApi="31">
         <activity
+            android:name=".ui.coloring.drawing.ColorDrawingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.free_creation.FreeCreationActivity"
             android:exported="false" />
         <activity

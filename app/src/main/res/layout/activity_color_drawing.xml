@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_coloring"
+    tools:context=".ui.coloring.drawing.ColorDrawingActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back_1"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_preview"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@+id/imgBack"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+        app:layout_constraintEnd_toStartOf="@+id/imgSave"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgUndo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_undo_left"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintTop_toTopOf="@+id/imgBack"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+        app:layout_constraintStart_toEndOf="@+id/imgBack"
+        app:layout_constraintEnd_toStartOf="@+id/imgSave"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgRedo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_undo_right"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="@+id/imgUndo"
+        app:layout_constraintBottom_toBottomOf="@+id/imgUndo"
+        app:layout_constraintStart_toEndOf="@+id/imgUndo"/>
+
+    <com.example.doodleart.ui.custom_view.ZoomablePaintView
+        android:id="@+id/zoomablePaintView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingVertical="70dp"
+        android:paddingHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/imgBack"
+        app:layout_constraintBottom_toTopOf="@+id/llChooseColor"
+        tools:ignore="MissingClass" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/llChooseColor"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/imgFloodFill"
+        app:layout_constraintTop_toBottomOf="@+id/zoomablePaintView">
+        
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgColorType"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/img_color_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvColoring"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@+id/imgColorType"
+            app:layout_constraintStart_toEndOf="@+id/imgColorType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/imgColorType"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    <LinearLayout
+        android:id="@+id/llColorType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/llChooseColor"
+        app:layout_constraintStart_toStartOf="@+id/llChooseColor"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgColorDefault"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/img_color_default"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgColorBling"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/img_color_bling"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgFloodFill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_floodfill"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgBrush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_brush"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toTopOf="@+id/imgFloodFill"
+        app:layout_constraintBottom_toBottomOf="@+id/imgFloodFill"
+        app:layout_constraintStart_toEndOf="@+id/imgFloodFill"
+        app:layout_constraintEnd_toStartOf="@+id/imgBrush"
+        android:layout_marginHorizontal="20dp">
+
+        <!-- Custom trapezoid view -->
+        <com.example.doodleart.ui.custom_view.TrapezoidProgressView
+            android:id="@+id/trapezoidProgress"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_margin="6dp"/>
+
+        <!-- Transparent SeekBar -->
+        <SeekBar
+            android:id="@+id/seekBarBrush"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:max="39"
+            android:progress="9"
+            android:thumb="@drawable/seekbar_thumb"
+            android:background="@android:color/transparent"
+            android:progressDrawable="@android:color/transparent"
+            android:splitTrack="false"/>
+    </FrameLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

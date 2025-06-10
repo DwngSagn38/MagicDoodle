@@ -1,15 +1,10 @@
 package com.example.doodleart.ui.coloring
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.doodleart.R
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.data.DataApp
 import com.example.doodleart.databinding.ActivityColoringDetailBinding
+import com.example.doodleart.ui.coloring.drawing.ColorDrawingActivity
 import com.example.doodleart.widget.tap
 
 class ColoringDetailActivity : BaseActivity<ActivityColoringDetailBinding>() {
@@ -22,6 +17,12 @@ class ColoringDetailActivity : BaseActivity<ActivityColoringDetailBinding>() {
         idColoring = intent.getIntExtra("id", 0)
         binding.imgColoring.setImageResource(DataApp.getListColoring()[idColoring].img)
         binding.imgBack.tap { finish() }
+        binding.tvDrawNow.tap {
+            val intent = Intent(this, ColorDrawingActivity::class.java)
+            intent.putExtra("id", idColoring)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun viewListener() {

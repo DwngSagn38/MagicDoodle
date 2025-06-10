@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import com.example.doodleart.ui.main.MainActivity
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.databinding.ActivitySplashBinding
+import com.example.doodleart.ui.coloring.ColoringActivity
 import com.example.doodleart.ui.language_start.LanguageStartActivity
 import com.example.doodleart.widget.setGradientText
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +38,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     private fun startIntro() {
-        showActivity(LanguageStartActivity::class.java)
+        showActivity(ColoringActivity::class.java)
         finish()
     }
 

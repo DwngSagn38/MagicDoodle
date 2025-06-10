@@ -37,7 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_marginVertical="34dp"
+        android:layout_marginVertical="30dp"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="14dp"
         android:layout_marginHorizontal="10dp"
         android:gravity="center"
         android:background="@drawable/bg_item_coloring"
@@ -46,8 +48,12 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgColoring"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="14dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="10dp"
             android:src="@drawable/img_coloring_6"
             android:scaleType="fitXY"/>
     </LinearLayout>

@@ -13,7 +13,7 @@
         android:layout_width="160dp"
         android:layout_height="200dp"
         android:src="@drawable/img_coloring_1"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

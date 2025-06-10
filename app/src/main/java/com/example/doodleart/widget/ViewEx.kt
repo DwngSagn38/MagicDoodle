@@ -90,3 +90,4 @@ fun TextView.setGradientText(context : Context) {
 
 
 
+
