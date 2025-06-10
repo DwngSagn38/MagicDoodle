@@ -16,11 +16,14 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import com.example.doodleart.R
 import com.example.doodleart.data.Stroke
 import com.example.doodleart.data.StrokeShape
+import kotlin.math.cos
+import kotlin.math.sin
 
 class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private val strokes = mutableListOf<Stroke>()
@@ -28,10 +31,11 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
     private var currentShape: StrokeShape = StrokeShape.NORMAL
     var shapeSpacing: Float = 50f
     private var lastDrawnPoint: PointF? = null
-    private val undoneStrokes = mutableListOf<Stroke>()
+    val undoneStrokes = mutableListOf<Stroke>()
     private var isEraserOn: Boolean = false
     private var selectedColor: Int = Color.BLACK
     private var backgroundColor: Int = Color.WHITE
+    var updateUndoRedoState: ((canUndo: Boolean, canRedo: Boolean) -> Unit)? = null
 
     private var centerX = 0f
     private var centerY = 0f
@@ -42,6 +46,9 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
     private var currentEffect: StrokeEffect = StrokeEffect.NORMAL
     private var currentGradientColors: IntArray? = null
     private var currentSymmetryCount: Int = 1
+    private var countStrokes: Int = 0
+    private var countStrokesMax: Int = 0
+
     private var img: Int = R.drawable.icon1
 
     enum class StrokeEffect {
@@ -75,6 +82,8 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
                     shape = currentShape
                 )
                 strokes.add(currentStroke!!)
+                countStrokes++
+                updateUndoRedoState?.invoke(true, false)
                 invalidate()
             }
 
@@ -97,14 +106,13 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
                             shape = currentShape
                         )
                         strokes.add(shapeStroke)
+                        countStrokes++
+                        updateUndoRedoState?.invoke(true, false)
                         lastDrawnPoint = currentPoint
                     }
                 }
                 invalidate()
             }
-
-
-
             MotionEvent.ACTION_UP -> {
                 currentStroke = null
                 invalidate()
@@ -168,7 +176,6 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
                 path.lineTo(point.x - centerX, point.y - centerY)
             }
         } else if (stroke.shape != StrokeShape.NORMAL && stroke.points.isNotEmpty()) {
-            // Phần vẽ các hình dạng đặc biệt (circle, star, heart, ...)
             val symmetry = stroke.symmetryCount.coerceAtLeast(1)
             for (point in stroke.points) {
                 for (i in 0 until symmetry) {
@@ -190,6 +197,9 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
                         StrokeShape.HEXAGON -> drawHexagon(canvas, stroke)
                         StrokeShape.SMILEY_FACE -> drawSmiley(canvas, stroke)
                         StrokeShape.IMAGE -> drawImg(canvas, stroke,context)
+                        StrokeShape.STAR4 -> drawStar4Wings(canvas, stroke)
+                        StrokeShape.PLUS -> drawPlus(canvas, stroke)
+                        StrokeShape.ELLIPSE -> drawEllipse(canvas, stroke)
                         else -> {}
                     }
 
@@ -199,19 +209,23 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
             return
         }
 
-        // Các paint bạn đã tạo
         val paintNormal = Paint().apply {
             color = stroke.color
             strokeWidth = stroke.strokeWidth
             style = Paint.Style.STROKE
             isAntiAlias = true
+
+            strokeCap = Paint.Cap.ROUND
+            strokeJoin = Paint.Join.ROUND
         }
+
 
         val paintGlow = Paint(paintNormal).apply {
             color = ColorUtils.blendARGB(stroke.color, Color.WHITE, 0.4f)
-            strokeWidth = stroke.strokeWidth * 2
+            strokeWidth = stroke.strokeWidth * 2.3f
             alpha = 220
             maskFilter = BlurMaskFilter(stroke.strokeWidth, BlurMaskFilter.Blur.NORMAL)
+
         }
 
         val paintGradient = Paint(paintNormal)
@@ -250,11 +264,18 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
             canvas.restore()
         }
     }
+
     fun undo() {
-        if (strokes.isNotEmpty()) {
-            val lastStroke = strokes.removeAt(strokes.size - 1)
-            undoneStrokes.add(lastStroke)
-            invalidate()
+        updateUndoRedoState?.invoke(true, true)
+        if (countStrokes == 0) {
+            updateUndoRedoState?.invoke(false, true)
+        } else {
+            if (strokes.isNotEmpty()) {
+                val lastStroke = strokes.removeAt(strokes.size - 1)
+                countStrokes--
+                undoneStrokes.add(lastStroke)
+                invalidate()
+            }
         }
     }
 
@@ -262,17 +283,25 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
         if (undoneStrokes.isNotEmpty()) {
             val stroke = undoneStrokes.removeAt(undoneStrokes.size - 1)
             strokes.add(stroke)
+            countStrokes++
             invalidate()
+        }
+        updateUndoRedoState?.invoke(strokes.isNotEmpty(), undoneStrokes.isNotEmpty())
+    }
+
+    private fun createShadowPaint(stroke: Stroke): Paint
+    {
+        return Paint().apply {
+            color = stroke.color
+            style = Paint.Style.FILL
+            strokeWidth = stroke.strokeWidth
+            isAntiAlias = true
+            setShadowLayer(12f, 0f, 0f, Color.parseColor("#66000000")) // Nhòe đều mọi hướng
         }
     }
 
     private fun drawHeart(canvas: Canvas, stroke: Stroke) {
-        val paint = Paint().apply {
-            color = stroke.color
-            style = Paint.Style.FILL
-            isAntiAlias = true
-        }
-
+        val paint = createShadowPaint(stroke)
         val path = Path()
         val size = stroke.strokeWidth * 2
 
@@ -281,34 +310,27 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
         path.cubicTo(-size * 3 / 2, size / 4, -size / 2, -size * 3 / 4, 0f, -size / 4)
         canvas.drawPath(path, paint)
     }
+
     private fun drawSquare(canvas: Canvas, stroke: Stroke) {
+        val paint = createShadowPaint(stroke)
         val size = stroke.strokeWidth * 2
         val half = size / 2
-        val paint = Paint().apply {
-            color = stroke.color
-            style = Paint.Style.FILL
-            isAntiAlias = true
-        }
         canvas.drawRect(-half, -half, half, half, paint)
     }
 
     private fun drawTriangle(canvas: Canvas, stroke: Stroke) {
+        val paint = createShadowPaint(stroke)
         val size = stroke.strokeWidth * 2
         val path = Path()
         path.moveTo(0f, -size)
         path.lineTo(size, size)
         path.lineTo(-size, size)
         path.close()
-
-        val paint = Paint().apply {
-            color = stroke.color
-            style = Paint.Style.FILL
-            isAntiAlias = true
-        }
         canvas.drawPath(path, paint)
     }
 
     private fun drawHexagon(canvas: Canvas, stroke: Stroke) {
+        val paint = createShadowPaint(stroke)
         val radius = stroke.strokeWidth * 2
         val path = Path()
         for (i in 0..5) {
@@ -318,12 +340,6 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
             if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
         }
         path.close()
-
-        val paint = Paint().apply {
-            color = stroke.color
-            style = Paint.Style.FILL
-            isAntiAlias = true
-        }
         canvas.drawPath(path, paint)
     }
 
@@ -334,18 +350,62 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
             style = Paint.Style.STROKE
             strokeWidth = stroke.strokeWidth
             isAntiAlias = true
+            setShadowLayer(10f, 0f, 0f, Color.parseColor("#66000000"))
         }
 
-        // Mặt
         canvas.drawCircle(0f, 0f, radius, paint)
-
-        // Mắt
         canvas.drawCircle(-radius / 2.5f, -radius / 3f, radius / 5f, paint)
         canvas.drawCircle(radius / 2.5f, -radius / 3f, radius / 5f, paint)
-
-        // Miệng
         val mouth = RectF(-radius / 1.5f, -radius / 5f, radius / 1.5f, radius / 1.2f)
         canvas.drawArc(mouth, 20f, 140f, false, paint)
+    }
+
+    private fun drawPlus(canvas: Canvas, stroke: Stroke) {
+        val paint = Paint().apply {
+            color = stroke.color
+            style = Paint.Style.STROKE
+            strokeWidth = stroke.strokeWidth
+            isAntiAlias = true
+            setShadowLayer(10f, 0f, 0f, Color.parseColor("#66000000"))
+        }
+
+        val size = 30f
+        canvas.drawLine(-size, 0f, size, 0f, paint)
+        canvas.drawLine(0f, -size, 0f, size, paint)
+    }
+
+    private fun drawEllipse(canvas: Canvas, stroke: Stroke) {
+        val paint = createShadowPaint(stroke)
+        val rect = RectF(-50f, -30f, 50f, 30f)
+        canvas.drawOval(rect, paint)
+    }
+
+    private fun drawStar4Wings(canvas: Canvas, stroke: Stroke) {
+        val paint = createShadowPaint(stroke)
+        val outerRadius = 30f
+        val innerRadius = outerRadius / 2.5f
+        val path = Path()
+
+        for (i in 0..3) {
+            val angleOuter = Math.toRadians((i * 90 - 90).toDouble())
+            val angleInner = Math.toRadians((i * 90 - 90 + 45).toDouble())
+
+            val outerX = (cos(angleOuter) * outerRadius).toFloat()
+            val outerY = (sin(angleOuter) * outerRadius).toFloat()
+
+            val innerX = (cos(angleInner) * innerRadius).toFloat()
+            val innerY = (sin(angleInner) * innerRadius).toFloat()
+
+            if (i == 0) {
+                path.moveTo(outerX, outerY)
+            } else {
+                path.lineTo(outerX, outerY)
+            }
+            path.lineTo(innerX, innerY)
+        }
+
+        path.close()
+        canvas.drawPath(path, paint)
     }
 
 

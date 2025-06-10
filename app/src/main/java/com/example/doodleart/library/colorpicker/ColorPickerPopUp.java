@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.doodleart.R;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -33,25 +34,19 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
     private final Context context;
     private final View dialogView;
     //private final View alphaOverlay;
-    private TextView textViewOldColor;
-    private final RoundedImageView viewNewColor;
     private final AppCompatImageView cursorColorPicker;
     private final ColorPickerView colorPickerView;
     private final RelativeLayout colorPickerRelLayout;
-    private final RelativeLayout colorPickerBaseLayout;
+    private final ConstraintLayout colorPickerBaseLayout;
     private final AppCompatImageView hueImageView;
     //private final AppCompatImageView alphaImageView;
     private final AppCompatImageView cursorHue;
 //    private final AppCompatImageView cursorAlpha;
     private OnPickColorListener pickColorListener;
     private boolean showAlpha = true;
-    private String dialogTitle;
-    private String dialogPositiveButtonText;
-    private String dialogNegativeButtonText;
     private Dialog dialog;
     private Button positiveButton;
     private Button negativeButton;
-    private TextView btnOk,btnCancel;
     private int selectedColor = Integer.MAX_VALUE;
     private int alpha = 255;
     private float[] currentColorsHSV = new float[]{1f, 1f, 1f};
@@ -75,13 +70,7 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
         cursorHue = dialogView.findViewById(R.id.cursor_hue);
 //        cursorAlpha = dialogView.findViewById(R.id.cursor_alpha);
         //alphaOverlay = dialogView.findViewById(R.id.alpha_overlay);
-        textViewOldColor = dialogView.findViewById(R.id.textOldColor);
-        viewNewColor = dialogView.findViewById(R.id.viewNewColor);
-        btnOk = dialogView.findViewById(R.id.btn_ok);
-        btnCancel = dialogView.findViewById(R.id.btn_cancel);
-        dialogTitle = context.getString(R.string.background);
-        dialogPositiveButtonText = context.getString(R.string.ok);
-        dialogNegativeButtonText = context.getString(R.string.cancel);
+
     }
 
     /**
@@ -101,10 +90,7 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
             alpha = Color.alpha(selectedColor);
         }
         Color.colorToHSV(selectedColor, currentColorsHSV);
-        viewNewColor.setBackgroundColor(selectedColor);
         String colorString = String.format("#%06X", (0xFFFFFF & selectedColor));
-        textViewOldColor.setText(colorString);
-
         colorPickerView.setHue(getHue());
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setView(dialogView)
@@ -112,15 +98,6 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
         dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Bo góc
 
-        btnOk.setOnClickListener(v -> {
-            pickColorListener.onColorPicked(selectedColor);
-            dialog.dismiss();
-        });
-
-        btnCancel.setOnClickListener(v -> {
-            pickColorListener.onCancel();
-            dialog.dismiss();
-        });
 
         dialog.show();
 
@@ -167,9 +144,7 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
             setSaturation(1f / colorPickerView.getMeasuredWidth() * x);
             setValue(1f - (1f / colorPickerView.getMeasuredHeight() * y));
             moveCursorColorPicker();
-            viewNewColor.setBackgroundColor(getCurrentColor());
             String colorString = String.format("#%06X", (0xFFFFFF & getCurrentColor()));
-            textViewOldColor.setText(colorString);
             return true;
         } else if (hueImageView != null && view == hueImageView && isRequiredMotionEvent(motionEvent)) {
             float y = motionEvent.getY();
@@ -186,9 +161,7 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
             setHue(hue);
 
             colorPickerView.setHue(getHue());
-            viewNewColor.setBackgroundColor(getCurrentColor());
             String colorString = String.format("#%06X", (0xFFFFFF & getCurrentColor()));
-            textViewOldColor.setText(colorString);
             moveCursorHue();
             //updateAlphaOverlay();
             return true;
@@ -270,42 +243,6 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
 
         cursorHue.setLayoutParams(layoutParams);
     }
-//    private void moveCursorHue() {
-//        final int defaultHeightInPx = (int) TypedValue.applyDimension(
-//                TypedValue.COMPLEX_UNIT_DIP, 221, getResources().getDisplayMetrics());
-//
-//        // Lấy chiều cao thực tế của hueImageView hoặc đặt giá trị mặc định
-//        int hueImageViewHeight = Math.max(hueImageView.getMeasuredHeight(), defaultHeightInPx);
-//
-//        // Lấy giá trị Hue và giới hạn trong khoảng [0, 360]
-//        float hue = Math.max(0, Math.min(getHue(), 360));
-//
-//        // Tính giá trị y (vị trí dọc) dựa trên Hue
-//        float y = hueImageViewHeight - (hue * hueImageViewHeight / 360f);
-//
-//        // Giới hạn giá trị y trong phạm vi của hueImageView
-//        y = Math.max(0, Math.min(y, hueImageViewHeight));
-//
-//        // Lấy khoảng top thực tế của hueImageView
-//        int hueImageViewTop = hueImageView.getTop();
-//
-//        // Tính toán topMargin cho cursorHue
-//        int calculatedTopMargin = (int) (hueImageViewTop + y - cursorHue.getMeasuredHeight() / 2f);
-//
-//        // Đảm bảo topMargin không vượt quá biên của hueImageView
-//        calculatedTopMargin = Math.max(hueImageViewTop, Math.min(calculatedTopMargin,
-//                hueImageViewTop + hueImageViewHeight - cursorHue.getMeasuredHeight()));
-//
-//        // Cập nhật layoutParams cho cursorHue
-//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) cursorHue.getLayoutParams();
-//        layoutParams.leftMargin = (int) (hueImageView.getLeft() + (hueImageView.getMeasuredWidth() - cursorHue.getMeasuredWidth()) / 2f);
-//        layoutParams.topMargin = calculatedTopMargin;
-//
-//        cursorHue.setLayoutParams(layoutParams);
-//
-//        // Nhật ký kiểm tra giá trị
-//        Log.d("moveCursorHue", "Hue: " + hue + ", Y: " + y + ", TopMargin: " + layoutParams.topMargin);
-//    }
 
 
     /**
@@ -314,14 +251,7 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
      * For accuracy, the y coordinate is found out using current alpha.
      * Padding of the parent view and size of cursor is taken into account for setting margins.
      */
-//    private void moveCursorAlpha() {
-//        final int measuredHeight = alphaImageView.getMeasuredHeight();
-//        float y = measuredHeight - ((this.alpha * measuredHeight) / 255f);
-//        final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) cursorAlpha.getLayoutParams();
-//        layoutParams.leftMargin = (int) (alphaImageView.getLeft() - Math.floor(cursorAlpha.getMeasuredWidth() / 2f) - colorPickerRelLayout.getPaddingLeft());
-//        layoutParams.topMargin = (int) ((alphaImageView.getTop() + y) - Math.floor(cursorAlpha.getMeasuredHeight() / 2f) - colorPickerRelLayout.getPaddingTop());
-//        cursorAlpha.setLayoutParams(layoutParams);
-//    }
+
 
     /**
      * To change the gradient of overlay over the drawable of alphaImageView with repect to the
@@ -351,6 +281,7 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
      */
     private int getCurrentColor() {
         selectedColor = Color.HSVToColor(currentColorsHSV);
+        pickColorListener.onColorPicked(selectedColor);
         return alpha << 24 | (selectedColor & 0xFFFFFF);
     }
 
@@ -469,7 +400,6 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
      * @return this
      */
     public ColorPickerPopUp setDialogTitle(String dialogTitle) {
-        this.dialogTitle = dialogTitle;
         return this;
     }
 
@@ -480,7 +410,6 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
      * @return this
      */
     public ColorPickerPopUp setPositiveButtonText(String dialogPositiveButtonText) {
-        this.dialogPositiveButtonText = dialogPositiveButtonText;
         return this;
     }
 
@@ -491,7 +420,6 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
      * @return this
      */
     public ColorPickerPopUp setNegativeButtonText(String dialogNegativeButtonText) {
-        this.dialogNegativeButtonText = dialogNegativeButtonText;
         return this;
     }
 
@@ -565,7 +493,7 @@ public class ColorPickerPopUp extends View implements ViewTreeObserver.OnGlobalL
      *
      * @return relativeLayout (colorPaletteRelLayout)
      */
-    public RelativeLayout getDialogBaseLayout() {
+    public ConstraintLayout getDialogBaseLayout() {
         return colorPickerBaseLayout;
     }
 

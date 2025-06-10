@@ -43,5 +43,9 @@
     <string name="feedback">Feedback</string>
     <string name="draw_this_now">Draw This Now!</string>
     <string name="background">Background</string>
+    <string name="discard_drawing">Discard Drawing?</string>
+    <string name="discard">Discard</string>
+    <string name="save_to_my_sketches">Save to My Sketches</string>
+    <string name="your_progress_will_be_lost">your progress will be lost</string>
 
 </resources>
