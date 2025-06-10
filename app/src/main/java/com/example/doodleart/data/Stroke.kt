@@ -4,7 +4,8 @@ import android.graphics.PointF
 import com.example.doodleart.ui.custom_view.MandalaDrawView
 
 enum class StrokeShape {
-    NORMAL, CIRCLE, HEART, STAR, SQUARE, TRIANGLE, HEXAGON, SMILEY_FACE, IMAGE
+    NORMAL, CIRCLE, HEART, STAR, SQUARE, TRIANGLE, HEXAGON, SMILEY_FACE, IMAGE,
+    STAR4, PLUS, ELLIPSE
 }
 
 data class Stroke(

@@ -1,5 +1,6 @@
 package com.example.doodleart.ui.main
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.RenderEffect
 import android.graphics.Shader
@@ -38,7 +39,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun viewListener() {
         binding.tvFreeCreation.tap {
-            showActivity(FreeCreationActivity::class.java)
+            val intent = Intent(this, FreeCreationActivity::class.java)
+            intent.putExtra("aspect_ratio", "9:16") // Hoặc "1:1", "4:5"
+            startActivity(intent)
         }
         binding.tvColoring.tap { showActivity(ColoringActivity::class.java) }
         binding.cvMyfile.tap {
