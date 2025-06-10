@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doodleart.R
+import com.example.doodleart.databinding.ItemColor1Binding
 import com.example.doodleart.databinding.ItemColorBinding
 import com.example.doodleart.model.ColorModel
 import com.example.doodleart.view.base.BaseAdapter
 
 class ColorDrawingAdapter(
     private val onClick: (ColorModel) -> Unit
-) : BaseAdapter<ItemColorBinding, ColorModel>() {
+) : BaseAdapter<ItemColor1Binding, ColorModel>() {
 
     private var selectedPosition = RecyclerView.NO_POSITION
 
@@ -19,15 +20,15 @@ class ColorDrawingAdapter(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int,
-    ): ItemColorBinding {
-        return  ItemColorBinding.inflate(inflater, parent, false)
+    ): ItemColor1Binding {
+        return  ItemColor1Binding.inflate(inflater, parent, false)
     }
 
-    override fun creatVH(binding: ItemColorBinding): RecyclerView.ViewHolder {
+    override fun creatVH(binding: ItemColor1Binding): RecyclerView.ViewHolder {
         return ColorDrawingVH(binding)
     }
 
-    inner class ColorDrawingVH(binding: ItemColorBinding) : BaseVH<ColorModel>(binding) {
+    inner class ColorDrawingVH(binding: ItemColor1Binding) : BaseVH<ColorModel>(binding) {
         override fun bind(data: ColorModel) {
             binding.apply {
                 imgColoring.setImageResource(data.img)

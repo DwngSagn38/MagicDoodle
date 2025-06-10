@@ -358,7 +358,15 @@ class ZoomablePaintView @JvmOverloads constructor(
             )
 
             if (isBlingMode && Math.random() < 0.002) {
-
+                drawingCanvas?.drawCircle(
+                    px.toFloat(),
+                    py.toFloat(),
+                    1.5f + Math.random().toFloat() * 1.5f,
+                    Paint().apply {
+                        color = Color.WHITE
+                        style = Paint.Style.FILL
+                    }
+                )
             }
 
             queue.add(Pair(px + 1, py))
