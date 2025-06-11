@@ -342,7 +342,7 @@ class ZoomablePaintView @JvmOverloads constructor(
             if (px !in 0 until width || py !in 0 until height) continue
             if (!visited.add(Pair(px, py))) continue
 
-            if (visited.size > width * height * 0.001 * drawPaint.strokeWidth) {
+            if (visited.size > width * height * 0.01 * drawPaint.strokeWidth ) {
                 Log.w("FloodFill", "Flood fill aborted to prevent OOM")
                 break
             }
