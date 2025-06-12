@@ -2,12 +2,18 @@ package com.example.doodleart.widget
 
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.LinearGradient
+import android.graphics.Paint
 import android.graphics.Shader
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.doodleart.R
+import java.io.File
+import java.io.FileOutputStream
 
 
 fun View.tap(action: (view: View?) -> Unit) {
@@ -87,6 +93,24 @@ fun TextView.setGradientText(context : Context) {
     )
     paint.shader = shader
 }
+
+
+fun savePaintViewToFile(view: View, context: Context): String {
+    val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    view.draw(canvas)
+
+    val filename = "paint_${System.currentTimeMillis()}.png"
+    val file = File(context.filesDir, filename)
+    val fos = FileOutputStream(file)
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+    fos.flush()
+    fos.close()
+
+    return file.absolutePath
+}
+
+
 
 
 

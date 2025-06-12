@@ -38,6 +38,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgBack"
         app:layout_constraintEnd_toStartOf="@+id/imgSave"/>
 
+<!--    <androidx.appcompat.widget.AppCompatImageView-->
+<!--        android:id="@+id/imgRePlay"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/ic_preview"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/imgBack"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/imgBack"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imgBack"/>-->
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgUndo"
         android:layout_width="wrap_content"
@@ -144,6 +154,17 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/llProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"/>
+
 
     <FrameLayout
         android:layout_width="0dp"

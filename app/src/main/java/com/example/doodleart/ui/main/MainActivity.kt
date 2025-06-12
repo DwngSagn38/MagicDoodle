@@ -23,6 +23,7 @@ import com.example.doodleart.ui.free_creation.FreeCreationActivity
 import com.example.doodleart.widget.tap
 import com.example.doodleart.ui.coloring.ColoringActivity
 import com.example.doodleart.ui.inpiration.InpirationActivity
+import com.example.doodleart.ui.my_file.MyFileActivity
 import com.example.doodleart.ui.setting.SettingActivity
 import com.example.doodleart.utils.showColorPicker
 import com.example.doodleart.widget.tap
@@ -37,10 +38,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val blurEffect = RenderEffect.createBlurEffect(30f, 30f, Shader.TileMode.CLAMP)
-            binding.cvMyfile.setRenderEffect(blurEffect)
-        }
 
         binding.btnSetting.tap { showActivity(SettingActivity::class.java) }
 
@@ -115,8 +112,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
+        binding.tvMyFile.tap { showActivity(MyFileActivity::class.java) }
     }
-
 
     override fun dataObservable() {
     }

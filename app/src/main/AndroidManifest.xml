@@ -19,6 +19,12 @@
             android:name=".ui.inpiration.InpirationActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.my_file.MyFileDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my_file.MyFileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.coloring.drawing.ColorDrawingActivity"
             android:exported="false" />
         <activity

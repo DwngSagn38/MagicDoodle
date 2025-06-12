@@ -1,19 +1,30 @@
 package com.example.doodleart.ui.coloring.drawing
 
+import android.app.Dialog
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.view.View
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.doodleart.R
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.data.DataApp
 import com.example.doodleart.databinding.ActivityColorDrawingBinding
+import com.example.doodleart.dialog.DeleteDialog
 import com.example.doodleart.model.ColorModel
+import com.example.doodleart.model.MyFileModel
+import com.example.doodleart.roomdb.DBHelper
+import com.example.doodleart.ui.custom_view.ZoomablePaintView
 import com.example.doodleart.utils.showColorPicker
 import com.example.doodleart.widget.gone
+import com.example.doodleart.widget.savePaintViewToFile
+import com.example.doodleart.widget.setGradientText
 import com.example.doodleart.widget.tap
 import com.example.doodleart.widget.visible
+import kotlinx.coroutines.launch
 
 class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
     private var idColoring : Int = 0
@@ -23,15 +34,15 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
     private var brushSizePx: Int = 10
     private lateinit var listColor : List<ColorModel>
     private var isPreview = false
+    private lateinit var loadingDialog: Dialog
 
     override fun setViewBinding(): ActivityColorDrawingBinding {
         return ActivityColorDrawingBinding.inflate(layoutInflater)
     }
 
     override fun initView() {
-        idColoring = intent.getIntExtra("id", 0)
-        val bitmap = BitmapFactory.decodeResource(resources, DataApp.getListColoring()[idColoring].img)
-        binding.zoomablePaintView.loadImage(bitmap)
+        initLoadingDialog()
+        binding.llProgress.bringToFront()
         binding.imgBack.tap { finish() }
         binding.zoomablePaintView.setBrushColor(currentColorInt)
         binding.imgFloodFill.setColorFilter(R.drawable.gradient_tint)
@@ -70,7 +81,8 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
             imgPreview.tap {
                 isPreview = !isPreview
                 zoomablePaintView.setPreviewMode(isPreview)
-                Toast.makeText(this@ColorDrawingActivity, "Preview: $isPreview", Toast.LENGTH_SHORT).show()
+                val mess = if (isPreview) getString(R.string.preview_on) else getString(R.string.preview_off)
+                Toast.makeText(this@ColorDrawingActivity, mess, Toast.LENGTH_SHORT).show()
             }
             imgColorType.tap {
                 llColorType.visible()
@@ -90,12 +102,29 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
                 imgColorType.setImageResource(R.drawable.img_color_bling)
                 llColorType.gone()
             }
+//            imgRePlay.tap {
+//                zoomablePaintView.replayFromUndoStack(300L)
+//            }
+            imgSave.tap { showDialogDelete() }
         }
 
         binding.zoomablePaintView.onUndoRedoCountChanged = { undo, redo ->
             updateUndoRedoUI()
         }
+        binding.zoomablePaintView.setFloodFillListener(object :
+            ZoomablePaintView.FloodFillListener {
+            override fun onFloodFillStart() {
+                showLoading(true)
+            }
 
+            override fun onFloodFillDone() {
+                showLoading(false)
+            }
+        })
+
+        idColoring = intent.getIntExtra("id", 0)
+        val bitmap = BitmapFactory.decodeResource(resources, DataApp.getListColoring()[idColoring].img)
+        binding.zoomablePaintView.loadImage(bitmap)
     }
 
     override fun dataObservable() {
@@ -156,6 +185,48 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
 
         binding.imgUndo.setColorFilter(if (undoCount > 1) Color.WHITE else Color.GRAY)
         binding.imgRedo.setColorFilter(if (redoCount > 0) Color.WHITE else Color.GRAY)
+    }
+
+
+    private fun initLoadingDialog() {
+        loadingDialog = Dialog(this).apply {
+            setContentView(R.layout.dialog_loading)
+            setCancelable(false)
+            window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+            // Ẩn thanh điều hướng
+            window?.decorView?.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    )
+
+            val tvApp = findViewById<TextView>(R.id.tvApp)
+            tvApp.setGradientText(context)
+        }
+    }
+
+
+
+    private fun showLoading(show: Boolean) {
+        if (show) {
+            if (!loadingDialog.isShowing) loadingDialog.show()
+        } else {
+            if (loadingDialog.isShowing) loadingDialog.dismiss()
+        }
+    }
+
+    private fun showDialogDelete(){
+        val dialog = DeleteDialog(this){
+            binding.zoomablePaintView.resetZoomAndPan()
+            lifecycleScope.launch {
+                val db = DBHelper.getDatabase(this@ColorDrawingActivity)
+                val path = savePaintViewToFile(binding.zoomablePaintView, this@ColorDrawingActivity)
+                db.fileDao().insertFile(MyFileModel(path = path, type = false))
+            }
+            finish()
+        }
+        dialog.show()
     }
 
 }
