@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.my_file.MyFileDetailActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back_1"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/detail"
+        android:textColor="@color/main"
+        android:fontFamily="@font/poppins_bold_700"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/_20ssp"
+        app:layout_constraintBottom_toBottomOf="@id/imgBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgBack" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_home"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/llImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_marginVertical="30dp"
+        android:paddingHorizontal="14dp"
+        android:layout_marginHorizontal="10dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/imgBack"
+        app:layout_constraintBottom_toTopOf="@+id/imgEdit">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgMyFile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="14dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:src="@drawable/img_coloring_6"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgEdit"
+        app:layout_constraintTop_toTopOf="@+id/imgEdit"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save"
+        app:layout_constraintBottom_toBottomOf="@+id/imgEdit"
+        app:layout_constraintTop_toTopOf="@+id/imgEdit"
+        app:layout_constraintStart_toEndOf="@+id/imgEdit"
+        app:layout_constraintEnd_toStartOf="@+id/imgShare"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share_2"
+        app:layout_constraintBottom_toBottomOf="@+id/imgEdit"
+        app:layout_constraintTop_toTopOf="@+id/imgEdit"
+        app:layout_constraintStart_toEndOf="@+id/imgDown"
+        app:layout_constraintEnd_toStartOf="@+id/imgDelete"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

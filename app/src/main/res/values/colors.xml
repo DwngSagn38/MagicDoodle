@@ -18,4 +18,8 @@
     <color name="main">#FFFFFF</color>
     <color name="gray">#696969</color>
     <color name="bg_dialog">#E2DCEE</color>
+
+    <color name="tab_unselected">#B0B9D9</color>
+    <color name="pink">#FF4FB3</color> <!-- Giống màu trong hình -->
+
 </resources>

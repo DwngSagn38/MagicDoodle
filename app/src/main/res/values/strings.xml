@@ -32,9 +32,12 @@
     <string name="start">Start</string>
 
     <string name="magic_doodle">Magic Doodle</string>
+    <string name="painting">Painting</string>
     <string name="free_creation">Free creation</string>
     <string name="inspiration">Inspiration</string>
     <string name="coloring">Coloring</string>
+    <string name="preview_off">Preview is off</string>
+    <string name="preview_on">Preview is on</string>
     <string name="my_file">My File</string>
     <string name="this_action_can_contain_ads">This action may contain advertising</string>
     <string name="setting">Setting</string>
@@ -47,5 +50,10 @@
     <string name="discard">Discard</string>
     <string name="save_to_my_sketches">Save to My Sketches</string>
     <string name="your_progress_will_be_lost">your progress will be lost</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="are_you_save_it">Are you sure you want to save it?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="detail">Detail</string>
 
 </resources>

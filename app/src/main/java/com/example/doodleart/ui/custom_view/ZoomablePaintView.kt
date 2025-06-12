@@ -15,6 +15,11 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Stack
 import kotlin.math.sqrt
 
@@ -31,18 +36,31 @@ class ZoomablePaintView @JvmOverloads constructor(
         strokeCap = Paint.Cap.ROUND
     }
 
+    interface FloodFillListener {
+        fun onFloodFillStart()
+        fun onFloodFillDone()
+    }
+
+    private var floodFillListener: FloodFillListener? = null
+
+    fun setFloodFillListener(listener: FloodFillListener) {
+        this.floodFillListener = listener
+    }
+
     private var drawingBitmap: Bitmap? = null
     private var drawingCanvas: Canvas? = null
+
+    private var isReplaying = false
 
     private var posX = 0f
     private var posY = 0f
     private var lastTouchX = 0f
     private var lastTouchY = 0f
     private var isDragging = false
+    private var hasDrawn = false
     private var scaleFactor = 1f
     private val scaleDetector = ScaleGestureDetector(context, this)
     private val path = Path()
-    private val livePath = Path()
 
     private var isPreviewMode = false
     private var isFloodFillMode = false
@@ -56,7 +74,6 @@ class ZoomablePaintView @JvmOverloads constructor(
 
     private var sourceBitmap: Bitmap? = null
 
-    private val COLOR_BLING = Color.MAGENTA
 
 
     fun setFloodFillMode(enabled: Boolean) {
@@ -113,9 +130,6 @@ class ZoomablePaintView @JvmOverloads constructor(
         drawingBitmap?.let { canvas.drawBitmap(it, 0f, 0f, null) }
         canvas.drawPath(path, drawPaint)
 
-        if (isDragging) {
-            canvas.drawPath(livePath, drawPaint)
-        }
         canvas.restore()
     }
 
@@ -125,22 +139,7 @@ class ZoomablePaintView @JvmOverloads constructor(
         val x = event.x
         val y = event.y
         val pointerCount = event.pointerCount
-
-//        when (event.actionMasked) {
-//            MotionEvent.ACTION_POINTER_DOWN -> {
-//                if (event.pointerCount == 2) {
-//                    isPreviewMode = true
-//                    invalidate()
-//                    return true
-//                }
-//            }
-//            MotionEvent.ACTION_POINTER_UP, MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-//                if (event.pointerCount < 2) {
-//                    isPreviewMode = false
-//                    invalidate()
-//                }
-//            }
-//        }
+        if (isReplaying) return false
 
         if (isPreviewMode) {
             when (event.actionMasked) {
@@ -175,8 +174,22 @@ class ZoomablePaintView @JvmOverloads constructor(
                 val ty = touchY.toInt()
                 if (tx in 0 until (drawingBitmap?.width ?: 0) &&
                     ty in 0 until (drawingBitmap?.height ?: 0)) {
-                    saveToUndoStack()
-                    floodFill(drawingBitmap!!, tx, ty, drawPaint.color)
+//                    floodFill(drawingBitmap!!, tx, ty, drawPaint.color)
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        floodFillListener?.onFloodFillStart()
+                        floodFillWithProgress(
+                            drawingBitmap!!,
+                            tx, ty,
+                            drawPaint.color,
+                            onStart = { floodFillListener?.onFloodFillStart() },
+                            onFinish = {
+                                floodFillListener?.onFloodFillDone()
+                                saveToUndoStack()
+                            }
+                        )
+                    }
+
                 }
                 return true
             }
@@ -188,15 +201,15 @@ class ZoomablePaintView @JvmOverloads constructor(
                     lastTouchX = x
                     lastTouchY = y
                     path.moveTo(touchX, touchY)
-                    livePath.moveTo(x, y)
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    if (isDragging) path.lineTo(touchX, touchY)
-                    livePath.lineTo(x, y)
+                    if (isDragging) {
+                        path.lineTo(touchX, touchY)
+                        hasDrawn = true
+                    }
                 }
                 MotionEvent.ACTION_UP -> {
-                    if (isDragging) {
-                        saveToUndoStack()
+                    if (isDragging && hasDrawn) {
 
                         val tempBitmap = Bitmap.createBitmap(drawingBitmap!!.width, drawingBitmap!!.height, Bitmap.Config.ARGB_8888)
                         val tempCanvas = Canvas(tempBitmap)
@@ -250,9 +263,11 @@ class ZoomablePaintView @JvmOverloads constructor(
                                 }
                             }
                         }
-                        livePath.reset()
+
+                        saveToUndoStack()
                         path.reset()
                         isDragging = false
+                        hasDrawn = false
                     }
                 }
 
@@ -285,6 +300,7 @@ class ZoomablePaintView @JvmOverloads constructor(
     override fun onScaleEnd(detector: ScaleGestureDetector) {}
 
     fun loadImage(bitmap: Bitmap) {
+        floodFillListener?.onFloodFillStart()
         post {
             val viewWidth = width
             val viewHeight = height
@@ -294,6 +310,7 @@ class ZoomablePaintView @JvmOverloads constructor(
             // Scale ảnh phù hợp view, lưu lại
             val scaled = Bitmap.createScaledBitmap(bitmap, width, height, false)
             sourceBitmap = scaled
+
 
             // 1. Tạo bitmap mới trắng toàn bộ
             val whiteBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -314,18 +331,90 @@ class ZoomablePaintView @JvmOverloads constructor(
             undoStack.clear()
             saveToUndoStack()
             invalidate()
+            floodFillListener?.onFloodFillDone()
         }
     }
 
 
-    private fun floodFill(bitmap: Bitmap, x: Int, y: Int, replacementColor: Int, tolerance: Int = 30) {
+//    private fun floodFill(bitmap: Bitmap, x: Int, y: Int, replacementColor: Int, tolerance: Int = 60) {
+//        val width = bitmap.width
+//        val height = bitmap.height
+//
+//        if (x !in 0 until width || y !in 0 until height) return
+//
+//        val targetColor = bitmap.getPixel(x, y)
+//        if (areColorsSimilar(targetColor, replacementColor, tolerance)) return
+//
+//        val queue = ArrayDeque<Pair<Int, Int>>()
+//        val visited = HashSet<Pair<Int, Int>>()
+//        queue.add(Pair(x, y))
+//
+//        val paint = Paint().apply {
+//            color = replacementColor
+//            isAntiAlias = true
+//            style = Paint.Style.FILL
+//        }
+//
+//        while (queue.isNotEmpty()) {
+//            val (px, py) = queue.removeFirst()
+//            if (px !in 0 until width || py !in 0 until height) continue
+//            if (!visited.add(Pair(px, py))) continue
+//
+//            if (visited.size > width * height * 0.1 * (drawPaint.strokeWidth * 0.05)   ) {
+//                Log.w("FloodFill", "Flood fill aborted to prevent OOM")
+//                break
+//            }
+//
+//            val currentColor = bitmap.getPixel(px, py)
+//            if (currentColor == Color.BLACK) continue
+//
+//            if (!areColorsSimilar(currentColor, targetColor, tolerance)) continue
+//
+//            // Dùng canvas vẽ thay vì setPixel
+//            drawingCanvas?.drawRect(
+//                px.toFloat(), py.toFloat(), px + 1f, py + 1f, paint
+//            )
+//
+//            if (isBlingMode && Math.random() < 0.002) {
+//                drawingCanvas?.drawCircle(
+//                    px.toFloat(),
+//                    py.toFloat(),
+//                    1.5f + Math.random().toFloat() * 1.5f,
+//                    Paint().apply {
+//                        color = Color.WHITE
+//                        style = Paint.Style.FILL
+//                    }
+//                )
+//            }
+//
+//            queue.add(Pair(px + 1, py))
+//            queue.add(Pair(px - 1, py))
+//            queue.add(Pair(px, py + 1))
+//            queue.add(Pair(px, py - 1))
+//        }
+//
+//        invalidate()
+//    }
+
+    suspend fun floodFillWithProgress(
+        bitmap: Bitmap,
+        x: Int,
+        y: Int,
+        replacementColor: Int,
+        tolerance: Int = 60,
+        onStart: () -> Unit = {},
+        onFinish: () -> Unit = {}
+    ) {
         val width = bitmap.width
         val height = bitmap.height
 
         if (x !in 0 until width || y !in 0 until height) return
 
         val targetColor = bitmap.getPixel(x, y)
-        if (areColorsSimilar(targetColor, replacementColor, tolerance)) return
+        if (areColorsSimilar(targetColor, replacementColor, tolerance)) {
+            floodFillListener?.onFloodFillDone()
+            return
+        }
 
         val queue = ArrayDeque<Pair<Int, Int>>()
         val visited = HashSet<Pair<Int, Int>>()
@@ -337,64 +426,84 @@ class ZoomablePaintView @JvmOverloads constructor(
             style = Paint.Style.FILL
         }
 
-        while (queue.isNotEmpty()) {
-            val (px, py) = queue.removeFirst()
-            if (px !in 0 until width || py !in 0 until height) continue
-            if (!visited.add(Pair(px, py))) continue
+        val totalPixels = width * height
+        val showProgressThreshold  = (totalPixels * 0.5).toInt()
+        var showProgress = false
+        val startTime = System.currentTimeMillis()
 
-            if (visited.size > width * height * 0.01 * drawPaint.strokeWidth ) {
-                Log.w("FloodFill", "Flood fill aborted to prevent OOM")
-                break
-            }
+        withContext(Dispatchers.Default) {
+            while (queue.isNotEmpty()) {
+                val (px, py) = queue.removeFirst()
+                if (px !in 0 until width || py !in 0 until height) continue
+                if (!visited.add(Pair(px, py))) continue
 
-            val currentColor = bitmap.getPixel(px, py)
-            if (currentColor == Color.BLACK) continue
+                if (!showProgress && visited.size >= showProgressThreshold) {
+                    withContext(Dispatchers.Main) {
+                        val duration = System.currentTimeMillis() - startTime
+                        if (duration > 1500) {
+                            onStart()
+                            showProgress = true
+                        }
 
-            if (!areColorsSimilar(currentColor, targetColor, tolerance)) continue
-
-            // Dùng canvas vẽ thay vì setPixel
-            drawingCanvas?.drawRect(
-                px.toFloat(), py.toFloat(), px + 1f, py + 1f, paint
-            )
-
-            if (isBlingMode && Math.random() < 0.002) {
-                drawingCanvas?.drawCircle(
-                    px.toFloat(),
-                    py.toFloat(),
-                    1.5f + Math.random().toFloat() * 1.5f,
-                    Paint().apply {
-                        color = Color.WHITE
-                        style = Paint.Style.FILL
                     }
-                )
-            }
+                }
 
-            queue.add(Pair(px + 1, py))
-            queue.add(Pair(px - 1, py))
-            queue.add(Pair(px, py + 1))
-            queue.add(Pair(px, py - 1))
+                val currentColor = bitmap.getPixel(px, py)
+                if (currentColor == Color.BLACK) continue
+                if (!areColorsSimilar(currentColor, targetColor, tolerance)) continue
+
+                // Draw pixel
+                drawingCanvas?.drawRect(px.toFloat(), py.toFloat(), px + 1f, py + 1f, paint)
+
+                // Optional bling
+                if (isBlingMode && Math.random() < 0.002) {
+                    drawingCanvas?.drawCircle(
+                        px.toFloat(),
+                        py.toFloat(),
+                        1.5f + Math.random().toFloat() * 1.5f,
+                        Paint().apply {
+                            color = Color.WHITE
+                            style = Paint.Style.FILL
+                        }
+                    )
+                }
+
+                queue.add(Pair(px + 1, py))
+                queue.add(Pair(px - 1, py))
+                queue.add(Pair(px, py + 1))
+                queue.add(Pair(px, py - 1))
+            }
         }
 
-        invalidate()
+        withContext(Dispatchers.Main) {
+            onFinish()
+            invalidate()
+        }
     }
-    private fun areColorsSimilar(color1: Int, color2: Int, tolerance: Int): Boolean {
-        if (Color.alpha(color1) == 0) return true
 
-        val dr = Color.red(color1) - Color.red(color2)
-        val dg = Color.green(color1) - Color.green(color2)
-        val db = Color.blue(color1) - Color.blue(color2)
 
-        return dr * dr + dg * dg + db * db <= tolerance * tolerance
+    fun areColorsSimilar(c1: Int, c2: Int, tolerance: Int): Boolean {
+        val r1 = Color.red(c1)
+        val g1 = Color.green(c1)
+        val b1 = Color.blue(c1)
+
+        val r2 = Color.red(c2)
+        val g2 = Color.green(c2)
+        val b2 = Color.blue(c2)
+
+        return (Math.abs(r1 - r2) <= tolerance &&
+                Math.abs(g1 - g2) <= tolerance &&
+                Math.abs(b1 - b2) <= tolerance)
     }
 
     private fun saveToUndoStack() {
         drawingBitmap?.let {
-            val snapshot = it.copy(Bitmap.Config.ARGB_8888, true)
-            undoStack.push(snapshot)
-            redoStack.clear() // Mỗi lần hành động mới, redoStack bị xóa
+            undoStack.push(it.config?.let { it1 -> it.copy(it1, true) }) // đảm bảo sao chép chứ không dùng cùng tham chiếu
+            redoStack.clear()
             updateUndoRedoCounts()
         }
     }
+
 
     fun undo() {
         if (undoStack.size > 1) { // giữ lại ít nhất 1 trạng thái gốc
@@ -458,6 +567,24 @@ class ZoomablePaintView @JvmOverloads constructor(
     private fun notifyUndoRedoCount() {
         onUndoRedoCountChanged?.invoke(undoCount, redoCount)
     }
+
+    fun replayFromUndoStack(delayMs: Long = 300L) {
+        if (undoStack.isEmpty() || isReplaying) return
+
+        val bitmaps = undoStack.toList().mapNotNull { it.config?.let { it1 -> it?.copy(it1, true) } }
+
+        isReplaying = true
+        CoroutineScope(Dispatchers.Main).launch {
+            for (bitmap in bitmaps) {
+                drawingBitmap = bitmap.config?.let { bitmap.copy(it, true) }
+                drawingCanvas = Canvas(drawingBitmap!!)
+                invalidate()
+                delay(delayMs)
+            }
+            isReplaying = false
+        }
+    }
+
 
 }
 
