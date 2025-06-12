@@ -5,7 +5,7 @@ import com.example.doodleart.ui.custom_view.MandalaDrawView
 
 enum class StrokeShape {
     NORMAL, CIRCLE, HEART, STAR, SQUARE, TRIANGLE, HEXAGON, SMILEY_FACE, IMAGE,
-    STAR4, PLUS, ELLIPSE
+    STAR4, PLUS, ELLIPSE, DASHED
 }
 
 data class Stroke(
@@ -16,5 +16,5 @@ data class Stroke(
     val gradientColors: IntArray? = null,
     val strokeWidth: Float = 4f,
     val shape: StrokeShape = StrokeShape.NORMAL,
-    val drawableResId: Int? = null // Resource ID của hình ảnh trong drawable
+    val drawableResId: Int? = null
 )
