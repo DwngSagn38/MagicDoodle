@@ -48,15 +48,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             showGhostSelectionPopup()
         }
         binding.tvColoring.tap { showActivity(ColoringActivity::class.java) }
-        binding.cvMyfile.tap {
-            showColorPicker(currentColorInt,
-                onColorPicked = { colorString ->
-                    currentColorInt = Color.parseColor(colorString)
-                    binding.tvMy.text = "Màu: $colorString"
-                    binding.tvMy.setBackgroundColor(currentColorInt)
-                },
-                onDismiss = { }
-            )
+        binding.tvMyFile.tap {
+            showActivity(MyFileActivity::class.java)
         }
         binding.tvInspiration.tap {
             showActivity(InpirationActivity::class.java)

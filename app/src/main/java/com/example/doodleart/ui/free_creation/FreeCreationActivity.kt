@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doodleart.R
@@ -27,16 +28,18 @@ import com.example.doodleart.data.DataApp
 import com.example.doodleart.data.Stroke
 import com.example.doodleart.data.StrokeShape
 import com.example.doodleart.data.brushPainTing
-import com.example.doodleart.data.toSerializable
 import com.example.doodleart.databinding.ActivityFreeCreationBinding
-import com.example.doodleart.testRoom.DrawingDao
-import com.example.doodleart.testRoom.DrawingEntity
+import com.example.doodleart.dialog.DeleteDialog
+import com.example.doodleart.model.MyFileModel
+import com.example.doodleart.roomdb.DBHelper
+
 import com.example.doodleart.ui.custom_view.MandalaDrawView
+import com.example.doodleart.ui.my_file.MyFileActivity
 import com.example.doodleart.utils.showColorPicker
 import com.example.doodleart.widget.gone
+import com.example.doodleart.widget.savePaintViewToFile
 import com.example.doodleart.widget.tap
 import com.example.doodleart.widget.visible
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -130,9 +133,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             }
         }
         binding.icSave.tap {
-            saveImg()
-
-
+            showDialogSave()
         }
         binding.icNewFile.setOnClickListener {
             showFoundGhost()
@@ -404,7 +405,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         }
 
         tvSave.setOnClickListener {
-            saveImg()
+            showDialogSave()
             extracted(dialog)
         }
         ivDiscard.setOnClickListener {
@@ -414,15 +415,15 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         dialog.show()
     }
 
-    private fun saveImg() {
-        val cardView = findViewById<CardView>(R.id.cardView)
-        cardView?.let {
-            val bitmap = getBitmapFromView(it)
-            saveBitmapToGallery(bitmap)
-            Toast.makeText(this, getString(R.string.photo_saved_to_device), Toast.LENGTH_SHORT)
-                .show()
-        }
-    }
+//    private fun saveImg() {
+//        val cardView = findViewById<CardView>(R.id.cardView)
+//        cardView?.let {
+//            val bitmap = getBitmapFromView(it)
+//            saveBitmapToGallery(bitmap)
+//            Toast.makeText(this, getString(R.string.photo_saved_to_device), Toast.LENGTH_SHORT)
+//                .show()
+//        }
+//    }
 
     private fun extracted(dialog: AlertDialog) {
         dialog.dismiss()
@@ -436,25 +437,36 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         return returnedBitmap
     }
 
-    private fun saveBitmapToGallery(bitmap: Bitmap) {
-        val filename = "mandala_${System.currentTimeMillis()}.png"
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-        }
-
-        val resolver = applicationContext.contentResolver
-        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-
-        uri?.let {
-            val outputStream = resolver.openOutputStream(it)
-            outputStream.use { stream ->
-                if (stream != null) {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                }
+//    private fun saveBitmapToGallery(bitmap: Bitmap) {
+//        val filename = "mandala_${System.currentTimeMillis()}.png"
+//        val contentValues = ContentValues().apply {
+//            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+//            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+//            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+//        }
+//
+//        val resolver = applicationContext.contentResolver
+//        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+//
+//        uri?.let {
+//            val outputStream = resolver.openOutputStream(it)
+//            outputStream.use { stream ->
+//                if (stream != null) {
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//                }
+//            }
+//        }
+//    }
+    private fun showDialogSave(){
+        val dialog = DeleteDialog(this){
+            lifecycleScope.launch {
+                val db = DBHelper.getDatabase(this@FreeCreationActivity)
+                val path = savePaintViewToFile(binding.cardView, this@FreeCreationActivity)
+                db.fileDao().insertFile(MyFileModel(path = path, type = true))
             }
+            showActivity(MyFileActivity::class.java)
         }
+        dialog.show()
     }
 
 

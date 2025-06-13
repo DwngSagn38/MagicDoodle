@@ -47,7 +47,9 @@ android {
         jvmTarget = '1.8'
     }
 }
-
+configurations.all {
+    exclude group: 'com.intellij', module: 'annotations'
+}
 dependencies {
 
     implementation libs.androidx.core.ktx
@@ -67,14 +69,11 @@ dependencies {
     implementation 'com.airbnb.android:lottie:6.0.0'
 
     implementation "com.makeramen:roundedimageview:2.3.0"
-    implementation 'com.android.support:support-v4:23.4.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.7.0'
 
+// roomdb
+// Trong build.gradle (module: app)
+    implementation("androidx.room:room-runtime:2.7.1")
+    kapt("androidx.room:room-compiler:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
 
-    // roomdb
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
 }
