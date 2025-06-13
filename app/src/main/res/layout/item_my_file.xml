@@ -5,31 +5,31 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:layout_margin="5dp">
-
+    android:layout_margin="5dp"
+    >
     <androidx.cardview.widget.CardView
-        android:layout_width="160dp"
-        android:layout_height="240dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="wrap_content"
+        app:cardCornerRadius="19.3dp"
+        app:cardElevation="5dp"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:background="@drawable/bg_item_coloring_2"/>
-
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgSaved"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="170dp"
+            android:layout_height="221dp"
+            android:src="@drawable/img2_inpiration1"
             android:scaleType="fitXY"
-            android:padding="2dp"
-            android:src="@drawable/img_coloring_1" />
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <ImageView
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:layout_width="170dp"
+            android:layout_height="223.5dp"
+            android:background="@drawable/bg_inspiration_item" />
     </androidx.cardview.widget.CardView>
-
 
 
 
