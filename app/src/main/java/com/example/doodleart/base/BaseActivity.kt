@@ -248,4 +248,5 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
             startActivity(Intent.createChooser(shareIntent, "Share Image"))
         }
     }
+
 }

@@ -8,6 +8,9 @@ interface MyFileDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFile(file: MyFileModel)
 
+    @Update
+    suspend fun updateFile(file: MyFileModel)
+
     @Delete
     suspend fun deleteFile(file: MyFileModel)
 

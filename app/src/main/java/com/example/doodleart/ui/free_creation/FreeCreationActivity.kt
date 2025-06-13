@@ -195,7 +195,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 
         binding.icRedu.setOnClickListener {
             if (binding.mandalaView.undoneStrokes.isEmpty()) {
-                Toast.makeText(this, "Không có gì để Redo!", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "Không có gì để Redo!", Toast.LENGTH_SHORT).show()
             } else {
                 binding.mandalaView.redo()
             }

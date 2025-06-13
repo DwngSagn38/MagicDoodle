@@ -418,7 +418,9 @@ class ZoomablePaintView @JvmOverloads constructor(
 
         val targetColor = bitmap.getPixel(x, y)
         if (areColorsSimilar(targetColor, replacementColor, tolerance)) {
-            floodFillListener?.onFloodFillDone()
+            withContext(Dispatchers.Main) {
+                floodFillListener?.onFloodFillDone()
+            }
             return
         }
 
@@ -432,8 +434,12 @@ class ZoomablePaintView @JvmOverloads constructor(
             style = Paint.Style.FILL
         }
 
+        // Khởi tạo buffer bitmap và canvas để vẽ tạm
+        val bufferBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val bufferCanvas = Canvas(bufferBitmap)
+
         val totalPixels = width * height
-        val showProgressThreshold  = (totalPixels * 0.5).toInt()
+        val showProgressThreshold = (totalPixels * 0.5).toInt()
         var showProgress = false
         val startTime = System.currentTimeMillis()
 
@@ -450,7 +456,6 @@ class ZoomablePaintView @JvmOverloads constructor(
                             onStart()
                             showProgress = true
                         }
-
                     }
                 }
 
@@ -458,12 +463,11 @@ class ZoomablePaintView @JvmOverloads constructor(
                 if (currentColor == Color.BLACK) continue
                 if (!areColorsSimilar(currentColor, targetColor, tolerance)) continue
 
-                // Draw pixel
-                drawingCanvas?.drawRect(px.toFloat(), py.toFloat(), px + 1f, py + 1f, paint)
+                // Vẽ vào buffer chứ không vẽ trực tiếp
+                bufferCanvas.drawRect(px.toFloat(), py.toFloat(), px + 1f, py + 1f, paint)
 
-                // Optional bling
                 if (isBlingMode && Math.random() < 0.002) {
-                    drawingCanvas?.drawCircle(
+                    bufferCanvas.drawCircle(
                         px.toFloat(),
                         py.toFloat(),
                         1.5f + Math.random().toFloat() * 1.5f,
@@ -482,10 +486,13 @@ class ZoomablePaintView @JvmOverloads constructor(
         }
 
         withContext(Dispatchers.Main) {
+            // Vẽ toàn bộ bufferBitmap lên drawingCanvas
+            drawingCanvas?.drawBitmap(bufferBitmap, 0f, 0f, null)
             onFinish()
             invalidate()
         }
     }
+
 
 
     fun areColorsSimilar(c1: Int, c2: Int, tolerance: Int): Boolean {

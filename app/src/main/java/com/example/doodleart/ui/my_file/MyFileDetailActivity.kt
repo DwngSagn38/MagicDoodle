@@ -110,8 +110,9 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
 
     private fun DownFile(){
         val bitmap = BitmapFactory.decodeFile(myfile!!.path)
-        val path = saveBitmapToGallery(bitmap, this@MyFileDetailActivity)
-        Toast.makeText(this, "Đã lưu ảnh vào ${path}", Toast.LENGTH_SHORT).show()
+        saveBitmapToGallery(bitmap, this@MyFileDetailActivity)
+        val mess = getString(R.string.save_to_gallery)
+        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
     }
 
     private fun getBitmapFromView(view: View): Bitmap {
