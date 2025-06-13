@@ -44,67 +44,73 @@
 
     <LinearLayout
         android:id="@+id/llImage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginVertical="30dp"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="20dp"
-        android:layout_marginHorizontal="10dp"
         android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgBack"
-        app:layout_constraintBottom_toTopOf="@+id/imgEdit">
-
+        app:layout_constraintBottom_toTopOf="@+id/ll_bottom">
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgMyFile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="20dp"
-            android:layout_marginHorizontal="10dp"
+            android:id="@+id/imgMyFileDraw"
+            android:layout_width="340dp"
+            android:layout_height="442dp"
+            android:visibility="gone"
             android:src="@drawable/img_coloring_6"
             android:scaleType="fitXY"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgMyFileColorating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img2_inpiration1"
+            />
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="30dp"
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgEdit"
-        app:layout_constraintTop_toTopOf="@+id/imgEdit"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="30dp"
+          />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgDown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_save"
-        app:layout_constraintBottom_toBottomOf="@+id/imgEdit"
-        app:layout_constraintTop_toTopOf="@+id/imgEdit"
-        app:layout_constraintStart_toEndOf="@+id/imgEdit"
-        app:layout_constraintEnd_toStartOf="@+id/imgShare"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_share_2"
-        app:layout_constraintBottom_toBottomOf="@+id/imgEdit"
-        app:layout_constraintTop_toTopOf="@+id/imgEdit"
-        app:layout_constraintStart_toEndOf="@+id/imgDown"
-        app:layout_constraintEnd_toStartOf="@+id/imgDelete"
-        />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_gravity=""
+            android:id="@+id/imgDown"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_down_1"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgShare"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share_2"
+
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgDelete"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            />
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

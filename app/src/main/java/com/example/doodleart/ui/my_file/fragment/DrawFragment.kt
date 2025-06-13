@@ -49,6 +49,7 @@ class DrawFragment : BaseFragment<FragmentColorationBinding>() {
             myFileAdapter = MyFileAdapter(fileList) { file ->
                 val intent = Intent(requireContext(), MyFileDetailActivity::class.java)
                 intent.putExtra("fileId", file.id)
+                intent.putExtra("checkVisible", file.type)
                 startActivity(intent)
             }
 

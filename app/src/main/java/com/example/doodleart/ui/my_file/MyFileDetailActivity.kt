@@ -24,9 +24,12 @@ import com.example.doodleart.roomdb.DBHelper
 import com.example.doodleart.ui.coloring.drawing.ColorDrawingActivity
 import com.example.doodleart.ui.main.MainActivity
 import com.example.doodleart.ui.my_file.fragment.MyFileAdapter
+import com.example.doodleart.widget.gone
+import com.example.doodleart.widget.invisible
 import com.example.doodleart.widget.saveBitmapToGallery
 import com.example.doodleart.widget.savePaintViewToFile
 import com.example.doodleart.widget.tap
+import com.example.doodleart.widget.visible
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -41,13 +44,19 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
 
     override fun initView() {
         val fileId = intent.getIntExtra("fileId", 0)
+        val checkVisible = intent.getBooleanExtra("checkVisible", false)
+        if (checkVisible) {
+            binding.imgEdit.gone()
+        } else {
+            binding.imgEdit.visible()
+
+        }
         lifecycleScope.launch {
             val db = DBHelper.getDatabase(this@MyFileDetailActivity)
             myfile = db.fileDao().getFileById(fileId)!!
 
             val bitmap = BitmapFactory.decodeFile(myfile!!.path)
-            binding.imgMyFile.setImageBitmap(bitmap)
-        }
+            setImg(bitmap,checkVisible)        }
 
         binding.imgBack.setOnClickListener {
             finish()
@@ -59,7 +68,7 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
         binding.apply {
             imgDelete.tap { showDialogDelete() }
             imgDown.tap { DownFile() }
-            imgShare.tap { shareViewAsImage(binding.imgMyFile) }
+            imgShare.tap { shareViewAsImage(binding.imgMyFileDraw) }
             imgEdit.tap {
                 intent = Intent(this@MyFileDetailActivity, ColorDrawingActivity::class.java)
                 intent.putExtra("id", myfile.id)
@@ -68,6 +77,18 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
                 finish()
             }
         }
+    }
+    private fun setImg(bitmap:Bitmap,checkVisible: Boolean) {
+        if (checkVisible) {
+            binding.imgMyFileColorating.visible()
+            binding.imgMyFileDraw.gone()
+            binding.imgMyFileColorating.setImageBitmap(bitmap)
+        } else {
+            binding.imgMyFileColorating.gone()
+            binding.imgMyFileDraw.visible()
+            binding.imgMyFileDraw.setImageBitmap(bitmap)
+        }
+
     }
 
     override fun dataObservable() {
