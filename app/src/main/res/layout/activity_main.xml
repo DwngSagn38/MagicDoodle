@@ -63,6 +63,7 @@
                 android:drawableStart="@drawable/img_free_creation"
                 android:drawablePadding="30dp"
                 android:paddingStart="30dp"
+                android:layout_marginTop="8dp"
                 android:paddingVertical="14dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -81,6 +82,7 @@
                 android:drawableEnd="@drawable/img_inspiration"
                 android:drawablePadding="20dp"
                 android:paddingVertical="14dp"
+                android:layout_marginTop="8dp"
                 android:paddingHorizontal="30dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -99,6 +101,7 @@
                 android:drawableStart="@drawable/img_coloring"
                 android:drawablePadding="30dp"
                 android:paddingStart="30dp"
+                android:layout_marginTop="8dp"
                 android:paddingVertical="14dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -117,6 +120,7 @@
                 android:drawableEnd="@drawable/img_my_file"
                 android:drawablePadding="20dp"
                 android:paddingVertical="14dp"
+                android:layout_marginTop="8dp"
                 android:paddingHorizontal="30dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

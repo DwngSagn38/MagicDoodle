@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.doodleart.R
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.databinding.ActivityMyFileBinding
+import com.example.doodleart.ui.main.MainActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -23,7 +24,7 @@ class MyFileActivity : BaseActivity<ActivityMyFileBinding>() {
     override fun initView() {
 
         val tabIcons = listOf(R.drawable.ic_coloring, R.drawable.ic_drawing)
-        val tabTitles = listOf("Coloration", "Draw")
+        val tabTitles = listOf(getString(R.string.coloring), getString(R.string.draw))
 
         binding.viewPager2.adapter = MyFilePagerAdapter(this)
 
@@ -71,7 +72,10 @@ class MyFileActivity : BaseActivity<ActivityMyFileBinding>() {
 
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-        binding.imgBack.setOnClickListener { finish() }
+        binding.imgBack.setOnClickListener {
+            showActivity(MainActivity::class.java)
+            finish()
+        }
 
     }
 

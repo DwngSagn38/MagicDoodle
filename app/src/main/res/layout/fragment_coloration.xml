@@ -11,4 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <LinearLayout
+        android:id="@+id/llEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:layout_marginBottom="50dp"
+        android:gravity="center">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_not_found"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_data"
+            android:textAlignment="center"
+            android:textSize="@dimen/_20ssp"
+            android:textColor="@color/main"
+            android:fontFamily="@font/poppins_bold_700"/>
+    </LinearLayout>
 </FrameLayout>

@@ -15,6 +15,8 @@ import com.example.doodleart.databinding.FragmentDrawBinding
 import com.example.doodleart.roomdb.DBHelper
 import com.example.doodleart.ui.my_file.MyFileDetailActivity
 import com.example.doodleart.view.base.BaseFragment
+import com.example.doodleart.widget.gone
+import com.example.doodleart.widget.visible
 import kotlinx.coroutines.launch
 
 
@@ -45,12 +47,18 @@ class DrawFragment : BaseFragment<FragmentColorationBinding>() {
         lifecycleScope.launch {
             val db = DBHelper.getDatabase(requireContext())
             val fileList = db.fileDao().getAllFiles().filter { !it.type }
-
-            myFileAdapter = MyFileAdapter(fileList) { file ->
-                val intent = Intent(requireContext(), MyFileDetailActivity::class.java)
-                intent.putExtra("fileId", file.id)
-                intent.putExtra("checkVisible", file.type)
-                startActivity(intent)
+            if (fileList.isEmpty() || fileList.size == 0) {
+                binding.llEmpty.visible()
+                binding.rcvMyFile.gone()
+            }else{
+                binding.llEmpty.gone()
+                binding.rcvMyFile.visible()
+                myFileAdapter = MyFileAdapter(fileList) { file ->
+                    val intent = Intent(requireContext(), MyFileDetailActivity::class.java)
+                    intent.putExtra("fileId", file.id)
+                    intent.putExtra("checkVisible", file.type)
+                    startActivity(intent)
+                }
             }
 
             binding.rcvMyFile.adapter = myFileAdapter

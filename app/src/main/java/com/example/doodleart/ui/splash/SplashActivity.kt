@@ -24,7 +24,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun initView() {
         croutineScope.launch {
-            delay(5000)
+            delay(3000)
             startIntro()
         }
         binding.tvAppName.setGradientText(this)
@@ -39,7 +39,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     private fun startIntro() {
-        showActivity(MainActivity::class.java)
+        showActivity(LanguageStartActivity::class.java)
         finish()
     }
 

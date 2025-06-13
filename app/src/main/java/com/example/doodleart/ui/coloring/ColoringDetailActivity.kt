@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.example.doodleart.R
 import com.example.doodleart.base.BaseActivity
 import com.example.doodleart.data.DataApp
 import com.example.doodleart.databinding.ActivityColoringDetailBinding
@@ -48,8 +49,9 @@ class ColoringDetailActivity : BaseActivity<ActivityColoringDetailBinding>() {
         val resId = DataApp.getListColoring()[idColoring].img
         val bitmap = BitmapFactory.decodeResource(resources, resId)
 
-        val path = saveBitmapToGallery(bitmap, this@ColoringDetailActivity)
-        Toast.makeText(this, "Đã lưu ảnh vào ${path}", Toast.LENGTH_SHORT).show()
+        saveBitmapToGallery(bitmap, this@ColoringDetailActivity)
+        val mess = getString(R.string.save_to_gallery)
+        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
     }
 
     private fun getBitmapFromView(view: View): Bitmap {

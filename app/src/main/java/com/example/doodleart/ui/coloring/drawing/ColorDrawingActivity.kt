@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.doodleart.R
@@ -60,9 +61,13 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
         binding.zoomablePaintView.setBrushColor(currentColorInt)
         binding.zoomablePaintView.setFloodFillMode(true)
         setDataColor(true)
+        onBackPressedDispatcher.addCallback(this) {
+            showDialogConfirm()
+        }
     }
 
     override fun viewListener() {
+
         binding.seekBarBrush.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar?, value: Int, fromUser: Boolean) {
                 val progressRatio = value / sb!!.max.toFloat()
@@ -283,5 +288,4 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
             binding.zoomablePaintView.loadImage(bitmap,false)
         }
     }
-
 }
