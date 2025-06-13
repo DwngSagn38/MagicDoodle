@@ -8,8 +8,10 @@ import com.example.doodleart.widget.tap
 
 class DeleteDialog (
     activity1: Activity,
+    val mess : String? = null,
     val content: String? = null,
     private var action: () -> Unit,
+    private var no: () -> Unit,
 ) : BaseDialog<DialogDeleteBinding>(activity1, true) {
 
 
@@ -24,7 +26,10 @@ class DeleteDialog (
         binding.root.tap { dismiss() }
         binding.apply {
 
+            tvMess.text = mess
+
             tvNo.tap {
+                no.invoke()
                 dismiss()
             }
 

@@ -1,6 +1,7 @@
 package com.example.doodleart.widget
 
 
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -8,6 +9,8 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Shader
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -110,6 +113,26 @@ fun savePaintViewToFile(view: View, context: Context): String {
     return file.absolutePath
 }
 
+fun saveBitmapToGallery(bitmap: Bitmap,  context: Context) {
+    val filename = "mandala_${System.currentTimeMillis()}.png"
+    val contentValues = ContentValues().apply {
+        put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+        put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+    }
+
+    val resolver = context.contentResolver
+    val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+    uri?.let {
+        val outputStream = resolver.openOutputStream(it)
+        outputStream.use { stream ->
+            if (stream != null) {
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            }
+        }
+    }
+}
 
 
 

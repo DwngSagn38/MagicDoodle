@@ -54,7 +54,9 @@
     <string name="please_select_type">Please select type</string>
     <string name="photo_saved_to_device">Photo saved to device</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="are_you_save_it">Are you sure you want to save it?</string>
+    <string name="are_you_save_it">Do you want to save it?</string>
+    <string name="are_you_delete_it">Do you want to delete it?</string>
+    <string name="are_you_want_save_it">Save changes before leaving?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="detail">Detail</string>
