@@ -113,7 +113,7 @@ fun savePaintViewToFile(view: View, context: Context): String {
     return file.absolutePath
 }
 
-fun saveBitmapToGallery(bitmap: Bitmap,  context: Context) {
+fun saveBitmapToGallery(bitmap: Bitmap, context: Context): String? {
     val filename = "mandala_${System.currentTimeMillis()}.png"
     val contentValues = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
@@ -125,13 +125,12 @@ fun saveBitmapToGallery(bitmap: Bitmap,  context: Context) {
     val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
 
     uri?.let {
-        val outputStream = resolver.openOutputStream(it)
-        outputStream.use { stream ->
-            if (stream != null) {
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            }
+        resolver.openOutputStream(it)?.use { stream ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         }
+        return uri.toString() // hoặc trả filename nếu bạn thích
     }
+    return null
 }
 
 
