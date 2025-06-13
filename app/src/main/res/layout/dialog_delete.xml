@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tvMess"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

@@ -299,7 +299,7 @@ class ZoomablePaintView @JvmOverloads constructor(
     override fun onScaleBegin(detector: ScaleGestureDetector) = true
     override fun onScaleEnd(detector: ScaleGestureDetector) {}
 
-    fun loadImage(bitmap: Bitmap) {
+    fun loadImage(bitmap: Bitmap, isEdit: Boolean) {
         floodFillListener?.onFloodFillStart()
         post {
             val viewWidth = width
@@ -311,21 +311,26 @@ class ZoomablePaintView @JvmOverloads constructor(
             val scaled = Bitmap.createScaledBitmap(bitmap, width, height, false)
             sourceBitmap = scaled
 
-
-            // 1. Tạo bitmap mới trắng toàn bộ
-            val whiteBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            for (y in 0 until height) {
-                for (x in 0 until width) {
-                    val color = scaled.getPixel(x, y)
-                    whiteBitmap.setPixel(
-                        x, y,
-                        if (isNearBlack(color)) Color.BLACK else Color.WHITE
-                    )
+            // 1. Tạo bitmap vẽ tùy theo isEdit
+            val resultBitmap = if (!isEdit) {
+                val whiteBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                for (y in 0 until height) {
+                    for (x in 0 until width) {
+                        val color = scaled.getPixel(x, y)
+                        whiteBitmap.setPixel(
+                            x, y,
+                            if (isNearBlack(color)) Color.BLACK else Color.WHITE
+                        )
+                    }
                 }
+                whiteBitmap
+            } else {
+                // Dùng ảnh thật để vẽ trực tiếp (chế độ edit)
+                scaled.copy(Bitmap.Config.ARGB_8888, true)
             }
 
             // 2. Cập nhật bitmap vẽ và canvas
-            drawingBitmap = whiteBitmap.copy(Bitmap.Config.ARGB_8888, true)
+            drawingBitmap = resultBitmap
             drawingCanvas = Canvas(drawingBitmap!!)
 
             undoStack.clear()
@@ -334,6 +339,7 @@ class ZoomablePaintView @JvmOverloads constructor(
             floodFillListener?.onFloodFillDone()
         }
     }
+
 
 
 //    private fun floodFill(bitmap: Bitmap, x: Int, y: Int, replacementColor: Int, tolerance: Int = 60) {

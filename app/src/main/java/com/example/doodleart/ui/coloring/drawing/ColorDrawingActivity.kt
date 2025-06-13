@@ -1,8 +1,10 @@
 package com.example.doodleart.ui.coloring.drawing
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
@@ -18,6 +20,8 @@ import com.example.doodleart.model.ColorModel
 import com.example.doodleart.model.MyFileModel
 import com.example.doodleart.roomdb.DBHelper
 import com.example.doodleart.ui.custom_view.ZoomablePaintView
+import com.example.doodleart.ui.my_file.MyFileDetailActivity
+import com.example.doodleart.ui.my_file.fragment.MyFileAdapter
 import com.example.doodleart.utils.showColorPicker
 import com.example.doodleart.widget.gone
 import com.example.doodleart.widget.savePaintViewToFile
@@ -28,6 +32,8 @@ import kotlinx.coroutines.launch
 
 class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
     private var idColoring : Int = 0
+    private lateinit var myFile : MyFileModel
+    private var isEdit : Boolean = false
     private lateinit var adapterColor : ColorDrawingAdapter
     private lateinit var currentColor : String
     private var currentColorInt: Int = Color.WHITE
@@ -35,15 +41,23 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
     private lateinit var listColor : List<ColorModel>
     private var isPreview = false
     private lateinit var loadingDialog: Dialog
+    private lateinit var dbHelper: DBHelper
 
     override fun setViewBinding(): ActivityColorDrawingBinding {
         return ActivityColorDrawingBinding.inflate(layoutInflater)
     }
 
     override fun initView() {
+        dbHelper = DBHelper.getDatabase(this)
+        isEdit = intent.getBooleanExtra("edit", false)
+        idColoring = intent.getIntExtra("id", 0)
+        setData(isEdit)
+
+
+
         initLoadingDialog()
         binding.llProgress.bringToFront()
-        binding.imgBack.tap { finish() }
+        binding.imgBack.tap { showDialogConfirm() }
         binding.zoomablePaintView.setBrushColor(currentColorInt)
         binding.imgFloodFill.setColorFilter(R.drawable.gradient_tint)
         binding.zoomablePaintView.setFloodFillMode(true)
@@ -105,7 +119,7 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
 //            imgRePlay.tap {
 //                zoomablePaintView.replayFromUndoStack(300L)
 //            }
-            imgSave.tap { showDialogDelete() }
+            imgSave.tap { showDialogSave() }
         }
 
         binding.zoomablePaintView.onUndoRedoCountChanged = { undo, redo ->
@@ -122,9 +136,7 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
             }
         })
 
-        idColoring = intent.getIntExtra("id", 0)
-        val bitmap = BitmapFactory.decodeResource(resources, DataApp.getListColoring()[idColoring].img)
-        binding.zoomablePaintView.loadImage(bitmap)
+
     }
 
     override fun dataObservable() {
@@ -216,17 +228,53 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
         }
     }
 
-    private fun showDialogDelete(){
-        val dialog = DeleteDialog(this){
-            binding.zoomablePaintView.resetZoomAndPan()
-            lifecycleScope.launch {
-                val db = DBHelper.getDatabase(this@ColorDrawingActivity)
-                val path = savePaintViewToFile(binding.zoomablePaintView, this@ColorDrawingActivity)
-                db.fileDao().insertFile(MyFileModel(path = path, type = false))
-            }
-            finish()
-        }
+    private fun showDialogSave(){
+        val mess = getString(R.string.are_you_save_it)
+        val dialog = DeleteDialog(this, mess,
+            action = {
+                binding.zoomablePaintView.resetZoomAndPan()
+                lifecycleScope.launch {
+                    val path = savePaintViewToFile(binding.zoomablePaintView, this@ColorDrawingActivity)
+                    dbHelper.fileDao().insertFile(MyFileModel(path = path, type = false))
+                }
+                finish()
+            },
+            no = {})
         dialog.show()
+    }
+
+    private fun showDialogConfirm() {
+        val mess = getString(R.string.are_you_want_save_it)
+        val dialog = DeleteDialog(
+            this,
+            mess,
+            action = {
+                binding.zoomablePaintView.resetZoomAndPan()
+                lifecycleScope.launch {
+                    val path = savePaintViewToFile(binding.zoomablePaintView, this@ColorDrawingActivity)
+                    dbHelper.fileDao().insertFile(MyFileModel(path = path, type = false))
+                    finish()
+                }
+            },
+            no = {
+                finish() // Chọn No thì gọi finish() luôn
+            }
+        )
+        dialog.show()
+    }
+
+    private fun setData(isEdit: Boolean) {
+        Log.d("ColorDrawing" , "is edit $isEdit")
+        if (isEdit) {
+            lifecycleScope.launch {
+                myFile = dbHelper.fileDao().getFileById(idColoring)!!
+                val bitmap = BitmapFactory.decodeFile(myFile.path)
+                binding.zoomablePaintView.loadImage(bitmap,true)
+            }
+        } else {
+            val bitmap = BitmapFactory.decodeResource(resources, DataApp.getListColoring()[idColoring].img)
+            binding.zoomablePaintView.loadImage(bitmap,false)
+        }
     }
 
 }

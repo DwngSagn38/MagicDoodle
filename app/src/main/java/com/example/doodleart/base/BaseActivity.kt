@@ -5,10 +5,13 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -227,5 +230,22 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         return true
     }
 
+    protected fun takeScreenshot(): Bitmap {
+        val rootView: View = window.decorView.rootView
+        val bitmap = Bitmap.createBitmap(rootView.width, rootView.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        rootView.draw(canvas)
+        return bitmap
+    }
 
+    protected fun shareScreenshot(screenshot: Bitmap) {
+        val path = MediaStore.Images.Media.insertImage(contentResolver, screenshot, "screenshot", null)
+        path?.let {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "image/*"
+                putExtra(Intent.EXTRA_STREAM, Uri.parse(it))
+            }
+            startActivity(Intent.createChooser(shareIntent, "Share Image"))
+        }
+    }
 }
