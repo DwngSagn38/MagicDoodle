@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_coloring"
-    tools:context=".ui.coloring.ColoringDetailActivity">
+    tools:context=".ui.inpiration.InspirationDetailActivity">
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgBack"

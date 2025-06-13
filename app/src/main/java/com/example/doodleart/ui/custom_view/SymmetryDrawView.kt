@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BlurMaskFilter
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.DashPathEffect
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
@@ -41,7 +42,7 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
     private var centerY = 0f
     private var previousStrokeWidth: Float = 5f
 
-    private var currentStrokeWidth = 4f // CHỈ ÁP DỤNG CHO NÉT VẼ MỚI
+    private var currentStrokeWidth = 4f
     private var currentColor: Int = Color.BLACK
     private var currentEffect: StrokeEffect = StrokeEffect.NORMAL
     private var currentGradientColors: IntArray? = null
@@ -159,8 +160,6 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
         }
         invalidate()
     }
-
-
     fun isEraserOn(): Boolean {
         return isEraserOn
     }
@@ -214,10 +213,14 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
             strokeWidth = stroke.strokeWidth
             style = Paint.Style.STROKE
             isAntiAlias = true
-
             strokeCap = Paint.Cap.ROUND
             strokeJoin = Paint.Join.ROUND
+
+            if (stroke.shape == StrokeShape.DASHED) {
+                pathEffect = DashPathEffect(floatArrayOf(20f, 10f), 0f)
+            }
         }
+
 
 
         val paintGlow = Paint(paintNormal).apply {
@@ -265,29 +268,6 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
         }
     }
 
-    fun undo() {
-        updateUndoRedoState?.invoke(true, true)
-        if (countStrokes == 0) {
-            updateUndoRedoState?.invoke(false, true)
-        } else {
-            if (strokes.isNotEmpty()) {
-                val lastStroke = strokes.removeAt(strokes.size - 1)
-                countStrokes--
-                undoneStrokes.add(lastStroke)
-                invalidate()
-            }
-        }
-    }
-
-    fun redo() {
-        if (undoneStrokes.isNotEmpty()) {
-            val stroke = undoneStrokes.removeAt(undoneStrokes.size - 1)
-            strokes.add(stroke)
-            countStrokes++
-            invalidate()
-        }
-        updateUndoRedoState?.invoke(strokes.isNotEmpty(), undoneStrokes.isNotEmpty())
-    }
 
     private fun createShadowPaint(stroke: Stroke): Paint
     {
@@ -409,6 +389,29 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
     }
 
 
+    fun undo() {
+        updateUndoRedoState?.invoke(true, true)
+        if (countStrokes == 0) {
+            updateUndoRedoState?.invoke(false, true)
+        } else {
+            if (strokes.isNotEmpty()) {
+                val lastStroke = strokes.removeAt(strokes.size - 1)
+                countStrokes--
+                undoneStrokes.add(lastStroke)
+                invalidate()
+            }
+        }
+    }
+
+    fun redo() {
+        if (undoneStrokes.isNotEmpty()) {
+            val stroke = undoneStrokes.removeAt(undoneStrokes.size - 1)
+            strokes.add(stroke)
+            countStrokes++
+            invalidate()
+        }
+        updateUndoRedoState?.invoke(strokes.isNotEmpty(), undoneStrokes.isNotEmpty())
+    }
 
     private fun drawImg(canvas: Canvas, stroke: Stroke, context: Context) {
         val radius = stroke.strokeWidth *4

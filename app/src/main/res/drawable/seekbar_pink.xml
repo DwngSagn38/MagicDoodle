@@ -1,0 +1,23 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background"
+        android:height="6dp"
+        android:gravity="center_vertical">
+        <shape>
+            <corners android:radius="3dp"/>
+            <solid android:color="#D9D9D9"/>
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress"
+        android:height="6dp"
+        android:gravity="center_vertical">
+        <clip>
+            <shape>
+                <corners android:radius="3dp"/>
+                <solid android:color="#FF6767"/>
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

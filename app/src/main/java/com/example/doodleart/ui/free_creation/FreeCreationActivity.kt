@@ -13,22 +13,37 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doodleart.R
 import com.example.doodleart.base.BaseActivity
+import com.example.doodleart.data.DataApp
+import com.example.doodleart.data.Stroke
 import com.example.doodleart.data.StrokeShape
 import com.example.doodleart.data.brushPainTing
 import com.example.doodleart.databinding.ActivityFreeCreationBinding
+import com.example.doodleart.dialog.DeleteDialog
+import com.example.doodleart.model.MyFileModel
+import com.example.doodleart.roomdb.DBHelper
+
 import com.example.doodleart.ui.custom_view.MandalaDrawView
+import com.example.doodleart.ui.main.MainActivity
+import com.example.doodleart.ui.my_file.MyFileActivity
 import com.example.doodleart.utils.showColorPicker
 import com.example.doodleart.widget.gone
+import com.example.doodleart.widget.savePaintViewToFile
+import com.example.doodleart.widget.tap
 import com.example.doodleart.widget.visible
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
     private var currentColorInt: Int = Color.WHITE
@@ -36,12 +51,14 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
     private var checkRcvColor: Boolean = false
     private lateinit var adapter: BrushAdapter
     private var Brush: brushPainTing = brushPainTing(R.drawable.line_2, Color.RED, 0, 0)
+    private var isEraserOn: Boolean = false
+    private var isRcvPenOn: Boolean = true
+    private var idInspiration: Int = 0
 
     private val brushList = listOf(
-        brushPainTing(R.drawable.line_2, Color.RED, 0, 0),
+        brushPainTing(R.drawable.line_2, Color.RED, 0, 0, isSelected = true),
         brushPainTing(R.drawable.line_15, Color.BLUE, 1, 0),
         brushPainTing(R.drawable.line_3, Color.BLUE, 5, 1),
-        brushPainTing(R.drawable.line_4, Color.BLUE, 5, 1),
         brushPainTing(R.drawable.line_5, Color.BLUE, 2, 0),
         brushPainTing(R.drawable.line_6, Color.BLUE, 3, 0),
         brushPainTing(R.drawable.line_7, Color.BLUE, 4, 0),
@@ -59,25 +76,66 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
     }
 
     override fun initView() {
+        idInspiration = intent.getIntExtra("id", -1)
+        if (idInspiration == -1) {
+            binding.imgInPiration.gone()
+        } else {
+            binding.imgInPiration.visible()
+            binding.imgInPiration.setImageResource(DataApp.getListInpiration()[idInspiration].img)
+        }
+        binding.mainContainer.tap {
+            goneDilog()
+        }
+
         binding.mandalaView.setBackgroundColorCustom(Color.BLACK)
-        binding.mandalaView.setStrokeColor(currentColorInt)
+        binding.bg1.setImageResource(R.drawable.bg_droin_selected)
+        Brush = brushPainTing(R.drawable.line_2, Color.RED, 0, 0)
+        setBrush(Brush)
         binding.icUndu.alpha = 0.4f
         binding.icRedu.alpha = 0.4f
+        binding.strokeWidthSeekBar.max = 50
+        binding.strokeWidthSeekBar.progress = 4
         DroinCound()
         setUpColor()
         setUpRcvBrush()
         setUpCardView()
+
     }
+
     override fun viewListener() {
+//        binding.spacingSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                binding.mandalaView.shapeSpacing = progress.toFloat().coerceAtLeast(5f)
+//            }
+//
+//            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+//            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+//        })
+        binding.strokeWidthSeekBar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val width = if (progress < 1) 1f else progress.toFloat()
+                binding.mandalaView.setStrokeWidth(width)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
         binding.icPen.setOnClickListener {
             goneDilog()
-            if (binding.recyclerViewBrush.visibility == View.VISIBLE) {
-                binding.recyclerViewBrush.gone()
+            isRcvPenOn = !isRcvPenOn
+            if (isRcvPenOn) {
+                binding.clPicBrush.gone()
+                binding.icPen.alpha = 1.0f
             } else {
-                binding.recyclerViewBrush.visible()
+                binding.clPicBrush.visible()
+                binding.icPen.alpha = 0.5f
             }
         }
-
+        binding.icSave.tap {
+            showDialogSave(0)
+        }
         binding.icNewFile.setOnClickListener {
             showFoundGhost()
         }
@@ -103,19 +161,25 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
                 binding.recyclerViewColors.visible()
             }
         }
+        binding.icBack.tap {
+            showDialogSave(1)
+        }
         binding.icEraser.setOnClickListener {
-            val currentlyOn = binding.mandalaView.isEraserOn()
             goneDilog()
+            val currentlyOn = binding.mandalaView.isEraserOn()
             binding.mandalaView.setEraser(!currentlyOn)
             if (currentlyOn) {
+                isEraserOn = false
+                binding.icEraser.alpha = 1.0f
                 setBrush(Brush)
-                binding.recyclerViewBrush.gone()
             } else {
+                isEraserOn = true
+                binding.icEraser.alpha = 0.5f
                 binding.mandalaView.setStrokeShape(StrokeShape.NORMAL)
                 binding.mandalaView.setStrokeEffect(MandalaDrawView.StrokeEffect.NORMAL)
-                binding.recyclerViewBrush.visible()
             }
         }
+
         binding.icColor.setOnClickListener {
             showColorPicker(currentColorInt,
                 onColorPicked = { colorString ->
@@ -147,6 +211,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 
     }
 
+
     private fun setUpCardView() {
         val aspectRatio = intent.getStringExtra("aspect_ratio") ?: "1:1"
         val (widthRatio, heightRatio) = when (aspectRatio) {
@@ -169,6 +234,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             it.layoutParams = layoutParams
         }
     }
+
     private fun setUpRcvBrush() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewBrush)
         recyclerView.layoutManager =
@@ -176,8 +242,10 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         adapter = BrushAdapter(brushList) { selectedBrush ->
             brushList.forEach { it.isSelected = it == selectedBrush }
             adapter.notifyDataSetChanged()
-            setBrush(selectedBrush)
             Brush = selectedBrush
+            if (!isEraserOn) {
+                setBrush(Brush)
+            }
         }
 
         recyclerView.adapter = adapter
@@ -188,18 +256,20 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             0 -> binding.mandalaView.setStrokeEffect(MandalaDrawView.StrokeEffect.NORMAL)
             1 -> binding.mandalaView.setStrokeEffect(MandalaDrawView.StrokeEffect.GLOW)
             2 -> {
-                val colors =
-                    intArrayOf(Color.BLUE, Color.MAGENTA, Color.parseColor("#FF69B4"))
+                val colors = intArrayOf(
+                    Color.parseColor("#28F07B"),
+                    Color.parseColor("#FFEA00"),
+                    Color.parseColor("#1640FF"),
+                )
                 binding.mandalaView.setGradientColors(colors)
-                binding.mandalaView.setStrokeEffect(MandalaDrawView.StrokeEffect.GRADIENT)
+                binding.mandalaView.setStrokeEffect(MandalaDrawView.StrokeEffect.GLOW_GRADIENT)
             }
 
             3 -> {
                 val colors = intArrayOf(
-                    Color.parseColor("#FFA500"),
-                    Color.YELLOW,
-                    Color.GREEN,
-                    Color.BLUE
+                    Color.parseColor("#F0282B"),
+                    Color.parseColor("#323FFF"),
+                    Color.parseColor("#E1FF01"),
                 )
                 binding.mandalaView.setGradientColors(colors)
                 binding.mandalaView.setStrokeEffect(MandalaDrawView.StrokeEffect.GLOW_GRADIENT)
@@ -207,10 +277,9 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 
             4 -> {
                 val colors = intArrayOf(
-                    Color.parseColor("#FFA500"),
-                    Color.YELLOW,
-                    Color.GREEN,
-                    Color.BLUE
+                    Color.parseColor("#F0287F"),
+                    Color.parseColor("#E1FF00"),
+                    Color.parseColor("#C800FF"),
                 )
                 binding.mandalaView.setGradientColors(colors)
                 binding.mandalaView.setStrokeEffect(MandalaDrawView.StrokeEffect.GLOW_GRADIENT)
@@ -241,10 +310,10 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             9 -> binding.mandalaView.setStrokeShape(StrokeShape.STAR4)
             10 -> binding.mandalaView.setStrokeShape(StrokeShape.PLUS)
             11 -> binding.mandalaView.setStrokeShape(StrokeShape.ELLIPSE)
+            12 -> binding.mandalaView.setStrokeShape(StrokeShape.DASHED)
         }
-
+        selectedBrush.color1?.let { binding.mandalaView.setStrokeColor(it) }
     }
-
 
 
     private fun setUpColor() {
@@ -286,17 +355,24 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
                     droinImages[j].setImageResource(R.drawable.bg_droin_noselected)
                 }
                 droinImages[i].setImageResource(R.drawable.bg_droin_selected)
-                binding.mandalaView.setSymmetryCount(i + 1)
+                var x: Int = 0
+                x = when (i) {
+                    7 -> 6
+                    9 -> 10
+                    10 -> 12
+                    else -> i + 1
+                }
+                binding.mandalaView.setSymmetryCount(x)
             }
         }
     }
 
     private fun goneDilog() {
-        binding.recyclerViewBrush.gone()
         binding.llDroin.gone()
         binding.llDroin2.gone()
         binding.recyclerViewColors.gone()
-
+        binding.clPicBrush.gone()
+        binding.icPen.alpha = 1.0f
     }
 
     override fun dataObservable() {
@@ -309,6 +385,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             .setCancelable(true)
             .create()
         dialog.setCanceledOnTouchOutside(true)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val tvSave = dialogView.findViewById<TextView>(R.id.tv_save)
         val ivDiscard = dialogView.findViewById<TextView>(R.id.tv_discard)
@@ -329,12 +406,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         }
 
         tvSave.setOnClickListener {
-            val cardView = findViewById<CardView>(R.id.cardView)
-            cardView?.let {
-                val bitmap = getBitmapFromView(it)
-                saveBitmapToGallery(bitmap)
-                Toast.makeText(this, "Đã lưu ảnh vào thiết bị", Toast.LENGTH_SHORT).show()
-            }
+            showDialogSave(2)
             extracted(dialog)
         }
         ivDiscard.setOnClickListener {
@@ -343,6 +415,16 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         }
         dialog.show()
     }
+
+//    private fun saveImg() {
+//        val cardView = findViewById<CardView>(R.id.cardView)
+//        cardView?.let {
+//            val bitmap = getBitmapFromView(it)
+//            saveBitmapToGallery(bitmap)
+//            Toast.makeText(this, getString(R.string.photo_saved_to_device), Toast.LENGTH_SHORT)
+//                .show()
+//        }
+//    }
 
     private fun extracted(dialog: AlertDialog) {
         dialog.dismiss()
@@ -356,25 +438,45 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         return returnedBitmap
     }
 
-    private fun saveBitmapToGallery(bitmap: Bitmap) {
-        val filename = "mandala_${System.currentTimeMillis()}.png"
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-        }
-
-        val resolver = applicationContext.contentResolver
-        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-
-        uri?.let {
-            val outputStream = resolver.openOutputStream(it)
-            outputStream.use { stream ->
-                if (stream != null) {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//    private fun saveBitmapToGallery(bitmap: Bitmap) {
+//        val filename = "mandala_${System.currentTimeMillis()}.png"
+//        val contentValues = ContentValues().apply {
+//            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+//            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+//            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+//        }
+//
+//        val resolver = applicationContext.contentResolver
+//        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+//
+//        uri?.let {
+//            val outputStream = resolver.openOutputStream(it)
+//            outputStream.use { stream ->
+//                if (stream != null) {
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//                }
+//            }
+//        }
+//    }
+    private fun showDialogSave(check: Int){
+        val dialog = DeleteDialog(this, getString(R.string.are_you_save_it),
+            action = {
+                lifecycleScope.launch {
+                    val db = DBHelper.getDatabase(this@FreeCreationActivity)
+                    val path = savePaintViewToFile(binding.cardView, this@FreeCreationActivity)
+                    db.fileDao().insertFile(MyFileModel(path = path, type = true))
                 }
-            }
-        }
+                when(check) {
+                    0-> showActivity(MyFileActivity::class.java)
+                    1-> {
+                        showActivity(MainActivity::class.java)
+                    }
+                    2-> {}
+                }
+            },
+            no = {
+            })
+        dialog.show()
     }
 
 

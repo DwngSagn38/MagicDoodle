@@ -47,7 +47,9 @@ android {
         jvmTarget = '1.8'
     }
 }
-
+configurations.all {
+    exclude group: 'com.intellij', module: 'annotations'
+}
 dependencies {
 
     implementation libs.androidx.core.ktx
@@ -56,6 +58,7 @@ dependencies {
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.viewbinding
+    implementation libs.androidx.room.compiler
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -67,9 +70,10 @@ dependencies {
 
     implementation "com.makeramen:roundedimageview:2.3.0"
 
-    // roomdb
-    implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
+// roomdb
+// Trong build.gradle (module: app)
+    implementation("androidx.room:room-runtime:2.7.1")
+    kapt("androidx.room:room-compiler:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+
 }

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/bg_popup"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginHorizontal="36dp"
+        android:id="@+id/popupLayout"
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        android:background="@drawable/bg_popup_save"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="92dp">
+
+            <TextView
+                android:background="@drawable/bg_conner_e2dcee"
+                android:layout_marginStart="26dp"
+                android:id="@+id/tv_9_11"
+                android:layout_width="54dp"
+                android:layout_height="92dp"
+                android:textSize="14dp"
+                android:textColor="#514169"
+                android:fontFamily="@font/poppins_medium_500"
+                android:gravity="center"
+                android:text="9:11"/>
+            <TextView
+                android:background="@drawable/bg_conner_e2dcee"
+                android:layout_marginStart="11dp"
+                android:id="@+id/tv_1_1"
+                android:layout_width="92dp"
+                android:layout_height="match_parent"
+                android:textSize="14dp"
+                android:textColor="#514169"
+                android:fontFamily="@font/poppins_medium_500"
+                android:gravity="center"
+                android:text="1:1"/>
+            <TextView
+                android:background="@drawable/bg_conner_e2dcee"
+                android:layout_marginEnd="26dp"
+                android:layout_marginStart="11dp"
+                android:id="@+id/tv_4_5"
+                android:layout_width="74dp"
+                android:layout_height="match_parent"
+                android:textSize="14dp"
+                android:textColor="#514169"
+                android:fontFamily="@font/poppins_medium_500"
+                android:gravity="center"
+                android:text="4:5"/>
+        </LinearLayout>
+
+        <TextView
+
+            android:id="@+id/tv_next"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="23dp"
+            android:background="@drawable/img_buttom_save_to_my_sketches"
+            android:fontFamily="@font/poppins_bold_700"
+            android:gravity="center"
+            android:text="@string/start_drawing"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/tv2" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/poppins_bold_700"
+            android:text="@string/cancel"
+            android:textColor="#696969"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_save" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

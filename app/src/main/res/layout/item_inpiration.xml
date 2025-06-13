@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_margin="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            app:cardCornerRadius="20dp"
+            android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:layout_width="170dp"
+                    android:layout_height="221dp"
+                    android:background="@drawable/bg_coloring"
+                    />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgColoring"
+                    android:layout_width="170dp"
+                    android:layout_height="221dp"
+                    android:src="@drawable/img2_inpiration1"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:layout_width="170dp"
+                    android:layout_height="221dp"
+                    android:background="@drawable/bg_inspiration_item" />
+        </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

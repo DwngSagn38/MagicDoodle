@@ -3,6 +3,7 @@ package com.example.doodleart.data
 import com.example.doodleart.R
 import com.example.doodleart.model.ColorModel
 import com.example.doodleart.model.ColoringModel
+import com.example.doodleart.model.InpirationModel
 
 object DataApp {
     fun getListColoring() : List<ColoringModel>{
@@ -24,6 +25,32 @@ object DataApp {
             ColoringModel(14, R.drawable.img_coloring_15),
             ColoringModel(15, R.drawable.img_coloring_16),
             ColoringModel(16, R.drawable.img_coloring_17),
+        )
+    }
+    fun getListInpiration() : List<InpirationModel>{
+        return listOf(
+            InpirationModel(0, R.drawable.img2_inpiration1),
+            InpirationModel(1, R.drawable.img2_inpiration2),
+            InpirationModel(2, R.drawable.img2_inpiration3),
+            InpirationModel(3, R.drawable.img2_inpiration4),
+            InpirationModel(4, R.drawable.img2_inpiration5),
+            InpirationModel(5, R.drawable.img2_inpiration6),
+            InpirationModel(6, R.drawable.img2_inpiration7),
+            InpirationModel(7, R.drawable.img2_inpiration8),
+            InpirationModel(8, R.drawable.img2_inpiration9),
+            InpirationModel(9, R.drawable.img2_inpiration10),
+            InpirationModel(10, R.drawable.img2_inpiration11),
+            InpirationModel(11, R.drawable.img2_inpiration_12),
+            InpirationModel(12, R.drawable.img2_inpiration_13),
+            InpirationModel(13, R.drawable.img2_inpiration_14),
+            InpirationModel(14, R.drawable.img2_inpiration_15),
+            InpirationModel(15, R.drawable.img2_inpiration_16),
+            InpirationModel(16, R.drawable.img2_inpiration_17),
+            InpirationModel(17, R.drawable.img2_inpiration_18),
+            InpirationModel(18, R.drawable.img2_inpiration_19),
+            InpirationModel(19, R.drawable.img2_inpiration_20),
+            InpirationModel(20, R.drawable.img2_inpiration21),
+            InpirationModel(21, R.drawable.img2_inpiration_22),
         )
     }
 
