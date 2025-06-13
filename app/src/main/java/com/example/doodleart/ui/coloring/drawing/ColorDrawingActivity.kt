@@ -53,13 +53,11 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
         idColoring = intent.getIntExtra("id", 0)
         setData(isEdit)
 
-
-
+        binding.imgPreview.setColorFilter(if (isPreview) 0 else R.color.color_555555)
         initLoadingDialog()
         binding.llProgress.bringToFront()
         binding.imgBack.tap { showDialogConfirm() }
         binding.zoomablePaintView.setBrushColor(currentColorInt)
-        binding.imgFloodFill.setColorFilter(R.drawable.gradient_tint)
         binding.zoomablePaintView.setFloodFillMode(true)
         setDataColor(true)
     }
@@ -95,6 +93,7 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
             imgPreview.tap {
                 isPreview = !isPreview
                 zoomablePaintView.setPreviewMode(isPreview)
+                imgPreview.setColorFilter(if (isPreview) 0 else R.color.color_555555)
                 val mess = if (isPreview) getString(R.string.preview_on) else getString(R.string.preview_off)
                 Toast.makeText(this@ColorDrawingActivity, mess, Toast.LENGTH_SHORT).show()
             }
@@ -145,11 +144,11 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
     private fun chooseTypeDraw(type : Boolean){
         binding.zoomablePaintView.setFloodFillMode(type)
         if (type){
-            binding.imgFloodFill.setColorFilter(R.drawable.gradient_tint)
-            binding.imgBrush.setColorFilter(0)
+            binding.imgFloodFill.setBackgroundResource(R.drawable.bg_color_type_select)
+            binding.imgBrush.setBackgroundResource(R.drawable.bg_color_type)
         }else{
-            binding.imgBrush.setColorFilter(R.drawable.gradient_tint)
-            binding.imgFloodFill.setColorFilter(0)
+            binding.imgBrush.setBackgroundResource(R.drawable.bg_color_type_select)
+            binding.imgFloodFill.setBackgroundResource(R.drawable.bg_color_type)
         }
     }
 
@@ -235,7 +234,11 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
                 binding.zoomablePaintView.resetZoomAndPan()
                 lifecycleScope.launch {
                     val path = savePaintViewToFile(binding.zoomablePaintView, this@ColorDrawingActivity)
-                    dbHelper.fileDao().insertFile(MyFileModel(path = path, type = false))
+                    if (isEdit){
+                        dbHelper.fileDao().updateFile(MyFileModel(id = myFile.id , path = path, type = false, createdAt = System.currentTimeMillis()))
+                    }else{
+                        dbHelper.fileDao().insertFile(MyFileModel(path = path, type = false))
+                    }
                 }
                 finish()
             },
@@ -252,7 +255,11 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
                 binding.zoomablePaintView.resetZoomAndPan()
                 lifecycleScope.launch {
                     val path = savePaintViewToFile(binding.zoomablePaintView, this@ColorDrawingActivity)
-                    dbHelper.fileDao().insertFile(MyFileModel(path = path, type = false))
+                    if (isEdit){
+                        dbHelper.fileDao().updateFile(MyFileModel(id = myFile.id , path = path, type = false, createdAt = System.currentTimeMillis()))
+                    }else{
+                        dbHelper.fileDao().insertFile(MyFileModel(path = path, type = false))
+                    }
                     finish()
                 }
             },
