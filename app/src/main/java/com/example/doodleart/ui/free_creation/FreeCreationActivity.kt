@@ -428,7 +428,6 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 
     private fun extracted(dialog: AlertDialog) {
         dialog.dismiss()
-        binding.mandalaView.clearCanvas()
     }
 
     private fun getBitmapFromView(view: View): Bitmap {
@@ -458,7 +457,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 //            }
 //        }
 //    }
-    private fun showDialogSave(check: Int){
+    private fun  showDialogSave(check: Int){
         val dialog = DeleteDialog(this, getString(R.string.are_you_save_it),
             action = {
                 lifecycleScope.launch {
@@ -471,10 +470,19 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
                     1-> {
                         showActivity(MainActivity::class.java)
                     }
-                    2-> {}
+                    2-> {
+                        binding.mandalaView.clearCanvas()
+                    }
                 }
             },
             no = {
+                when(check) {
+                    0-> {}
+                    1-> {
+                        finish()
+                    }
+                    2-> {}
+                }
             })
         dialog.show()
     }

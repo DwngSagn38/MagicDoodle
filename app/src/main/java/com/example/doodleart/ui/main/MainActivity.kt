@@ -96,6 +96,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 val intent = Intent(this, FreeCreationActivity::class.java)
                 intent.putExtra("aspect_ratio", selectedType)
                 startActivity(intent)
+                dialog.dismiss()
+
             } else {
                 Toast.makeText(this, R.string.please_select_type, Toast.LENGTH_SHORT).show()
             }
