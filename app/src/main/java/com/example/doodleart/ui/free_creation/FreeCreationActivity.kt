@@ -34,6 +34,7 @@ import com.example.doodleart.model.MyFileModel
 import com.example.doodleart.roomdb.DBHelper
 
 import com.example.doodleart.ui.custom_view.MandalaDrawView
+import com.example.doodleart.ui.main.MainActivity
 import com.example.doodleart.ui.my_file.MyFileActivity
 import com.example.doodleart.utils.showColorPicker
 import com.example.doodleart.widget.gone
@@ -133,7 +134,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             }
         }
         binding.icSave.tap {
-            showDialogSave()
+            showDialogSave(0)
         }
         binding.icNewFile.setOnClickListener {
             showFoundGhost()
@@ -161,7 +162,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             }
         }
         binding.icBack.tap {
-            finish()
+            showDialogSave(1)
         }
         binding.icEraser.setOnClickListener {
             goneDilog()
@@ -405,7 +406,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         }
 
         tvSave.setOnClickListener {
-            showDialogSave()
+            showDialogSave(2)
             extracted(dialog)
         }
         ivDiscard.setOnClickListener {
@@ -457,15 +458,24 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 //            }
 //        }
 //    }
-    private fun showDialogSave(){
-        val dialog = DeleteDialog(this){
-            lifecycleScope.launch {
-                val db = DBHelper.getDatabase(this@FreeCreationActivity)
-                val path = savePaintViewToFile(binding.cardView, this@FreeCreationActivity)
-                db.fileDao().insertFile(MyFileModel(path = path, type = true))
-            }
-            showActivity(MyFileActivity::class.java)
-        }
+    private fun showDialogSave(check: Int){
+        val dialog = DeleteDialog(this, getString(R.string.are_you_save_it),
+            action = {
+                lifecycleScope.launch {
+                    val db = DBHelper.getDatabase(this@FreeCreationActivity)
+                    val path = savePaintViewToFile(binding.cardView, this@FreeCreationActivity)
+                    db.fileDao().insertFile(MyFileModel(path = path, type = true))
+                }
+                when(check) {
+                    0-> showActivity(MyFileActivity::class.java)
+                    1-> {
+                        showActivity(MainActivity::class.java)
+                    }
+                    2-> {}
+                }
+            },
+            no = {
+            })
         dialog.show()
     }
 

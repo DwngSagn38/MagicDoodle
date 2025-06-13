@@ -28,8 +28,12 @@ class ColorationFragment : BaseFragment<FragmentColorationBinding>() {
 
     override fun initView() {
         binding.rcvMyFile.layoutManager = GridLayoutManager(requireContext(), 2)
+        setData()
+    }
 
-        // load data trong coroutine
+    override fun viewListener() {
+    }
+    private fun setData() {
         lifecycleScope.launch {
             val db = DBHelper.getDatabase(requireContext())
             val fileList = db.fileDao().getAllFiles().filter { it.type }
@@ -43,10 +47,12 @@ class ColorationFragment : BaseFragment<FragmentColorationBinding>() {
         }
     }
 
-    override fun viewListener() {
+    override fun dataObservable() {
     }
 
-    override fun dataObservable() {
+    override fun onResume() {
+        super.onResume()
+        setData()
     }
 
 }
