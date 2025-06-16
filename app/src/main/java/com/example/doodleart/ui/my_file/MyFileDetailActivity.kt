@@ -90,7 +90,6 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
         }
     }
 
-    private fun setImg(bitmap: Bitmap, checkVisible: Boolean) {
     private fun setImg(bitmap:Bitmap,checkVisible: Boolean) {
         binding.imgMyFile.setImageBitmap(bitmap)
         Log.d("TAG", "setImg: $checkVisible")
@@ -116,7 +115,6 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
     override fun dataObservable() {
     }
 
-    private fun showDialogDelete() {
     private fun showDialogDelete(){
         val button = getString(R.string.yes)
         val dialog = DeleteDialog(this,
