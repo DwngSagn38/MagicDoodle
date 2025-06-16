@@ -38,7 +38,7 @@ class ColorationFragment : BaseFragment<FragmentColorationBinding>() {
     private fun setData() {
         lifecycleScope.launch {
             val db = DBHelper.getDatabase(requireContext())
-            val fileList = db.fileDao().getAllFiles().filter { it.type }
+            val fileList = db.fileDao().getAllFiles().filter { !it.type }
 
             if (fileList.isEmpty() || fileList.size == 0) {
                 binding.llEmpty.visible()

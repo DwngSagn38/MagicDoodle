@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.doodleart.R
@@ -48,7 +49,7 @@ class InspirationDetailActivity : BaseActivity<ActivityInspirationDetailBinding>
         }
     }
     private fun saveImg() {
-        val cardView = findViewById<CardView>(R.id.cardViewInspiratiogn)
+        val cardView = findViewById<ConstraintLayout>(R.id.clCenter)
         cardView?.let {
             val bitmap = getBitmapFromView(it)
             saveBitmapToGallery(bitmap)

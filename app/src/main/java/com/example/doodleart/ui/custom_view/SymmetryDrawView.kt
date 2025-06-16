@@ -36,12 +36,14 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
     private var isEraserOn: Boolean = false
     private var selectedColor: Int = Color.BLACK
     private var backgroundColor: Int = Color.WHITE
+    private var backgroundBitmap: Bitmap? = null
+    private var editCheck: Boolean = false
+
     var updateUndoRedoState: ((canUndo: Boolean, canRedo: Boolean) -> Unit)? = null
 
     private var centerX = 0f
     private var centerY = 0f
     private var previousStrokeWidth: Float = 5f
-
     private var currentStrokeWidth = 4f
     private var currentColor: Int = Color.BLACK
     private var currentEffect: StrokeEffect = StrokeEffect.NORMAL
@@ -129,9 +131,13 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        canvas.drawColor(backgroundColor)
-
+        if (editCheck) {
+            backgroundBitmap?.let { bitmap ->
+                canvas.drawBitmap(bitmap, 0f, 0f, null)
+            }
+        } else {
+            canvas.drawColor(backgroundColor)
+        }
         canvas.save()
         canvas.translate(centerX, centerY)
 
@@ -141,7 +147,12 @@ class MandalaDrawView(context: Context, attrs: AttributeSet?) : View(context, at
 
         canvas.restore()
     }
-
+    fun setBitmapBackground(bitmap: Bitmap) {
+        backgroundBitmap = bitmap
+    }
+    fun setEdit(edit: Boolean) {
+        editCheck = edit
+    }
     fun setBackgroundColorCustom(color: Int) {
         backgroundColor = color
         invalidate()

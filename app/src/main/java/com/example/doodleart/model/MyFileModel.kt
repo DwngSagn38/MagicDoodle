@@ -8,5 +8,6 @@ data class MyFileModel(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val path: String,
     val type: Boolean,
+    val typeSize: String? = "",
     val createdAt: Long = System.currentTimeMillis()
 )

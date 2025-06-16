@@ -2,12 +2,15 @@ package com.example.doodleart.ui.free_creation
 
 import android.content.ContentValues
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -54,21 +57,28 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
     private var isEraserOn: Boolean = false
     private var isRcvPenOn: Boolean = true
     private var idInspiration: Int = 0
+    private var isEdit : Boolean = false
+    private var Background : String = ""
+    private var aspectRatio : String = ""
+    private lateinit var myFile : MyFileModel
+    private lateinit var dbHelper: DBHelper
+
+
 
     private val brushList = listOf(
-        brushPainTing(R.drawable.line_2, Color.RED, 0, 0, isSelected = true),
-        brushPainTing(R.drawable.line_15, Color.BLUE, 1, 0),
+        brushPainTing(R.drawable.line_2, Color.RED, 0, 0),
+        brushPainTing(R.drawable.line_15, Color.GREEN, 1, 0, isSelected = true),
         brushPainTing(R.drawable.line_3, Color.BLUE, 5, 1),
         brushPainTing(R.drawable.line_5, Color.BLUE, 2, 0),
         brushPainTing(R.drawable.line_6, Color.BLUE, 3, 0),
-        brushPainTing(R.drawable.line_7, Color.BLUE, 4, 0),
-        brushPainTing(R.drawable.line_8, Color.BLUE, 0, 2),
-        brushPainTing(R.drawable.line_9, Color.BLUE, 0, 6),
-        brushPainTing(R.drawable.line_10, Color.BLUE, 0, 4),
-        brushPainTing(R.drawable.line_11, Color.BLUE, 0, 9),
-        brushPainTing(R.drawable.line_12, Color.BLUE, 0, 11),
-        brushPainTing(R.drawable.line_13, Color.BLUE, 0, 10),
-        brushPainTing(R.drawable.line_14, Color.BLUE, 0, 3),
+        brushPainTing(R.drawable.line_7, Color.GREEN, 4, 0),
+        brushPainTing(R.drawable.line_8, Color.GREEN, 0, 2),
+        brushPainTing(R.drawable.line_9, Color.GREEN, 0, 6),
+        brushPainTing(R.drawable.line_10, Color.GREEN, 0, 4),
+        brushPainTing(R.drawable.line_11, Color.GREEN, 0, 9),
+        brushPainTing(R.drawable.line_12, Color.GREEN, 0, 11),
+        brushPainTing(R.drawable.line_13, Color.GREEN, 0, 10),
+        brushPainTing(R.drawable.line_14, Color.GREEN, 0, 3),
     )
 
     override fun setViewBinding(): ActivityFreeCreationBinding {
@@ -76,6 +86,9 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
     }
 
     override fun initView() {
+        isEdit = intent.getBooleanExtra("edit", false)
+        Background = intent.getStringExtra("bitmap", ).toString()
+        setData(isEdit)
         idInspiration = intent.getIntExtra("id", -1)
         if (idInspiration == -1) {
             binding.imgInPiration.gone()
@@ -87,14 +100,17 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             goneDilog()
         }
 
-        binding.mandalaView.setBackgroundColorCustom(Color.BLACK)
         binding.bg1.setImageResource(R.drawable.bg_droin_selected)
-        Brush = brushPainTing(R.drawable.line_2, Color.RED, 0, 0)
+        Brush = brushPainTing(R.drawable.line_15, Color.BLUE, 1, 0)
         setBrush(Brush)
         binding.icUndu.alpha = 0.4f
         binding.icRedu.alpha = 0.4f
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.strokeWidthSeekBar.min = 1
+        }
         binding.strokeWidthSeekBar.max = 50
-        binding.strokeWidthSeekBar.progress = 4
+        binding.strokeWidthSeekBar.progress = 15
+        binding.mandalaView.setStrokeWidth(15f)
         DroinCound()
         setUpColor()
         setUpRcvBrush()
@@ -137,7 +153,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             showDialogSave(0)
         }
         binding.icNewFile.setOnClickListener {
-            showFoundGhost()
+            showFoundGhost(1)
         }
         binding.ic4.setOnClickListener {
             goneDilog()
@@ -162,7 +178,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
             }
         }
         binding.icBack.tap {
-            showDialogSave(1)
+            showFoundGhost(0)
         }
         binding.icEraser.setOnClickListener {
             goneDilog()
@@ -213,7 +229,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 
 
     private fun setUpCardView() {
-        val aspectRatio = intent.getStringExtra("aspect_ratio") ?: "1:1"
+        aspectRatio = intent.getStringExtra("aspect_ratio") ?: "1:1"
         val (widthRatio, heightRatio) = when (aspectRatio) {
             "9:16" -> Pair(9f, 16f)
             "1:1" -> Pair(1f, 1f)
@@ -378,7 +394,7 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
     override fun dataObservable() {
     }
 
-    private fun showFoundGhost() {
+    private fun showFoundGhost(check: Int) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.popup_new_file, null)
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
@@ -406,12 +422,24 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
         }
 
         tvSave.setOnClickListener {
-            showDialogSave(2)
+            lifecycleScope.launch {
+                val db = DBHelper.getDatabase(this@FreeCreationActivity)
+                val path = savePaintViewToFile(binding.cardView, this@FreeCreationActivity)
+                db.fileDao().insertFile(MyFileModel(path = path, type = true, typeSize = aspectRatio))
+            }
             extracted(dialog)
+            if (check == 0) {
+                showActivity(MainActivity::class.java)
+                finishAffinity()
+            }
         }
         ivDiscard.setOnClickListener {
             dialog.dismiss()
             binding.mandalaView.clearCanvas()
+            if (check == 0) {
+                showActivity(MainActivity::class.java)
+                finishAffinity()
+            }
         }
         dialog.show()
     }
@@ -427,43 +455,17 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 //    }
 
     private fun extracted(dialog: AlertDialog) {
+        binding.mandalaView.clearCanvas()
         dialog.dismiss()
     }
 
-    private fun getBitmapFromView(view: View): Bitmap {
-        val returnedBitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(returnedBitmap)
-        view.draw(canvas)
-        return returnedBitmap
-    }
-
-//    private fun saveBitmapToGallery(bitmap: Bitmap) {
-//        val filename = "mandala_${System.currentTimeMillis()}.png"
-//        val contentValues = ContentValues().apply {
-//            put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
-//            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
-//            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-//        }
-//
-//        val resolver = applicationContext.contentResolver
-//        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-//
-//        uri?.let {
-//            val outputStream = resolver.openOutputStream(it)
-//            outputStream.use { stream ->
-//                if (stream != null) {
-//                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-//                }
-//            }
-//        }
-//    }
     private fun  showDialogSave(check: Int){
         val dialog = DeleteDialog(this, getString(R.string.are_you_save_it),
             action = {
                 lifecycleScope.launch {
                     val db = DBHelper.getDatabase(this@FreeCreationActivity)
                     val path = savePaintViewToFile(binding.cardView, this@FreeCreationActivity)
-                    db.fileDao().insertFile(MyFileModel(path = path, type = true))
+                    db.fileDao().insertFile(MyFileModel(path = path, type = true, typeSize = aspectRatio))
                 }
                 when(check) {
                     0-> showActivity(MyFileActivity::class.java)
@@ -485,6 +487,18 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
                 }
             })
         dialog.show()
+    }
+    private fun setData(isEdit: Boolean) {
+        Log.d("ColorDrawing" , "is edit $isEdit")
+        if (isEdit) {
+                val bitmap = BitmapFactory.decodeFile(Background)
+                binding.mandalaView.setBitmapBackground(bitmap)
+                binding.mandalaView.setEdit(true)
+
+        } else {
+            binding.mandalaView.setEdit(false)
+            binding.mandalaView.setBackgroundColorCustom(Color.BLACK)
+        }
     }
 
 

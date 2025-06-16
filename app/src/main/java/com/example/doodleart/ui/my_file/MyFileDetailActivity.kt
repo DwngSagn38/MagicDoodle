@@ -22,6 +22,7 @@ import com.example.doodleart.dialog.DeleteDialog
 import com.example.doodleart.model.MyFileModel
 import com.example.doodleart.roomdb.DBHelper
 import com.example.doodleart.ui.coloring.drawing.ColorDrawingActivity
+import com.example.doodleart.ui.free_creation.FreeCreationActivity
 import com.example.doodleart.ui.main.MainActivity
 import com.example.doodleart.ui.my_file.fragment.MyFileAdapter
 import com.example.doodleart.widget.gone
@@ -36,7 +37,8 @@ import java.io.FileOutputStream
 
 class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
 
-    private lateinit var myfile : MyFileModel
+    private lateinit var myfile: MyFileModel
+    private var checkVisible: Boolean = false
 
     override fun setViewBinding(): ActivityMyFileDetailBinding {
         return ActivityMyFileDetailBinding.inflate(layoutInflater)
@@ -44,19 +46,15 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
 
     override fun initView() {
         val fileId = intent.getIntExtra("fileId", 0)
-        val checkVisible = intent.getBooleanExtra("checkVisible", false)
-        if (checkVisible) {
-            binding.imgEdit.gone()
-        } else {
-            binding.imgEdit.visible()
+        checkVisible = intent.getBooleanExtra("checkVisible", false)
 
-        }
         lifecycleScope.launch {
             val db = DBHelper.getDatabase(this@MyFileDetailActivity)
             myfile = db.fileDao().getFileById(fileId)!!
 
             val bitmap = BitmapFactory.decodeFile(myfile!!.path)
-            setImg(bitmap,checkVisible)        }
+            setImg(bitmap, checkVisible)
+        }
 
         binding.imgBack.setOnClickListener {
             finish()
@@ -65,20 +63,31 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
     }
 
     override fun viewListener() {
+
         binding.apply {
             imgDelete.tap { showDialogDelete() }
             imgDown.tap { DownFile() }
             imgShare.tap { shareViewAsImage(binding.imgMyFileDraw) }
             imgEdit.tap {
-                intent = Intent(this@MyFileDetailActivity, ColorDrawingActivity::class.java)
-                intent.putExtra("id", myfile.id)
-                intent.putExtra("edit",true)
-                startActivity(intent)
-                finish()
+                if (checkVisible) {
+                    intent = Intent(this@MyFileDetailActivity, FreeCreationActivity::class.java)
+                    intent.putExtra("bitmap", myfile.path)
+                    intent.putExtra("aspect_ratio", myfile.typeSize)
+                    intent.putExtra("edit", true)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    intent = Intent(this@MyFileDetailActivity, ColorDrawingActivity::class.java)
+                    intent.putExtra("id", myfile.id)
+                    intent.putExtra("edit", true)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
     }
-    private fun setImg(bitmap:Bitmap,checkVisible: Boolean) {
+
+    private fun setImg(bitmap: Bitmap, checkVisible: Boolean) {
         if (checkVisible) {
             binding.imgMyFileColorating.visible()
             binding.imgMyFileDraw.gone()
@@ -94,7 +103,7 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
     override fun dataObservable() {
     }
 
-    private fun showDialogDelete(){
+    private fun showDialogDelete() {
         val dialog = DeleteDialog(this,
             mess = getString(R.string.are_you_delete_it),
             action = {
@@ -108,7 +117,7 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
         dialog.show()
     }
 
-    private fun DownFile(){
+    private fun DownFile() {
         val bitmap = BitmapFactory.decodeFile(myfile!!.path)
         saveBitmapToGallery(bitmap, this@MyFileDetailActivity)
         val mess = getString(R.string.save_to_gallery)
