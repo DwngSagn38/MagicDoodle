@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -61,14 +62,17 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
         binding.imgBack.setOnClickListener {
             finish()
         }
-        binding.imgHome.setOnClickListener { showActivity(MainActivity::class.java) }
+        binding.imgHome.setOnClickListener {
+            showActivity(MainActivity::class.java)
+            finishAffinity()
+        }
     }
 
     override fun viewListener() {
         binding.apply {
             imgDelete.tap { showDialogDelete() }
             imgDown.tap { DownFile() }
-            imgShare.tap { shareViewAsImage(binding.imgMyFileDraw) }
+            imgShare.tap { shareViewAsImage(binding.imgMyFile) }
             imgEdit.tap {
                 intent = Intent(this@MyFileDetailActivity, ColorDrawingActivity::class.java)
                 intent.putExtra("id", myfile.id)
@@ -79,14 +83,23 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
         }
     }
     private fun setImg(bitmap:Bitmap,checkVisible: Boolean) {
+        binding.imgMyFile.setImageBitmap(bitmap)
+        Log.d("TAG", "setImg: $checkVisible")
         if (checkVisible) {
-            binding.imgMyFileColorating.visible()
-            binding.imgMyFileDraw.gone()
-            binding.imgMyFileColorating.setImageBitmap(bitmap)
+            binding.apply {
+                imgMyFileColorating.gone()
+                imgMyFileDraw.visible()
+                imgMyFileDraw.loadImage(bitmap,true)
+                imgMyFileDraw.setPreviewMode(true)
+            }
+
         } else {
-            binding.imgMyFileColorating.gone()
-            binding.imgMyFileDraw.visible()
-            binding.imgMyFileDraw.setImageBitmap(bitmap)
+            binding.apply {
+                imgMyFileColorating.visible()
+                imgMyFileDraw.gone()
+                imgMyFileColorating.loadImage(bitmap,true)
+                imgMyFileColorating.setPreviewMode(true)
+            }
         }
 
     }
@@ -95,8 +108,10 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
     }
 
     private fun showDialogDelete(){
+        val button = getString(R.string.yes)
         val dialog = DeleteDialog(this,
             mess = getString(R.string.are_you_delete_it),
+            content = button,
             action = {
                 lifecycleScope.launch {
                     val db = DBHelper.getDatabase(this@MyFileDetailActivity)
@@ -111,7 +126,7 @@ class MyFileDetailActivity : BaseActivity<ActivityMyFileDetailBinding>() {
     private fun DownFile(){
         val bitmap = BitmapFactory.decodeFile(myfile!!.path)
         saveBitmapToGallery(bitmap, this@MyFileDetailActivity)
-        val mess = getString(R.string.save_to_gallery)
+        val mess = getString(R.string.photo_saved_to_device)
         Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
     }
 

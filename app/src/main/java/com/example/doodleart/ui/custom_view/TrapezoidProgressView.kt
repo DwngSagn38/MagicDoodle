@@ -14,7 +14,7 @@ class TrapezoidProgressView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : View(context, attrs) {
 
-    var progress: Float = 0.3f // từ 0f đến 1f
+    var progress: Float = 0.5f // từ 0f đến 1f
         set(value) {
             field = value.coerceIn(0f, 1f)
             invalidate()

@@ -36,8 +36,8 @@
     <string name="free_creation">Kreasi bebas</string>
     <string name="inspiration">Inspirasi</string>
     <string name="coloring">Mewarnai</string>
-    <string name="preview_off">Pratinjau mati</string>
-    <string name="preview_on">Pratinjau hidup</string>
+    <string name="preview_off">Penguncian warna nonaktif</string>
+    <string name="preview_on">Penguncian warna aktif</string>
     <string name="my_file">File Saya</string>
     <string name="this_action_can_contain_ads">Tindakan ini dapat berisi iklan</string>
     <string name="setting">Pengaturan</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">Silakan pilih jenis</string>
     <string name="photo_saved_to_device">Foto disimpan ke perangkat</string>
     <string name="hello_blank_fragment">Halo fragmen kosong</string>
-    <string name="are_you_save_it">Apakah Anda ingin menyimpannya ke File Saya?</string>
     <string name="are_you_delete_it">Apakah Anda ingin menghapusnya?</string>
-    <string name="are_you_want_save_it">Apakah Anda ingin menyimpannya ke File Saya sebelum keluar?</string>
     <string name="no">Tidak</string>
     <string name="yes">Ya</string>
     <string name="detail">Detail</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">Gambar disimpan ke perangkat</string>
     <string name="coloration">Pewarnaan</string>
     <string name="draw">Gambar</string>
+    <string name="save_it">Simpan?</string>
+    <string name="are_you_save_it">Ingin menyimpannya di Sketsa Saya?</string>
+    <string name="are_you_want_save_it">Ingin menyimpannya di Sketsa Saya sebelum keluar?</string>
 
 </resources>

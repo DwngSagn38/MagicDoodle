@@ -459,7 +459,9 @@ class FreeCreationActivity : BaseActivity<ActivityFreeCreationBinding>() {
 //        }
 //    }
     private fun showDialogSave(check: Int){
-        val dialog = DeleteDialog(this, getString(R.string.are_you_save_it),
+    val title = getString(R.string.save_it)
+
+        val dialog = DeleteDialog(this, title ,getString(R.string.are_you_save_it),
             action = {
                 lifecycleScope.launch {
                     val db = DBHelper.getDatabase(this@FreeCreationActivity)

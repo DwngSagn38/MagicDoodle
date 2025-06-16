@@ -36,8 +36,8 @@
     <string name="free_creation">Freie Kreation</string>
     <string name="inspiration">Inspiration</string>
     <string name="coloring">Ausmalen</string>
-    <string name="preview_off">Vorschau ist aus</string>
-    <string name="preview_on">Vorschau ist an</string>
+    <string name="preview_off">Farbsperre ist deaktiviert</string>
+    <string name="preview_on">Farbsperre ist aktiviert</string>
     <string name="my_file">Meine Datei</string>
     <string name="this_action_can_contain_ads">Diese Aktion kann Werbung enthalten</string>
     <string name="setting">Einstellung</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">Bitte Typ auswählen</string>
     <string name="photo_saved_to_device">Foto auf Gerät gespeichert</string>
     <string name="hello_blank_fragment">Hallo leeres Fragment</string>
-    <string name="are_you_save_it">Möchten Sie es in Meine Dateien speichern?</string>
     <string name="are_you_delete_it">Möchten Sie es löschen?</string>
-    <string name="are_you_want_save_it">Möchten Sie es vor dem Verlassen in Meine Dateien speichern?</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
     <string name="detail">Detail</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">Bild auf Gerät gespeichert</string>
     <string name="coloration">Färbung</string>
     <string name="draw">Zeichnen</string>
+    <string name="save_it">Speichern?</string>
+    <string name="are_you_save_it">Möchtest du es in „Meine Skizzen“ speichern?</string>
+    <string name="are_you_want_save_it">Möchtest du es vor dem Verlassen in „Meine Skizzen“ speichern?</string>
 
 </resources>

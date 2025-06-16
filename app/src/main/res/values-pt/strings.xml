@@ -36,8 +36,8 @@
     <string name="free_creation">Criação livre</string>
     <string name="inspiration">Inspiração</string>
     <string name="coloring">Colorir</string>
-    <string name="preview_off">Visualização desativada</string>
-    <string name="preview_on">Visualização ativada</string>
+    <string name="preview_off">Bloqueio de cor desativado</string>
+    <string name="preview_on">Bloqueio de cor ativado</string>
     <string name="my_file">Meu arquivo</string>
     <string name="this_action_can_contain_ads">Esta ação pode conter anúncios</string>
     <string name="setting">Configuração</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">Por favor, selecione o tipo</string>
     <string name="photo_saved_to_device">Foto salva no dispositivo</string>
     <string name="hello_blank_fragment">Olá fragmento em branco</string>
-    <string name="are_you_save_it">Deseja salvá-lo em Meus Arquivos?</string>
     <string name="are_you_delete_it">Deseja excluí-lo?</string>
-    <string name="are_you_want_save_it">Deseja salvá-lo em Meus Arquivos antes de sair?</string>
     <string name="no">Não</string>
     <string name="yes">Sim</string>
     <string name="detail">Detalhe</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">Imagem salva no dispositivo</string>
     <string name="coloration">Coloração</string>
     <string name="draw">Desenhar</string>
+    <string name="save_it">Salvar?</string>
+    <string name="are_you_save_it">Deseja salvar em Meus Rascunhos?</string>
+    <string name="are_you_want_save_it">Deseja salvar em Meus Rascunhos antes de sair?</string>
 
 </resources>

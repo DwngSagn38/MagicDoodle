@@ -21,10 +21,12 @@ import com.example.doodleart.model.ColorModel
 import com.example.doodleart.model.MyFileModel
 import com.example.doodleart.roomdb.DBHelper
 import com.example.doodleart.ui.custom_view.ZoomablePaintView
+import com.example.doodleart.ui.my_file.MyFileActivity
 import com.example.doodleart.ui.my_file.MyFileDetailActivity
 import com.example.doodleart.ui.my_file.fragment.MyFileAdapter
 import com.example.doodleart.utils.showColorPicker
 import com.example.doodleart.widget.gone
+import com.example.doodleart.widget.invisible
 import com.example.doodleart.widget.savePaintViewToFile
 import com.example.doodleart.widget.setGradientText
 import com.example.doodleart.widget.tap
@@ -35,10 +37,11 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
     private var idColoring : Int = 0
     private lateinit var myFile : MyFileModel
     private var isEdit : Boolean = false
+    private var isModeType : Boolean = false
     private lateinit var adapterColor : ColorDrawingAdapter
     private lateinit var currentColor : String
-    private var currentColorInt: Int = Color.WHITE
-    private var brushSizePx: Int = 10
+    private var currentColorInt: Int = Color.YELLOW
+    private var brushSizePx: Int = 20
     private lateinit var listColor : List<ColorModel>
     private var isPreview = false
     private lateinit var loadingDialog: Dialog
@@ -54,7 +57,6 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
         idColoring = intent.getIntExtra("id", 0)
         setData(isEdit)
 
-        binding.imgPreview.setColorFilter(if (isPreview) 0 else R.color.color_555555)
         initLoadingDialog()
         binding.llProgress.bringToFront()
         binding.imgBack.tap { showDialogConfirm() }
@@ -95,15 +97,24 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
                 zoomablePaintView.redo()
                 updateUndoRedoUI()
             }
-            imgPreview.tap {
-                isPreview = !isPreview
-                zoomablePaintView.setPreviewMode(isPreview)
-                imgPreview.setColorFilter(if (isPreview) 0 else R.color.color_555555)
-                val mess = if (isPreview) getString(R.string.preview_on) else getString(R.string.preview_off)
-                Toast.makeText(this@ColorDrawingActivity, mess, Toast.LENGTH_SHORT).show()
+            imgLockColoringOn.tap {
+                lockColoring()
+                imgLockColoringOn.invisible()
+                imgLockColoringOff.visible()
             }
-            imgColorType.tap {
-                llColorType.visible()
+            imgLockColoringOff.tap {
+                lockColoring()
+                imgLockColoringOn.visible()
+                imgLockColoringOff.invisible()
+            }
+            imgColorType.setOnClickListener {
+                isModeType = !isModeType
+                if (isModeType){
+                    llColorType.visible()
+                }else{
+                    llColorType.gone()
+                }
+
             }
 
             imgColorDefault.tap {
@@ -143,6 +154,12 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
 
     }
 
+    private fun lockColoring(){
+        isPreview = !isPreview
+        binding.zoomablePaintView.setPreviewMode(isPreview)
+        val mess = if (isPreview) getString(R.string.preview_on) else getString(R.string.preview_off)
+        Toast.makeText(this@ColorDrawingActivity, mess, Toast.LENGTH_SHORT).show()
+    }
     override fun dataObservable() {
     }
 
@@ -166,6 +183,7 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
             }
             currentColorInt = Color.parseColor(currentColor)
             binding.zoomablePaintView.setBrushColor(currentColorInt)
+            binding.llColorType.gone()
         }
 
         binding.rcvColoring.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -234,7 +252,8 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
 
     private fun showDialogSave(){
         val mess = getString(R.string.are_you_save_it)
-        val dialog = DeleteDialog(this, mess,
+        val title = getString(R.string.save_it)
+        val dialog = DeleteDialog(this, title,mess,
             action = {
                 binding.zoomablePaintView.resetZoomAndPan()
                 lifecycleScope.launch {
@@ -245,17 +264,17 @@ class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {
                         dbHelper.fileDao().insertFile(MyFileModel(path = path, type = false))
                     }
                 }
-                finish()
+                showActivity(MyFileActivity::class.java)
+                finishAffinity()
             },
             no = {})
         dialog.show()
     }
 
     private fun showDialogConfirm() {
-        val mess = getString(R.string.are_you_want_save_it)
+//        val mess = getString(R.string.are_you_want_save_it)
         val dialog = DeleteDialog(
             this,
-            mess,
             action = {
                 binding.zoomablePaintView.resetZoomAndPan()
                 lifecycleScope.launch {

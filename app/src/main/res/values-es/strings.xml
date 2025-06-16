@@ -36,8 +36,8 @@
     <string name="free_creation">Creación libre</string>
     <string name="inspiration">Inspiración</string>
     <string name="coloring">Coloreado</string>
-    <string name="preview_off">Vista previa desactivada</string>
-    <string name="preview_on">Vista previa activada</string>
+    <string name="preview_off">El bloqueo de color está desactivado</string>
+    <string name="preview_on">El bloqueo de color está activado</string>
     <string name="my_file">Mi archivo</string>
     <string name="this_action_can_contain_ads">Esta acción puede contener publicidad</string>
     <string name="setting">Einstellung</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">Por favor, seleccione el tipo</string>
     <string name="photo_saved_to_device">Foto guardada en el dispositivo</string>
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
-    <string name="are_you_save_it">¿Deseas guardarlo en Mis Archivos?</string>
     <string name="are_you_delete_it">¿Deseas eliminarlo?</string>
-    <string name="are_you_want_save_it">¿Quieres guardarlo en Mis Archivos antes de salir?</string>
     <string name="no">No</string>
     <string name="yes">Sí</string>
     <string name="detail">Detalle</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">Imagen guardada en el dispositivo</string>
     <string name="coloration">Coloración</string>
     <string name="draw">Dibujar</string>
+    <string name="save_it">¿Guardar?</string>
+    <string name="are_you_save_it">¿Quieres guardarlo en Mis bocetos?</string>
+    <string name="are_you_want_save_it">¿Te gustaría guardarlo en Mis bocetos antes de salir?</string>
 
 </resources>

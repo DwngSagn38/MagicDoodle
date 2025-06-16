@@ -37,8 +37,8 @@
     <string name="free_creation">Tự do sáng tạo</string>
     <string name="inspiration">Cảm hứng</string>
     <string name="coloring">Tô màu</string>
-    <string name="preview_off">Xem trước đang tắt</string>
-    <string name="preview_on">Xem trước đang bật</string>
+    <string name="preview_off">Đã tắt khóa màu</string>
+    <string name="preview_on">Đã bật khóa màu</string>
     <string name="my_file">Tệp của tôi</string>
     <string name="this_action_can_contain_ads">Hành động này có thể chứa quảng cáo</string>
     <string name="setting">Cài đặt</string>
@@ -55,9 +55,7 @@
     <string name="please_select_type">Vui lòng chọn loại</string>
     <string name="photo_saved_to_device">Ảnh đã được lưu vào thiết bị</string>
     <string name="hello_blank_fragment">Xin chào Fragment trống</string>
-    <string name="are_you_save_it">Bạn có muốn lưu nó vào Tệp của tôi không?</string>
     <string name="are_you_delete_it">Bạn có muốn xóa nó không?</string>
-    <string name="are_you_want_save_it">Bạn có muốn lưu nó vào Tệp của tôi trước khi thoát ra ngoài không?</string>
     <string name="no">Không</string>
     <string name="yes">Có</string>
     <string name="detail">Chi tiết</string>
@@ -65,5 +63,7 @@
     <string name="save_to_gallery">Hình ảnh đã được lưu vào thiết bị</string>
     <string name="coloration">Tô màu</string>
     <string name="draw">Vẽ</string>
-
+    <string name="save_it">Lưu lại?</string>
+    <string name="are_you_save_it">Bạn có muốn lưu vào Bản phác thảo của tôi không?</string>
+    <string name="are_you_want_save_it">Bạn có muốn lưu vào Bản phác thảo của tôi trước khi thoát không?</string>
 </resources>

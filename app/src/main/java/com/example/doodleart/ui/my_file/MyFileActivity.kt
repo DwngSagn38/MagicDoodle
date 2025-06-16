@@ -24,7 +24,7 @@ class MyFileActivity : BaseActivity<ActivityMyFileBinding>() {
     override fun initView() {
 
         val tabIcons = listOf(R.drawable.ic_coloring, R.drawable.ic_drawing)
-        val tabTitles = listOf(getString(R.string.coloring), getString(R.string.draw))
+        val tabTitles = listOf(getString(R.string.coloration), getString(R.string.draw))
 
         binding.viewPager2.adapter = MyFilePagerAdapter(this)
 

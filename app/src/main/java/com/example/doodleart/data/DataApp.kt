@@ -56,14 +56,14 @@ object DataApp {
 
     fun getListColor() : List<ColorModel>{
         return listOf(
-            ColorModel(0, "#FFFFFF" , R.drawable.img_color_add, true),
+            ColorModel(0, "#EC1299" , R.drawable.img_color_add, true),
             ColorModel(1, "#DA2525", R.drawable.img_color_red, true),
             ColorModel(2, "#CC2272", R.drawable.img_color_pink, true),
             ColorModel(3, "#660694", R.drawable.img_color_purple, true),
             ColorModel(4, "#8F04B0", R.drawable.img_color_purple_2, true),
             ColorModel(5, "#023C91", R.drawable.img_color_blue_2, true),
             ColorModel(6, "#0190D6", R.drawable.img_color_blue, true),
-            ColorModel(7, "#FFFFFF" , R.drawable.img_color_add, false),
+            ColorModel(7, "#EC1299" , R.drawable.img_color_add, false),
             ColorModel(8, "#DA2525", R.drawable.img_color_bling_red, false),
             ColorModel(9, "#CC2272", R.drawable.img_color_bling_pink, false),
             ColorModel(10, "#660694", R.drawable.img_color_bling_purple, false),
