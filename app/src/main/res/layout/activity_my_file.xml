@@ -12,7 +12,7 @@
         android:id="@+id/imgBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_home"
+        android:src="@drawable/ic_back_1"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toTopOf="parent"

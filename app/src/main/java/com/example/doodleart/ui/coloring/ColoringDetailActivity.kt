@@ -50,7 +50,7 @@ class ColoringDetailActivity : BaseActivity<ActivityColoringDetailBinding>() {
         val bitmap = BitmapFactory.decodeResource(resources, resId)
 
         saveBitmapToGallery(bitmap, this@ColoringDetailActivity)
-        val mess = getString(R.string.save_to_gallery)
+        val mess = getString(R.string.photo_saved_to_device)
         Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
     }
 

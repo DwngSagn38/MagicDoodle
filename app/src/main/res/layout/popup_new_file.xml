@@ -10,7 +10,7 @@
         android:layout_marginHorizontal="36dp"
         android:id="@+id/popupLayout"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="360dp"
         android:background="@drawable/bg_popup_save"
         android:gravity="center"
         android:orientation="vertical"
@@ -31,7 +31,9 @@
 
         <TextView
             android:id="@+id/tv1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="12dp"
+            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/poppins_semibold_600"
@@ -44,7 +46,9 @@
 
         <TextView
             android:id="@+id/tv2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="12dp"
+            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular_400"
             android:text="@string/your_progress_will_be_lost"
@@ -78,7 +82,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_save" />
+            app:layout_constraintTop_toBottomOf="@id/tv_save"
+            android:layout_marginBottom="8dp"/>
 
 
     </LinearLayout>

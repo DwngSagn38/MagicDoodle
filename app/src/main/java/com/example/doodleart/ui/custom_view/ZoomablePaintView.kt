@@ -30,7 +30,7 @@ class ZoomablePaintView @JvmOverloads constructor(
 
     private val drawPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.RED
-        strokeWidth = 10f
+        strokeWidth = 20f
         style = Paint.Style.STROKE
         strokeJoin = Paint.Join.ROUND
         strokeCap = Paint.Cap.ROUND

@@ -36,8 +36,8 @@
     <string name="free_creation">मुक्त सृजन</string>
     <string name="inspiration">प्रेरणा</string>
     <string name="coloring">रंग भरना</string>
-    <string name="preview_off">पूर्वावलोकन बंद है</string>
-    <string name="preview_on">पूर्वावलोकन चालू है</string>
+    <string name="preview_off">रंग लॉक बंद है</string>
+    <string name="preview_on">रंग लॉक चालू है</string>
     <string name="my_file">मेरी फ़ाइल</string>
     <string name="this_action_can_contain_ads">इस क्रिया में विज्ञापन हो सकता है</string>
     <string name="setting">सेटिंग</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">कृपया प्रकार चुनें</string>
     <string name="photo_saved_to_device">फ़ोटो डिवाइस में सहेजा गया</string>
     <string name="hello_blank_fragment">नमस्ते खाली फ़्रैगमेंट</string>
-    <string name="are_you_save_it">क्या आप इसे मेरी फ़ाइल में सहेजना चाहते हैं?</string>
     <string name="are_you_delete_it">क्या आप इसे हटाना चाहते हैं?</string>
-    <string name="are_you_want_save_it">क्या आप बाहर जाने से पहले इसे मेरी फ़ाइल में सहेजना चाहेंगे?</string>
     <string name="no">नहीं</string>
     <string name="yes">हाँ</string>
     <string name="detail">विवरण</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">छवि डिवाइस में सहेजी गई</string>
     <string name="coloration">रंगाई</string>
     <string name="draw">चित्र बनाएं</string>
+    <string name="save_it">इसे सहेजें?</string>
+    <string name="are_you_save_it">क्या आप इसे मेरी स्केचेज़ में सहेजना चाहते हैं?</string>
+    <string name="are_you_want_save_it">क्या आप छोड़ने से पहले इसे मेरी स्केचेज़ में सहेजना चाहेंगे?</string>
 
 </resources>

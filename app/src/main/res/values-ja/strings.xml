@@ -36,8 +36,8 @@
     <string name="free_creation">自由な創作</string>
     <string name="inspiration">インスピレーション</string>
     <string name="coloring">ぬりえ</string>
-    <string name="preview_off">プレビューオフ</string>
-    <string name="preview_on">プレビューオン</string>
+    <string name="preview_off">カラー ロックはオフです</string>
+    <string name="preview_on">カラー ロックはオンです</string>
     <string name="my_file">マイファイル</string>
     <string name="this_action_can_contain_ads">この操作には広告が含まれる場合があります</string>
     <string name="setting">設定</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">タイプを選択してください</string>
     <string name="photo_saved_to_device">写真がデバイスに保存されました</string>
     <string name="hello_blank_fragment">こんにちは、空白のフラグメント</string>
-    <string name="are_you_save_it">マイファイルに保存しますか？</string>
     <string name="are_you_delete_it">削除しますか？</string>
-    <string name="are_you_want_save_it">終了する前にマイファイルに保存しますか？</string>
     <string name="no">いいえ</string>
     <string name="yes">はい</string>
     <string name="detail">詳細</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">画像がデバイスに保存されました</string>
     <string name="coloration">彩色</string>
     <string name="draw">描く</string>
+    <string name="save_it">保存しますか？</string>
+    <string name="are_you_save_it">「マイスケッチ」に保存しますか？</string>
+    <string name="are_you_want_save_it">終了する前に「マイスケッチ」に保存しますか？</string>
 
 </resources>

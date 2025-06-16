@@ -36,8 +36,8 @@
     <string name="free_creation">Création libre</string>
     <string name="inspiration">Inspiration</string>
     <string name="coloring">Coloriage</string>
-    <string name="preview_off">Aperçu désactivé</string>
-    <string name="preview_on">Aperçu activé</string>
+    <string name="preview_off">Le verrouillage des couleurs est désactivé</string>
+    <string name="preview_on">Le verrouillage des couleurs est activé</string>
     <string name="my_file">Mon fichier</string>
     <string name="this_action_can_contain_ads">Cette action peut contenir de la publicité</string>
     <string name="setting">Paramètre</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">Veuillez sélectionner un type</string>
     <string name="photo_saved_to_device">Photo enregistrée sur l\'appareil</string>
     <string name="hello_blank_fragment">Bonjour fragment vierge</string>
-    <string name="are_you_save_it">Souhaitez-vous l\'enregistrer dans Mes fichiers ?</string>
     <string name="are_you_delete_it">Souhaitez-vous le supprimer ?</string>
-    <string name="are_you_want_save_it">Voulez-vous l’enregistrer dans Mes fichiers avant de quitter ?</string>
     <string name="no">Non</string>
     <string name="yes">Oui</string>
     <string name="detail">Détail</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">Image enregistrée sur l\'appareil</string>
     <string name="coloration">Coloration</string>
     <string name="draw">Dessiner</string>
+    <string name="save_it">Enregistrer ?</string>
+    <string name="are_you_save_it">Voulez-vous l’enregistrer dans Mes croquis ?</string>
+    <string name="are_you_want_save_it">Souhaitez-vous l’enregistrer dans Mes croquis avant de quitter ?</string>
 
 </resources>

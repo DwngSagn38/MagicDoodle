@@ -36,8 +36,8 @@
     <string name="free_creation">Free creation</string>
     <string name="inspiration">Inspiration</string>
     <string name="coloring">Coloring</string>
-    <string name="preview_off">Preview is off</string>
-    <string name="preview_on">Preview is on</string>
+    <string name="preview_off">Lock coloring is off</string>
+    <string name="preview_on">Lock coloring is on</string>
     <string name="my_file">My File</string>
     <string name="this_action_can_contain_ads">This action may contain advertising</string>
     <string name="setting">Setting</string>
@@ -54,9 +54,7 @@
     <string name="please_select_type">Please select type</string>
     <string name="photo_saved_to_device">Photo saved to device</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="are_you_save_it">Do you want to save it in My File?</string>
     <string name="are_you_delete_it">Do you want to delete it?</string>
-    <string name="are_you_want_save_it">Would you like to save it to My File before leaving?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="detail">Detail</string>
@@ -64,5 +62,8 @@
     <string name="save_to_gallery">Image saved to device</string>
     <string name="coloration">Coloration</string>
     <string name="draw">Draw</string>
+    <string name="save_it">Save it?</string>
+    <string name="are_you_save_it">Do you want to save it in My Sketches?</string>
+    <string name="are_you_want_save_it">Would you like to save it to My Sketches before leaving?</string>
 
 </resources>

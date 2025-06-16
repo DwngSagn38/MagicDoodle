@@ -4,19 +4,21 @@ import android.app.Activity
 import android.view.LayoutInflater
 import com.example.doodleart.base.BaseDialog
 import com.example.doodleart.databinding.DialogDeleteBinding
+import com.example.doodleart.databinding.PopupNewFileBinding
 import com.example.doodleart.widget.tap
 
 class DeleteDialog (
     activity1: Activity,
+    val title : String? = null,
     val mess : String? = null,
     val content: String? = null,
     private var action: () -> Unit,
     private var no: () -> Unit,
-) : BaseDialog<DialogDeleteBinding>(activity1, true) {
+) : BaseDialog<PopupNewFileBinding>(activity1, true) {
 
 
-    override fun getContentView(): DialogDeleteBinding {
-        return DialogDeleteBinding.inflate(LayoutInflater.from(activity))
+    override fun getContentView(): PopupNewFileBinding {
+        return PopupNewFileBinding.inflate(LayoutInflater.from(activity))
     }
 
     override fun initView() {
@@ -26,17 +28,19 @@ class DeleteDialog (
         binding.root.tap { dismiss() }
         binding.apply {
 
-            tvMess.text = mess
-
-            tvNo.tap {
+            if(title != null) tv1.text = title
+            if (mess != null) tv2.text = mess
+            if (content != null) tvSave.text = content
+            tvDiscard.tap {
                 no.invoke()
                 dismiss()
             }
 
-            tvYes.tap {
+            tvSave.tap {
                 action.invoke()
                 dismiss()
             }
+
         }
     }
 }
