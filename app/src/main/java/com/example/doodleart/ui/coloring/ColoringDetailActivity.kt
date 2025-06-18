@@ -46,9 +46,11 @@ class ColoringDetailActivity : BaseActivity<ActivityColoringDetailBinding>() {
     }
 
     private fun DownFile(){
-        val resId = DataApp.getListColoring()[idColoring].img
-        val bitmap = BitmapFactory.decodeResource(resources, resId)
 
+//        val resId = DataApp.getListColoring()[idColoring].img
+//        val bitmap = BitmapFactory.decodeResource(resources, resId)
+
+        val bitmap = getBitmapFromView(binding.llImage)
         saveBitmapToGallery(bitmap, this@ColoringDetailActivity)
         val mess = getString(R.string.photo_saved_to_device)
         Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()

@@ -13,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.doodleart.R
@@ -23,6 +24,8 @@ import com.example.doodleart.databinding.ActivityInspirationDetailBinding
 import com.example.doodleart.ui.coloring.drawing.ColorDrawingActivity
 import com.example.doodleart.ui.free_creation.FreeCreationActivity
 import com.example.doodleart.widget.tap
+import java.io.File
+import java.io.FileOutputStream
 
 class InspirationDetailActivity : BaseActivity<ActivityInspirationDetailBinding>() {
     private var idColoring : Int = 0
@@ -86,9 +89,34 @@ class InspirationDetailActivity : BaseActivity<ActivityInspirationDetailBinding>
 
 
     override fun viewListener() {
+        binding.imgShare.tap { shareViewAsImage(binding.imgColoring) }
     }
 
     override fun dataObservable() {
     }
 
+    private fun shareViewAsImage(view: View) {
+        val bitmap = getBitmapFromView(view)
+
+        // Tạo file tạm
+        val file = File(cacheDir, "shared_view.png")
+        val outputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        val uri = FileProvider.getUriForFile(
+            this,
+            "${packageName}.provider",
+            file
+        )
+
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        startActivity(Intent.createChooser(shareIntent, "Chia sẻ ảnh"))
+    }
 }
