@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Doodle Art</string>
+    <string name="app_name">Paint &amp; Draw</string>
     <string name="this_is_item_sample">これはアイテムのサンプルです！</string>
     <string name="please_send_us">フィードバックをお送りください！</string>
     <string name="write_some_feedback">フィードバックを書く</string>

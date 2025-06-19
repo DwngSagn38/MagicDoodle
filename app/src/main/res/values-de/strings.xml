@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Doodle Art</string>
+    <string name="app_name">Paint &amp; Draw</string>
     <string name="this_is_item_sample">Dies ist ein Beispiel für ein Element!</string>
     <string name="please_send_us">Bitte sende uns Feedback!</string>
     <string name="write_some_feedback">Schreibe ein Feedback</string>

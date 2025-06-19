@@ -28,7 +28,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_hue_colorpicker" />
 
-        <com.example.doodleart.library.colorpicker.ColorPickerView
+        <com.doodleart.paintcolor.drawart.colorpicker.ColorPickerPopUp
             android:id="@+id/colorPickerView"
             android:layout_width="match_parent"
             android:layout_height="215dp"

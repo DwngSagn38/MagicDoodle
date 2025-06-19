@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Doodle Art</string>
+    <string name="app_name">Paint &amp; Draw</string>
     <string name="this_is_item_sample">Ceci est un exemple d’élément !</string>
     <string name="please_send_us">Please send us some feedback!</string>
     <string name="write_some_feedback">Write some feedback</string>
