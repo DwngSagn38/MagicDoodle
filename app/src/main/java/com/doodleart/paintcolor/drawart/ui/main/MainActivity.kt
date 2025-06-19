@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.main
+package com.doodleart.paintcolor.drawart.ui.main
 
 import android.content.Intent
 import android.graphics.Color
@@ -16,17 +16,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.databinding.ActivityMainBinding
-import com.example.doodleart.ui.free_creation.FreeCreationActivity
-import com.example.doodleart.widget.tap
-import com.example.doodleart.ui.coloring.ColoringActivity
-import com.example.doodleart.ui.inpiration.InpirationActivity
-import com.example.doodleart.ui.my_file.MyFileActivity
-import com.example.doodleart.ui.setting.SettingActivity
-import com.example.doodleart.utils.showColorPicker
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.databinding.ActivityMainBinding
+import com.doodleart.paintcolor.drawart.ui.free_creation.FreeCreationActivity
+import com.doodleart.paintcolor.drawart.widget.tap
+import com.doodleart.paintcolor.drawart.ui.coloring.ColoringActivity
+import com.doodleart.paintcolor.drawart.ui.inpiration.InpirationActivity
+import com.doodleart.paintcolor.drawart.ui.my_file.MyFileActivity
+import com.doodleart.paintcolor.drawart.ui.setting.SettingActivity
+import com.doodleart.paintcolor.drawart.utils.showColorPicker
+import com.doodleart.paintcolor.drawart.widget.tap
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var currentColorInt: Int = Color.WHITE

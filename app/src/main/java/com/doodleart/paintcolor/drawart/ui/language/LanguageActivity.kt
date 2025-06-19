@@ -1,11 +1,11 @@
-package com.example.doodleart.ui.language
+package com.doodleart.paintcolor.drawart.ui.language
 
 import android.content.Intent
 import com.doodleart.paintcolor.drawart.utils.SystemUtil
-import com.example.doodleart.ui.main.MainActivity
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.databinding.ActivityLanguageBinding
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.ui.main.MainActivity
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.databinding.ActivityLanguageBinding
+import com.doodleart.paintcolor.drawart.widget.tap
 
 class LanguageActivity : BaseActivity<ActivityLanguageBinding>() {
 

@@ -1,4 +1,4 @@
-package com.example.doodleart.sharePreferent
+package com.doodleart.paintcolor.drawart.sharePreferent
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

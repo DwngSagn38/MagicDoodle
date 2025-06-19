@@ -1,4 +1,4 @@
-package com.example.doodleart.utils
+package com.doodleart.paintcolor.drawart.utils
 
 import android.content.Context
 import android.util.Log

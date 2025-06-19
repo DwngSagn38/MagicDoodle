@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.custom_view
+package com.doodleart.paintcolor.drawart.ui.custom_view
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -20,9 +20,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
-import com.example.doodleart.R
-import com.example.doodleart.data.Stroke
-import com.example.doodleart.data.StrokeShape
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.data.Stroke
+import com.doodleart.paintcolor.drawart.data.StrokeShape
 import kotlin.math.cos
 import kotlin.math.sin
 

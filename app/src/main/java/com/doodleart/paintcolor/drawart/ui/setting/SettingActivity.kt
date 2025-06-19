@@ -1,15 +1,15 @@
-package com.example.doodleart.ui.setting
+package com.doodleart.paintcolor.drawart.ui.setting
 
 import android.app.AlertDialog
 import android.content.Intent
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.databinding.ActivitySettingBinding
-import com.example.doodleart.ui.language.LanguageActivity
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.databinding.ActivitySettingBinding
+import com.doodleart.paintcolor.drawart.ui.language.LanguageActivity
 
-import com.example.doodleart.utils.helper.HelperMenu
+import com.doodleart.paintcolor.drawart.utils.helper.HelperMenu
 
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.widget.tap
 import java.io.File
 
 class SettingActivity : BaseActivity<ActivitySettingBinding>() {

@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.inpiration
+package com.doodleart.paintcolor.drawart.ui.inpiration
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.data.DataApp
-import com.example.doodleart.databinding.ActivityInpirationBinding
-import com.example.doodleart.ui.coloring.ColoringAdapter
-import com.example.doodleart.ui.coloring.ColoringDetailActivity
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.data.DataApp
+import com.doodleart.paintcolor.drawart.databinding.ActivityInpirationBinding
+import com.doodleart.paintcolor.drawart.ui.coloring.ColoringAdapter
+import com.doodleart.paintcolor.drawart.ui.coloring.ColoringDetailActivity
+import com.doodleart.paintcolor.drawart.widget.tap
 
 class InpirationActivity : BaseActivity<ActivityInpirationBinding>() {
     private lateinit var adapter: InspirationAdapter

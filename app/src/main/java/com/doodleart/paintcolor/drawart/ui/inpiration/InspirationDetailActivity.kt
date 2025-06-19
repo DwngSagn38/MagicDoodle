@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.inpiration
+package com.doodleart.paintcolor.drawart.ui.inpiration
 
 import android.content.ContentValues
 import android.content.Intent
@@ -16,14 +16,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.data.DataApp
-import com.example.doodleart.databinding.ActivityColoringDetailBinding
-import com.example.doodleart.databinding.ActivityInspirationDetailBinding
-import com.example.doodleart.ui.coloring.drawing.ColorDrawingActivity
-import com.example.doodleart.ui.free_creation.FreeCreationActivity
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.data.DataApp
+import com.doodleart.paintcolor.drawart.databinding.ActivityColoringDetailBinding
+import com.doodleart.paintcolor.drawart.databinding.ActivityInspirationDetailBinding
+import com.doodleart.paintcolor.drawart.ui.coloring.drawing.ColorDrawingActivity
+import com.doodleart.paintcolor.drawart.ui.free_creation.FreeCreationActivity
+import com.doodleart.paintcolor.drawart.widget.tap
 import java.io.File
 import java.io.FileOutputStream
 

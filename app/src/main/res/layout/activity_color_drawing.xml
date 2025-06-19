@@ -80,7 +80,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgUndo"
         app:layout_constraintStart_toEndOf="@+id/imgLockColoringOff"/>
 
-    <com.example.doodleart.ui.custom_view.ZoomablePaintView
+    <com.doodleart.paintcolor.drawart.ui.custom_view.ZoomablePaintView
         android:id="@+id/zoomablePaintView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -191,7 +191,7 @@
         android:layout_marginHorizontal="20dp">
 
         <!-- Custom trapezoid view -->
-        <com.example.doodleart.ui.custom_view.TrapezoidProgressView
+        <com.doodleart.paintcolor.drawart.ui.custom_view.TrapezoidProgressView
             android:id="@+id/trapezoidProgress"
             android:layout_width="match_parent"
             android:layout_height="20dp"

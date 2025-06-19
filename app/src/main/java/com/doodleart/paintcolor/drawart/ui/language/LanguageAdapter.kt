@@ -1,15 +1,15 @@
-package com.example.doodleart.ui.language
+package com.doodleart.paintcolor.drawart.ui.language
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doodleart.R
-import com.example.doodleart.databinding.ItemLanguageBinding
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.databinding.ItemLanguageBinding
 
-import com.example.doodleart.model.LanguageModel
-import com.example.doodleart.view.base.BaseAdapter
+import com.doodleart.paintcolor.drawart.model.LanguageModel
+import com.doodleart.paintcolor.drawart.view.base.BaseAdapter
 
 class LanguageAdapter(
     val context: Context,

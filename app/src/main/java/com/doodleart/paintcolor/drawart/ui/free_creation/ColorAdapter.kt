@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.free_creation
+package com.doodleart.paintcolor.drawart.ui.free_creation
 
 import android.content.Context
 import android.graphics.Color
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doodleart.R
+import com.doodleart.paintcolor.drawart.R
 class ColorAdapter(
     private val colors: Array<Int>,
     private val onItemClick: (Int) -> Unit,

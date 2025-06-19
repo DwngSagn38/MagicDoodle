@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.free_creation
+package com.doodleart.paintcolor.drawart.ui.free_creation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doodleart.R
-import com.example.doodleart.data.brushPainTing
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.data.brushPainTing
 
 class BrushAdapter(
     private val items: List<brushPainTing>,

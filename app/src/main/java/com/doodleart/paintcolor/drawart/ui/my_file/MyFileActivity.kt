@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.my_file
+package com.doodleart.paintcolor.drawart.ui.my_file
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.databinding.ActivityMyFileBinding
-import com.example.doodleart.ui.main.MainActivity
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.databinding.ActivityMyFileBinding
+import com.doodleart.paintcolor.drawart.ui.main.MainActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

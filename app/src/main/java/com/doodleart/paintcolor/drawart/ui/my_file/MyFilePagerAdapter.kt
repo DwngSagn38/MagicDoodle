@@ -1,10 +1,10 @@
-package com.example.doodleart.ui.my_file
+package com.doodleart.paintcolor.drawart.ui.my_file
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.doodleart.ui.my_file.fragment.ColorationFragment
-import com.example.doodleart.ui.my_file.fragment.DrawFragment
+import com.doodleart.paintcolor.drawart.ui.my_file.fragment.ColorationFragment
+import com.doodleart.paintcolor.drawart.ui.my_file.fragment.DrawFragment
 
 class MyFilePagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {

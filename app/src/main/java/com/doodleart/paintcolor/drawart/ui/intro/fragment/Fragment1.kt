@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.intro.fragment
+package com.doodleart.paintcolor.drawart.ui.intro.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.doodleart.R
-import com.example.doodleart.databinding.LayoutItemIntroBinding
-import com.example.doodleart.model.IntroModel
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.databinding.LayoutItemIntroBinding
+import com.doodleart.paintcolor.drawart.model.IntroModel
 
 
 @SuppressLint("UseCompatLoadingForDrawables")

@@ -1,4 +1,4 @@
-package  com.example.doodleart.base
+package  com.doodleart.paintcolor.drawart.base
 
 import android.app.Activity
 import android.app.Dialog
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.Window
 import androidx.viewbinding.ViewBinding
 import com.doodleart.paintcolor.drawart.utils.SystemUtil
-import com.example.doodleart.R
+import com.doodleart.paintcolor.drawart.R
 
 
 abstract class BaseDialog<VB : ViewBinding>(var activity: Activity, var canAble: Boolean) :

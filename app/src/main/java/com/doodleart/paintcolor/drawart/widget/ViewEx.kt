@@ -1,4 +1,4 @@
-package com.example.doodleart.widget
+package com.doodleart.paintcolor.drawart.widget
 
 
 import android.content.ContentValues
@@ -14,7 +14,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.example.doodleart.R
+import com.doodleart.paintcolor.drawart.R
 import java.io.File
 import java.io.FileOutputStream
 

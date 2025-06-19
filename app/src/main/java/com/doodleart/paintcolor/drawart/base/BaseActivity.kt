@@ -1,4 +1,4 @@
-package com.example.doodleart.base
+package com.doodleart.paintcolor.drawart.base
 
 import android.content.ComponentName
 import android.content.Intent
@@ -23,8 +23,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.viewbinding.ViewBinding
+import com.doodleart.paintcolor.drawart.dialog.PermissionDialog
 import com.doodleart.paintcolor.drawart.utils.SystemUtil
-import com.example.doodleart.view.dialog.PermissionDialog
 
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {

@@ -1,14 +1,14 @@
-package  com.example.doodleart.ui.language_start
+package  com.doodleart.paintcolor.drawart.ui.language_start
 
 import android.content.Intent
 import android.os.Bundle
 import com.doodleart.paintcolor.drawart.utils.SystemUtil
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.databinding.ActivityLangugeStartBinding
-import com.example.doodleart.model.LanguageModel
-import com.example.doodleart.ui.intro.IntroActivity
-import com.example.doodleart.widget.tap
-import com.example.doodleart.widget.visible
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.databinding.ActivityLangugeStartBinding
+import com.doodleart.paintcolor.drawart.model.LanguageModel
+import com.doodleart.paintcolor.drawart.ui.intro.IntroActivity
+import com.doodleart.paintcolor.drawart.widget.tap
+import com.doodleart.paintcolor.drawart.widget.visible
 import java.util.Locale
 
 class LanguageStartActivity : BaseActivity<ActivityLangugeStartBinding>() {

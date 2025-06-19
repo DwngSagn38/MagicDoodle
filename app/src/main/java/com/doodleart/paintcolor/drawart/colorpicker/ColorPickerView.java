@@ -1,3 +1,4 @@
+
 package com.doodleart.paintcolor.drawart.colorpicker;
 
 import android.annotation.SuppressLint;

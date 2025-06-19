@@ -1,3 +1,4 @@
+
 package com.doodleart.paintcolor.drawart.colorpicker;
 
 import android.annotation.SuppressLint;
@@ -18,8 +19,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.doodleart.paintcolor.drawart.colorpicker.ColorPickerView;
-import com.example.doodleart.R;
+import com.doodleart.paintcolor.drawart.R;
 
 
 /**

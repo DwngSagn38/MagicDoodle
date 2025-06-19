@@ -1,9 +1,9 @@
-package com.example.doodleart.view.dialog
+package com.doodleart.paintcolor.drawart.dialog
 
 import android.app.Activity
 import android.view.LayoutInflater
-import com.example.doodleart.databinding.DialogPermissionBinding
-import com.example.doodleart.base.BaseDialog
+import com.doodleart.paintcolor.drawart.base.BaseDialog
+import com.doodleart.paintcolor.drawart.databinding.DialogPermissionBinding
 
 
 class PermissionDialog(

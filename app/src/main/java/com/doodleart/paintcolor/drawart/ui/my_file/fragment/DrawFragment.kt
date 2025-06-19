@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.my_file.fragment
+package com.doodleart.paintcolor.drawart.ui.my_file.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.doodleart.R
-import com.example.doodleart.databinding.FragmentColorationBinding
-import com.example.doodleart.databinding.FragmentDrawBinding
-import com.example.doodleart.roomdb.DBHelper
-import com.example.doodleart.ui.my_file.MyFileDetailActivity
-import com.example.doodleart.view.base.BaseFragment
-import com.example.doodleart.widget.gone
-import com.example.doodleart.widget.visible
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseFragment
+import com.doodleart.paintcolor.drawart.databinding.FragmentColorationBinding
+import com.doodleart.paintcolor.drawart.databinding.FragmentDrawBinding
+import com.doodleart.paintcolor.drawart.roomdb.DBHelper
+import com.doodleart.paintcolor.drawart.ui.my_file.MyFileDetailActivity
+import com.doodleart.paintcolor.drawart.widget.gone
+import com.doodleart.paintcolor.drawart.widget.visible
 import kotlinx.coroutines.launch
 
 

@@ -1,12 +1,12 @@
-package  com.example.doodleart.utils.helper
+package  com.doodleart.paintcolor.drawart.utils.helper
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import com.doodleart.paintcolor.drawart.utils.helper.Default
-import com.example.doodleart.R
-import com.example.doodleart.view.dialog.DialogFeedback
-import com.example.doodleart.dialog.RatingDialog
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.dialog.DialogFeedback
+import com.doodleart.paintcolor.drawart.dialog.RatingDialog
 
 
 class HelperMenu(private val activity: Activity) {

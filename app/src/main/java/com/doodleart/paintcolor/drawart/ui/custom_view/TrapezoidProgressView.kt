@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.custom_view
+package com.doodleart.paintcolor.drawart.ui.custom_view
 
 import android.content.Context
 import android.graphics.Canvas

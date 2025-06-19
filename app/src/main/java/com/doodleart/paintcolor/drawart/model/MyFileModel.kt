@@ -1,4 +1,4 @@
-package com.example.doodleart.model
+package com.doodleart.paintcolor.drawart.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

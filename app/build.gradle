@@ -18,11 +18,11 @@ android {
                     'META-INF/LGPL2.1'
             ]        }
     }
-    namespace 'com.example.doodleart'
+    namespace 'com.doodleart.paintcolor.drawart'
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.example.doodleart"
+        applicationId "com.doodleart.paintcolor.drawart"
         minSdk 24
         targetSdk 35
         versionCode 1

@@ -1,4 +1,4 @@
-package com.example.doodleart
+package com.doodleart.paintcolor.drawart
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.coloring.drawing
+package com.doodleart.paintcolor.drawart.ui.coloring.drawing
 
 import android.app.Dialog
 import android.content.Intent
@@ -12,25 +12,25 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.data.DataApp
-import com.example.doodleart.databinding.ActivityColorDrawingBinding
-import com.example.doodleart.dialog.DeleteDialog
-import com.example.doodleart.model.ColorModel
-import com.example.doodleart.model.MyFileModel
-import com.example.doodleart.roomdb.DBHelper
-import com.example.doodleart.ui.custom_view.ZoomablePaintView
-import com.example.doodleart.ui.my_file.MyFileActivity
-import com.example.doodleart.ui.my_file.MyFileDetailActivity
-import com.example.doodleart.ui.my_file.fragment.MyFileAdapter
-import com.example.doodleart.utils.showColorPicker
-import com.example.doodleart.widget.gone
-import com.example.doodleart.widget.invisible
-import com.example.doodleart.widget.savePaintViewToFile
-import com.example.doodleart.widget.setGradientText
-import com.example.doodleart.widget.tap
-import com.example.doodleart.widget.visible
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.data.DataApp
+import com.doodleart.paintcolor.drawart.databinding.ActivityColorDrawingBinding
+import com.doodleart.paintcolor.drawart.dialog.DeleteDialog
+import com.doodleart.paintcolor.drawart.model.ColorModel
+import com.doodleart.paintcolor.drawart.model.MyFileModel
+import com.doodleart.paintcolor.drawart.roomdb.DBHelper
+import com.doodleart.paintcolor.drawart.ui.custom_view.ZoomablePaintView
+import com.doodleart.paintcolor.drawart.ui.my_file.MyFileActivity
+import com.doodleart.paintcolor.drawart.ui.my_file.MyFileDetailActivity
+import com.doodleart.paintcolor.drawart.ui.my_file.fragment.MyFileAdapter
+import com.doodleart.paintcolor.drawart.utils.showColorPicker
+import com.doodleart.paintcolor.drawart.widget.gone
+import com.doodleart.paintcolor.drawart.widget.invisible
+import com.doodleart.paintcolor.drawart.widget.savePaintViewToFile
+import com.doodleart.paintcolor.drawart.widget.setGradientText
+import com.doodleart.paintcolor.drawart.widget.tap
+import com.doodleart.paintcolor.drawart.widget.visible
 import kotlinx.coroutines.launch
 
 class ColorDrawingActivity : BaseActivity<ActivityColorDrawingBinding>() {

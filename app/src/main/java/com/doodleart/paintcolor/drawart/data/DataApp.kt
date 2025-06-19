@@ -1,9 +1,9 @@
-package com.example.doodleart.data
+package com.doodleart.paintcolor.drawart.data
 
-import com.example.doodleart.R
-import com.example.doodleart.model.ColorModel
-import com.example.doodleart.model.ColoringModel
-import com.example.doodleart.model.InpirationModel
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.model.ColorModel
+import com.doodleart.paintcolor.drawart.model.ColoringModel
+import com.doodleart.paintcolor.drawart.model.InpirationModel
 
 object DataApp {
     fun getListColoring() : List<ColoringModel>{

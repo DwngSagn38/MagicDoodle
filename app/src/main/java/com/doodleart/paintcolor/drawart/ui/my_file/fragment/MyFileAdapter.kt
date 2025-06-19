@@ -1,4 +1,4 @@
-package com.example.doodleart.ui.my_file.fragment
+package com.doodleart.paintcolor.drawart.ui.my_file.fragment
 
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doodleart.R
-import com.example.doodleart.model.MyFileModel
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.model.MyFileModel
 
 class MyFileAdapter(
     private val list: List<MyFileModel>,

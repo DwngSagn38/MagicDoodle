@@ -1,7 +1,7 @@
-package com.example.doodleart.data
+package com.doodleart.paintcolor.drawart.data
 
 import android.graphics.PointF
-import com.example.doodleart.ui.custom_view.MandalaDrawView
+import com.doodleart.paintcolor.drawart.ui.custom_view.MandalaDrawView
 
 enum class StrokeShape {
     NORMAL, CIRCLE, HEART, STAR, SQUARE, TRIANGLE, HEXAGON, SMILEY_FACE, IMAGE,

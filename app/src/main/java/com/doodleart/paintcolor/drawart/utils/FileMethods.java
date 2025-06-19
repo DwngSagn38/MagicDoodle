@@ -6,7 +6,7 @@ import android.os.Environment;
 import android.util.Log;
 
 
-import com.example.doodleart.R;
+import com.doodleart.paintcolor.drawart.R;
 
 import java.io.File;
 

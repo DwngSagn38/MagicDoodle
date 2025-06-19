@@ -1,4 +1,4 @@
-package com.example.doodleart.view.dialog
+package com.doodleart.paintcolor.drawart.dialog
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -6,12 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.widget.Toast
+import com.doodleart.paintcolor.drawart.base.BaseDialog
 import com.doodleart.paintcolor.drawart.sharePreferent.SharePrefUtils
 import com.doodleart.paintcolor.drawart.utils.helper.Default
-import com.example.doodleart.R
-import com.example.doodleart.databinding.DialogFeedbackBinding
-import com.example.doodleart.base.BaseDialog
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.databinding.DialogFeedbackBinding
+import com.doodleart.paintcolor.drawart.widget.tap
 
 
 class DialogFeedback(activity: Activity) :

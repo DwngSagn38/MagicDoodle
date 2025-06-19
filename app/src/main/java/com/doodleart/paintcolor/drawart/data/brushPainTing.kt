@@ -1,4 +1,4 @@
-package com.example.doodleart.data
+package com.doodleart.paintcolor.drawart.data
 
 data class brushPainTing(
     val img: Int?,

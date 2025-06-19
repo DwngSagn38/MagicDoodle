@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgBack"
         app:layout_constraintBottom_toTopOf="@+id/ll_bottom">
 
-        <com.example.doodleart.ui.custom_view.ZoomablePaintView
+        <com.doodleart.paintcolor.drawart.ui.custom_view.ZoomablePaintView
             android:id="@+id/imgMyFileColorating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgBack"
         app:layout_constraintBottom_toTopOf="@+id/ll_bottom">
 
-        <com.example.doodleart.ui.custom_view.ZoomablePaintView
+        <com.doodleart.paintcolor.drawart.ui.custom_view.ZoomablePaintView
             android:id="@+id/imgMyFileDraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

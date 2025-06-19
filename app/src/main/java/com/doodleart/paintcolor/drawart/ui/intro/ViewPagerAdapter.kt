@@ -1,13 +1,13 @@
-package  com.example.doodleart.ui.intro
+package  com.doodleart.paintcolor.drawart.ui.intro
 
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.doodleart.ui.intro.fragment.Fragment1
-import com.example.doodleart.ui.intro.fragment.Fragment2
-import com.example.doodleart.ui.intro.fragment.Fragment3
-import com.example.doodleart.ui.intro.fragment.Fragment4
+import com.doodleart.paintcolor.drawart.ui.intro.fragment.Fragment1
+import com.doodleart.paintcolor.drawart.ui.intro.fragment.Fragment2
+import com.doodleart.paintcolor.drawart.ui.intro.fragment.Fragment3
+import com.doodleart.paintcolor.drawart.ui.intro.fragment.Fragment4
 
 class ViewPagerAdapter(fragmentManager: FragmentManager, private val activity: Activity) :
     FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
 
-import com.example.doodleart.model.LanguageModel;
+import com.doodleart.paintcolor.drawart.model.LanguageModel;
 
 import java.util.ArrayList;
 import java.util.List;

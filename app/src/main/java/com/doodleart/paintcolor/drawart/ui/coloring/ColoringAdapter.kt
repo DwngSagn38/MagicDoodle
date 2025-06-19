@@ -1,11 +1,11 @@
-package com.example.doodleart.ui.coloring
+package com.doodleart.paintcolor.drawart.ui.coloring
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doodleart.databinding.ItemColoringBinding
-import com.example.doodleart.model.ColoringModel
-import com.example.doodleart.view.base.BaseAdapter
+import com.doodleart.paintcolor.drawart.databinding.ItemColoringBinding
+import com.doodleart.paintcolor.drawart.model.ColoringModel
+import com.doodleart.paintcolor.drawart.view.base.BaseAdapter
 
 class ColoringAdapter(
     private val onClick: (ColoringModel) -> Unit

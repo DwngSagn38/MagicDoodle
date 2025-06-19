@@ -1,16 +1,16 @@
-package  com.example.doodleart.ui.intro
+package  com.doodleart.paintcolor.drawart.ui.intro
 
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.viewpager.widget.ViewPager
 import com.doodleart.paintcolor.drawart.sharePreferent.SharePrefUtils
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.databinding.ActivityIntroBinding
-import com.example.doodleart.ui.intro.ViewPagerAdapter
-import com.example.doodleart.ui.main.MainActivity
-import com.example.doodleart.widget.tapin
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.databinding.ActivityIntroBinding
+import com.doodleart.paintcolor.drawart.ui.intro.ViewPagerAdapter
+import com.doodleart.paintcolor.drawart.ui.main.MainActivity
+import com.doodleart.paintcolor.drawart.widget.tapin
 
 
 class IntroActivity : BaseActivity<ActivityIntroBinding>() {

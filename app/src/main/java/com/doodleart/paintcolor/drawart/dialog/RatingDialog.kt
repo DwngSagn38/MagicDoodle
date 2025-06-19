@@ -1,4 +1,4 @@
-package com.example.doodleart.dialog
+package com.doodleart.paintcolor.drawart.dialog
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -8,12 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RatingBar.OnRatingBarChangeListener
 import android.widget.Toast
+import com.doodleart.paintcolor.drawart.base.BaseDialog
 import com.doodleart.paintcolor.drawart.sharePreferent.SharePrefUtils
 import com.doodleart.paintcolor.drawart.utils.helper.Default
-import com.example.doodleart.R
-import com.example.doodleart.base.BaseDialog
-import com.example.doodleart.databinding.DialogRatingBinding
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.R
+import com.doodleart.paintcolor.drawart.databinding.DialogRatingBinding
+import com.doodleart.paintcolor.drawart.widget.tap
 import com.google.android.gms.tasks.Task
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager

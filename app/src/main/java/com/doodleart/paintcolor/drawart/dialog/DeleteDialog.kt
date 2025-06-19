@@ -1,11 +1,11 @@
-package com.example.doodleart.dialog
+package com.doodleart.paintcolor.drawart.dialog
 
 import android.app.Activity
 import android.view.LayoutInflater
-import com.example.doodleart.base.BaseDialog
-import com.example.doodleart.databinding.DialogDeleteBinding
-import com.example.doodleart.databinding.PopupNewFileBinding
-import com.example.doodleart.widget.tap
+import com.doodleart.paintcolor.drawart.base.BaseDialog
+import com.doodleart.paintcolor.drawart.databinding.DialogDeleteBinding
+import com.doodleart.paintcolor.drawart.databinding.PopupNewFileBinding
+import com.doodleart.paintcolor.drawart.widget.tap
 
 class DeleteDialog (
     activity1: Activity,

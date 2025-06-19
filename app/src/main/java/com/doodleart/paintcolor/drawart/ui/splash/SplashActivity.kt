@@ -1,14 +1,14 @@
-package  com.example.doodleart.ui.splash
+package  com.doodleart.paintcolor.drawart.ui.splash
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import com.example.doodleart.ui.main.MainActivity
-import com.example.doodleart.base.BaseActivity
-import com.example.doodleart.databinding.ActivitySplashBinding
-import com.example.doodleart.ui.free_creation.FreeCreationActivity
-import com.example.doodleart.ui.coloring.ColoringActivity
-import com.example.doodleart.ui.language_start.LanguageStartActivity
-import com.example.doodleart.widget.setGradientText
+import com.doodleart.paintcolor.drawart.ui.main.MainActivity
+import com.doodleart.paintcolor.drawart.base.BaseActivity
+import com.doodleart.paintcolor.drawart.databinding.ActivitySplashBinding
+import com.doodleart.paintcolor.drawart.ui.free_creation.FreeCreationActivity
+import com.doodleart.paintcolor.drawart.ui.coloring.ColoringActivity
+import com.doodleart.paintcolor.drawart.ui.language_start.LanguageStartActivity
+import com.doodleart.paintcolor.drawart.widget.setGradientText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

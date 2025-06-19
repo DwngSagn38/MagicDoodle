@@ -1,4 +1,4 @@
-package com.example.doodleart.view.base
+package com.doodleart.paintcolor.drawart.base
 
 import android.content.Context
 import android.os.Bundle

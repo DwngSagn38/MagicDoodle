@@ -1,4 +1,4 @@
-package com.example.doodleart.view.base
+package com.doodleart.paintcolor.drawart.base
 
 import android.graphics.Color
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.viewbinding.ViewBinding
-import com.example.doodleart.R
+import com.doodleart.paintcolor.drawart.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

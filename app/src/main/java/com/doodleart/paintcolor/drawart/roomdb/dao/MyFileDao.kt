@@ -1,7 +1,7 @@
-package com.example.doodleart.roomdb.dao
+package com.doodleart.paintcolor.drawart.roomdb.dao
 
 import androidx.room.*
-import com.example.doodleart.model.MyFileModel
+import com.doodleart.paintcolor.drawart.model.MyFileModel
 
 @Dao
 interface MyFileDao {

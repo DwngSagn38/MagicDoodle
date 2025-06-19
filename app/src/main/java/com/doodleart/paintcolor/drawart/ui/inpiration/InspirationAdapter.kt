@@ -1,13 +1,13 @@
-package com.example.doodleart.ui.inpiration
+package com.doodleart.paintcolor.drawart.ui.inpiration
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doodleart.databinding.ItemColoringBinding
-import com.example.doodleart.databinding.ItemInpirationBinding
-import com.example.doodleart.model.ColoringModel
-import com.example.doodleart.model.InpirationModel
-import com.example.doodleart.view.base.BaseAdapter
+import com.doodleart.paintcolor.drawart.databinding.ItemColoringBinding
+import com.doodleart.paintcolor.drawart.databinding.ItemInpirationBinding
+import com.doodleart.paintcolor.drawart.model.ColoringModel
+import com.doodleart.paintcolor.drawart.model.InpirationModel
+import com.doodleart.paintcolor.drawart.view.base.BaseAdapter
 
 class InspirationAdapter(
         private val onClick: (InpirationModel) -> Unit

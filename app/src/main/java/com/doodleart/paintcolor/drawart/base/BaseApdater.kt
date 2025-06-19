@@ -1,4 +1,4 @@
-package  com.example.doodleart.view.base
+package  com.doodleart.paintcolor.drawart.view.base
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.doodleart.R
+import com.doodleart.paintcolor.drawart.R
 
 abstract class BaseAdapter<VB : ViewBinding, M : Any>:
     RecyclerView.Adapter<RecyclerView.ViewHolder>(){
